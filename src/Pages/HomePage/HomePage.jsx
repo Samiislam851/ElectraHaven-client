@@ -4,7 +4,7 @@ import PopularClassesCard from '../../Component/PopularClassesCard/PopularClasse
 import ClassesCard from '../../Component/ClassesCard/ClassesCard';
 import PopularClassesComponent from '../../Component/HomePageComponents/PopularClassesComponent/PopularClassesComponent';
 import PopularInstructor from '../../Component/PopularInstructor/PopularInstructor';
-import Contact from '../../Component/Contact/Contact';
+
 import CourseSection from '../../Component/HomePageComponents/CourseSelection';
 import Slider from '../../Layout/Slider/Slider';
 import MusicGroups from '../../Component/MusicGroups/MusicGroups';
@@ -13,6 +13,7 @@ import NextEvent from '../../Component/NextEvent/NextEvent';
 import FeedBack from '../../Component/FeedBack/FeedBack';
 import NumbersCount from '../../Component/NumbersCount/NumbersCount';
 import BlogsComponen from '../../Component/BlogsComponent/BlogsComponen';
+import InverterComponent from '../../Component/InverterComponent/InverterComponent';
 
 
 
@@ -39,17 +40,18 @@ const HomePage = ({ setTitle }) => {
     <>
       <div className=''>
         <Slider />
-        <PopularClassesComponent />
-        <MusicGroups />
-        <PopularInstructor />
-      
-        <LetsMakeArt />
-        <NextEvent />
-        <FeedBack />
-        <NumbersCount/>
-        <CourseSection></CourseSection>
-<BlogsComponen/>
-        <Contact></Contact>
+        {/* <PopularClassesComponent /> */}
+        <InverterComponent/>
+        {/* <MusicGroups /> */}
+        {/* <PopularInstructor /> */}
+
+        {/* <LetsMakeArt /> */}
+        {/* <NextEvent /> */}
+        {/* <FeedBack /> */}
+        {/* <NumbersCount /> */}
+        {/* <CourseSection></CourseSection> */}
+        {/* <BlogsComponen /> */}
+   
       </div>
     </>
 

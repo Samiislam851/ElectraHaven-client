@@ -58,20 +58,20 @@ const Slider = ({ children }) => {
 
       <div className='w-full relative'>
     
-        <img src="https://images.unsplash.com/photo-1519076976365-9c64dbd98317?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1459&q=80" className='w-full max-h-[100vh]' />
+        <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1458&q=80" className='w-full max-h-[100vh]' />
 
         <div className=' absolute top-0 left-0 right-0 bottom-0  bg-gray-900   opacity-40'></div>
         <div className='absolute inset-0 flex items-center justify-center md:w-[70%] w-[90%] mx-auto'>
           <div className='flex flex-col items-center justify-center md:gap-10 gap-3'>
             <animated.div style={spring}>
-              <p className='md:text-3xl text-xl font-light  text-center z-[10]  text-white'>Welcome to Harmony Heights</p>
+              <p className='md:text-3xl text-xl font-light  text-center z-[10]  text-white'>Welcome to ElectraHaven</p>
             </animated.div>
             <animated.div style={spring2}>
               <p className="md:text-6xl text-3xl md:font-bold mb-10 font-semibold text-center z-[10] text-white">
-                Discover the Magic of Music at Our School</p>
+              Your Source for Superior Electrical Solutions.</p>
             </animated.div>
             <animated.div style={spring3}>
-              <Link to="/classes" className='text-white border md:border-[3px] md:text-xl font-medium text-sm w-fit mx-auto rounded-full md:px-10 px-5 md:py-4  py-2 md:hover:bg-[#05A97F] transition-all duration-500 md:hover:border-[#05A97F]'>View All Courses</Link></animated.div>
+              <Link to="/all-products" className='text-white border md:border-[3px] md:text-xl font-medium text-sm w-fit mx-auto rounded-full md:px-10 px-5 md:py-4  py-2 md:hover:bg-[#05A97F] transition-all duration-500 md:hover:border-[#05A97F]'>View All Products</Link></animated.div>
           </div>
 
         </div>

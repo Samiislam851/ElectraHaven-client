@@ -28,6 +28,9 @@ const AuthContextProvider = ({ children }) => {
   const [adminStateLoading, setAdminStateLoading] = useState(true) 
   const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
   const [dark, setDark] = useState(false);
+  const [userMongoData, setUserMongoData] = useState(null);
+  const [cartToggle, setCartToggle] = useState(true);
+  const [cart, setCart] = useState([]);
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -37,6 +40,38 @@ const AuthContextProvider = ({ children }) => {
     const localTheme = "light";
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
+
+
+  // const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, ,} = useContext(AuthContext);
+  // const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    axios.get(`users/${user?.email}`).then(
+      res => {
+        setUserMongoData(res.data)
+
+      }
+    )
+
+
+  }, [user]);
+
+////////////////////////////////////////////////////////cart/////////////////////////////////////////////////
+
+useEffect(() => {
+  if (userMongoData?.role == 'customer') {
+    axios.get(`cart/${userMongoData.email}`).then(res => {
+      setCart(res.data)
+    }
+    )
+  }
+}, [userMongoData, cartToggle]);
+
+
+
+
+
+
   
   const handleToggle = (event) => {
     if (event.target.checked) {
@@ -67,7 +102,7 @@ const AuthContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
- 
+
 
   const toastPush = (message)=>{
     toast.success(message, {
@@ -96,7 +131,7 @@ const AuthContextProvider = ({ children }) => {
           name:loggedInUser.displayName,
           photoURL:loggedInUser.photoURL,
           email:loggedInUser.email,
-          role: 'student'
+          role: 'customer'
         })
         .then(response=>
           {
@@ -112,12 +147,12 @@ const AuthContextProvider = ({ children }) => {
               setIsAdmin(true)
               setIsStudent(false)
               setAdminStateLoading(false)
-            }else if(role=='instructor'){
+            }else if(role=='seller'){
                setIsInstructor(true)
               setIsAdmin(false)
               setIsStudent(false)
               setAdminStateLoading(false)
-            }else if(role=='student'){
+            }else if(role=='customer'){
               setIsInstructor(false)
               setIsAdmin(false)
               setIsStudent(true)
@@ -147,7 +182,8 @@ const AuthContextProvider = ({ children }) => {
     };
   }, []);
 
-  const authInfo = { registerUser, user, logOut, loginUser , isLogged, setIsLogged ,toastPush,isAdmin, isStudent, isInstructor,loading , adminStateLoading,userData, setUserData,setTheme, handleToggle,dark,theme}  ;
+
+  const authInfo = { registerUser, cartToggle, setCartToggle, user, logOut, loginUser , isLogged, setIsLogged ,toastPush,isAdmin, isStudent, isInstructor,loading , adminStateLoading,userData, setUserData,setTheme, handleToggle,dark,theme,userMongoData,cart}  ;
   return (
     <AuthContext.Provider value={authInfo}>{!loading && children}</AuthContext.Provider>
   );

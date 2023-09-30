@@ -5,6 +5,9 @@ import ActiveLink from '../../Component/ActiveLink/ActiveLink';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { BsFillCartFill } from 'react-icons/bs';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import Cart from '../../Component/Cart/Cart';
 
 
 
@@ -16,20 +19,17 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [imgDetails, setImgDetails] = useState(false)
-  const { registerUser,  logOut, loginUser, isLogged, setIsLogged, isAdmin, isInstructor, loading, user, theme, dark, handleToggle } = useContext(AuthContext);
+  const { registerUser, logOut, loginUser, isLogged, setIsLogged, isAdmin, isInstructor, loading, user, theme, dark, handleToggle, cartToggle, setCartToggle, userMongoData, cart } = useContext(AuthContext);
 
   // const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, ,} = useContext(AuthContext);
-const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-    axios.get(`users/${user?.email}`).then(
-      res =>  {
-        setUserData(res.data)
-   
-    }
-    )
-  }, [user]);
-  console.log("thew user data is",userData)
+
+
+
+
+
+
+
 
   const [open, setOpen] = React.useState(false);
 
@@ -67,12 +67,12 @@ const [userData, setUserData] = useState(null);
         theme="light"
       />
       {/* This example requires Tailwind CSS v2.0+ */}
-      <div className={`relative ${dark ? 'bg-gray-900' : 'bg-white'} z-[1000]`}>
+      <div className={`relative ${dark ? 'bg-gray-900' : 'bg-white'} shadow-lg z-[1000]`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center   border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <a href="#">
-                <h1 className='h-8 w-auto sm:h-10 text-gray-700 text-4xl font-semibold flex gap-2 justify-center items-center  themeFont'> Harmony Heights </h1>
+                <h1 className='h-8 w-auto sm:h-10 text-gray-700 text-4xl font-semibold flex gap-2 justify-center items-center  themeFont'> ElectraHaven </h1>
 
               </a>
             </div>
@@ -109,25 +109,33 @@ const [userData, setUserData] = useState(null);
                 Home
               </ActiveLink>
 
-              <ActiveLink
-                to="/instructorlist"
-                className="text-base font-medium text-gray-500 "
-              >
-                Instructors
-              </ActiveLink>
-              <ActiveLink
-                to="/classes"
-                className="text-base font-medium text-gray-500 "
-              >
-                Classes
-              </ActiveLink>
+
               <ActiveLink
                 to="/blogs"
                 className="text-base font-medium text-gray-500 "
               >
                 Blogs
               </ActiveLink>
+              <ActiveLink
+                to="/contact"
+                className="text-base font-medium text-gray-500 "
+              >
+                Contact
+              </ActiveLink>
 
+
+
+              {
+                userMongoData?.role == "customer" ? <>
+                  <Link to='/cart'>
+                    <div className='bg-gray-200 text-gray-500 hover:shadow-xl hover:bg-gray-300 hover:text-gray-700 transition-all ease-in-out duration-500 flex justify-center items-center px-3 py-1 rounded-xl '>
+                      <AiOutlineShoppingCart className='text-2xl ' />
+                      <div className='text-gray-600 font-semibold text-xl px-2'>{cart.length}</div>
+                    </div>
+                  </Link>
+                </> : <></>
+
+              }
 
 
 
@@ -183,7 +191,7 @@ const [userData, setUserData] = useState(null);
               </>
               :
               <>
-                <img src={user.photoURL?user?.photoURL:userData?.photoURL} className='rounded-full h-[50px] border border-1 shadow border-gray-300' title={user?.displayName} alt="" />
+                <img src={user.photoURL ? user?.photoURL : userMongoData?.photoURL} className='rounded-full h-[50px] border border-1 shadow border-gray-300' title={user?.displayName} alt="" />
                 <button onClick={logOut} className='ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-500 bg-gray-400 bg-opacity-70 hover:bg-red-700'>Sign Out</button>
               </>}
             </div>
@@ -241,25 +249,32 @@ const [userData, setUserData] = useState(null);
                     Home
                   </ActiveLink>
 
-                  <ActiveLink
-                    to="/instructorlist"
-                    className="text-base font-medium text-gray-500 "
-                  >
-                    Instructors
-                  </ActiveLink>
-                  <ActiveLink
-                    to="/classes"
-                    className="text-base font-medium text-gray-500 "
-                  >
-                    Classes
-                  </ActiveLink>
+
                   <ActiveLink
                     to="/blogs"
                     className="text-base font-medium text-gray-500 "
                   >
                     Blogs
                   </ActiveLink>
+                  <ActiveLink
+                    to="/contact"
+                    className="text-base font-medium text-gray-500 "
+                  >
+                    Contact
+                  </ActiveLink>
 
+
+                  {
+                    userMongoData?.role == "customer" ? <>
+                      <Link to='/cart'>
+                        <div className='bg-gray-200 text-gray-500 hover:shadow-xl hover:bg-gray-300 hover:text-gray-700 transition-all ease-in-out duration-500 flex justify-center items-center px-3 py-1 rounded-xl '>
+                          <AiOutlineShoppingCart className='text-2xl ' />
+                          <div className='text-gray-600 font-semibold text-xl px-2'>{cart.length}</div>
+                        </div>
+                      </Link>
+                    </> : <></>
+
+                  }
 
 
 

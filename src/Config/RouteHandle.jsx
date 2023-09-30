@@ -22,7 +22,6 @@ import UpdateInstructorClasses from '../Pages/InstructorPages/UpdateInstructorCl
 import ManageClasses from '../Pages/AdminPages/ManageClasses/ManageClasses';
 import ManageUsers from '../Pages/AdminPages/ManageUsers/ManageUsers';
 import InstructorListPages from '../Pages/InstructorListPages/InstructorListPages';
-import ClassesListPage from '../Pages/ClassesListPage/ClassesListPage';
 import AdminDashBoard from '../Pages/AdminPages/AdminDashBoard/AdminDashBoard';
 import AdminDashBoardLayout from '../Component/AdminComponents/AdminDashBoardLayout/AdminDashBoardLayout';
 import StudentDashBoardLayout from '../Component/StudentComponent/StudentDashBoardLayout/StudentDashBoardLayout';
@@ -40,12 +39,14 @@ import CurrentElections from '../Component/CurrentElections/CurrentElections';
 import BlogPage from '../Pages/BlogPage/BlogPage';
 import SingleBlogPage from '../Pages/SingleBlogPage/SingleBlogPage';
 import SingleBlog from '../Component/SingleBlog/SingleBlog';
+import Contact from '../Pages/Contact/Contact';
+import Cart from '../Component/Cart/Cart';
 
 
 const RouteHandle = () => {
   const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, loading } = useContext(AuthContext);
   const setTitle = (title) => {
-    document.title = `Harmony Heights | ${title}`
+    document.title = `ElectraHaven | ${title}`
   }
   const router = createBrowserRouter([
     {
@@ -57,25 +58,19 @@ const RouteHandle = () => {
           element: <HomePage setTitle={setTitle} />,
         },
         {
-          path: "/ongoing",
-          element: <CurrentElections></CurrentElections>,
-        },
-        {
-          path: "/dashboard",
-          element: <DashBoard setTitle={setTitle} />,
-        },
-        {
           path: "/instructorlist",
           element: <InstructorListPages setTitle={setTitle} />,
         },
 
-        {
-          path: "/classes",
-          element: <ClassesListPage setTitle={setTitle} />,
-        },
+      
         {
           path: "/blogs",
           element: <BlogPage setTitle={setTitle} />,
+
+        },
+        {
+          path: "/contact",
+          element: <Contact setTitle={setTitle} />,
 
         },
 
@@ -89,6 +84,11 @@ const RouteHandle = () => {
             }
           ]
         },
+        {
+          path: '/cart',
+          element : <PrivateRoute> <Cart/> </PrivateRoute> 
+        },
+
 
         {
           path: "/login",

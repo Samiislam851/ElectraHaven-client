@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PopularClassesCard from '../../PopularClassesCard/PopularClassesCard';
 import axios from 'axios';
 import Spinner from '../../Spinner/Spinner';
-import ClassCard from '../../../Pages/ClassesListPage/ClassCard';
+
 import { AuthContext } from '../../../Provider/AuthContextProvider';
 import { useContext } from 'react';
 import { useSpring , animated } from 'react-spring';

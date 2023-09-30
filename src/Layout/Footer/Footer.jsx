@@ -29,7 +29,7 @@ const Footer = () => {
   <footer className="footer bg-transparent text-white px-10 py-4 bg-base-200 text-base-content border-base-300">
     <div className="items-center text-gray-500 grid-flow-col">
     <FiMusic className='text-[#59C6BC] text-5xl' />
-      <p>Harmony Heights Music Bootcamp<br />Providing the best music education since 2023</p>
+      <p>ElectraHaven Music Bootcamp<br />Providing the best music education since 2023</p>
     </div>
     <div className="md:place-self-center md:justify-self-end">
       <div className="grid grid-flow-col gap-4">
@@ -39,7 +39,7 @@ const Footer = () => {
       </div>
     </div>
   </footer>
-  <p className="text-center text-gray-500 md:text-lg pt-5 pb-5"> &copy; 2023 Harmony Heights Music Bootcamp. All rights reserved.</p>
+  <p className="text-center text-gray-500 md:text-lg pt-5 pb-5"> &copy; 2023 ElectraHaven Music Bootcamp. All rights reserved.</p>
 </div>
 
     </>
