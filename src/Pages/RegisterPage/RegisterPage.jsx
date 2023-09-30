@@ -30,10 +30,13 @@ const RegisterPage = ({ setTitle }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let email = e.target.email.value
+    let phone = e.target.phone.value
     let password = e.target.password.value
     let cfpassword = e.target.cfpassword.value
+    let fname = e.target.fname.value;
+    let lname = e.target.lname.value;
 
-    if (password == "" || email == "") {
+    if (password == "" || email == "" || phone=="") {
       setMessage("Password or email can't be empty")
       return;
     } else if (cfpassword != password) {
@@ -50,16 +53,18 @@ const RegisterPage = ({ setTitle }) => {
       setMessage("Password Must be more than 6")
       return;
     }
-    let name = e.target.name.value;
+
 
     setUserData({
-      name: name,
+      name: fname,
       email: email,
       photoURL: uploadedImageUrl,
     })
     axios.post("/users", {
-      name: name,
+      fname: fname,
+      lname: lname,
       email: email,
+      phone: phone,
       photoURL: uploadedImageUrl,
       role: 'customer'
     })
@@ -74,7 +79,7 @@ const RegisterPage = ({ setTitle }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         user.updateProfile({
-          displayName: name,
+          displayName: fname,
           photoURL: uploadedImageUrl,
         }).then((response) => {
           console.log(response)
@@ -124,37 +129,39 @@ const RegisterPage = ({ setTitle }) => {
 
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
+            <div className='flex flex-col md:flex-row gap-5'>
             <input
               type="text"
-              name="name"
+              name="fname"
               id=""
-              placeholder="Enter Your Name"
+              placeholder="Enter Your First Name"
               className="p-2 rounded-lg text-black border"
             />
+            <input
+              type="text"
+              name="lname"
+              id=""
+              placeholder="Enter Your Last Name"
+              className="p-2 rounded-lg text-black border"
+            />
+            </div>
+            
 
             {/*  */}
-            <div className='grid grid-cols-2'>
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text text-gray-400">Upload Your Image</span>
-                </label>
-                <input type="file" onChange={imageUploadHandler} name='img' id='img' className="file-input file-input-bordered w-full max-w-xs" />
-              </div>
-              <div className='mt-3'>
-                {
-                  uploadedImageUrl && <img src={uploadedImageUrl} />
-                }
-              </div>
-            </div>
-            {imguploadingmessage && <div>
-              <p className='text-red-700'>{imguploadingmessage}</p>
-            </div>}
+           
             {/*  */}
             <input
               type="email"
               name="email"
               id=""
               placeholder="Enter Your Email"
+              className="p-2 rounded-lg text-black border" required
+            />
+            <input
+              type="phone"
+              name="phone"
+              id=""
+              placeholder="Enter Your Phone Number"
               className="p-2 rounded-lg text-black border" required
             />
             <input onChange={changeInputPassword}
@@ -172,6 +179,22 @@ const RegisterPage = ({ setTitle }) => {
               placeholder="Confirm Password"
               className="p-2 rounded-lg text-black border" required
             />
+             <div className='grid grid-cols-2'>
+              <div className="form-control w-full ">
+                <label className="label">
+                  <span className="label-text text-gray-400">Upload Your Image</span>
+                </label>
+                <input type="file" onChange={imageUploadHandler} name='img' id='img' className="file-input file-input-bordered w-full max-w-xs" />
+              </div>
+              <div className='mt-3'>
+                {
+                  uploadedImageUrl && <img className='max-w-[300px] rounded-lg m-5' src={uploadedImageUrl} />
+                }
+              </div>
+            </div>
+            {imguploadingmessage && <div>
+              <p className='text-red-700'>{imguploadingmessage}</p>
+            </div>}
             <p className='text-red-700'>{message}</p>
             <button type="submit" className="btn btn-primary  text-white text-lg border-0 bg-[#59C6BC] hover:bg-[#3f8c84]">Register</button>
             <a href="#">Forgot Password?</a>

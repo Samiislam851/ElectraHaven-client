@@ -41,6 +41,7 @@ import SingleBlogPage from '../Pages/SingleBlogPage/SingleBlogPage';
 import SingleBlog from '../Component/SingleBlog/SingleBlog';
 import Contact from '../Pages/Contact/Contact';
 import Cart from '../Component/Cart/Cart';
+import User from '../Pages/User/User';
 
 
 const RouteHandle = () => {
@@ -57,10 +58,7 @@ const RouteHandle = () => {
           path: "/",
           element: <HomePage setTitle={setTitle} />,
         },
-        {
-          path: "/instructorlist",
-          element: <InstructorListPages setTitle={setTitle} />,
-        },
+      
 
       
         {
@@ -98,6 +96,13 @@ const RouteHandle = () => {
           path: "/register",
           element: <RestictedPublicRoute> <RegisterPage setTitle={setTitle} /></RestictedPublicRoute>,
         },
+        {
+          path: "/user",
+          element: <PrivateRoute> <User setTitle={setTitle} /></PrivateRoute>,
+        },
+
+
+
         {
           path: "/admin",
           element: <AdminRoute> <AdminDashBoardLayout setTitle={setTitle} /></AdminRoute>,
