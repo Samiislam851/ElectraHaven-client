@@ -123,7 +123,7 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
 
 
                     <div className='flex flex-col items-center'>
-                        <div className='md:text-2xl text-lg text-gray-500 pb-1 '>{price * quantity}$</div>
+                        <div className='md:text-2xl text-lg text-gray-500 pb-1 '>{price * quantity} bdt</div>
                         <button onClick={() => { removeItem(data._id) }} className='text-gray-400 hover:text-red-400  text-xs md:text-sm transition-all ease-in-out duration-500 '>Remove <AiOutlineDelete className='inline' /> </button>
                     </div>
                 </div>

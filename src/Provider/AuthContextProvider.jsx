@@ -31,6 +31,8 @@ const AuthContextProvider = ({ children }) => {
   const [userMongoData, setUserMongoData] = useState(null);
   const [cartToggle, setCartToggle] = useState(true);
   const [cart, setCart] = useState([]);
+  const [refetchUser, setRefetchUser] = useState(true);
+
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -54,7 +56,7 @@ const AuthContextProvider = ({ children }) => {
     )
 
 
-  }, [user]);
+  }, [user,refetchUser]);
 
 ////////////////////////////////////////////////////////cart/////////////////////////////////////////////////
 
@@ -183,7 +185,7 @@ useEffect(() => {
   }, []);
 
 
-  const authInfo = { registerUser, cartToggle, setCartToggle, user, logOut, loginUser , isLogged, setIsLogged ,toastPush,isAdmin, isStudent, isInstructor,loading , adminStateLoading,userData, setUserData,setTheme, handleToggle,dark,theme,userMongoData,cart}  ;
+  const authInfo = { registerUser, cartToggle, setCartToggle, user, logOut, loginUser , isLogged, setIsLogged ,toastPush,isAdmin, isStudent, isInstructor,loading , adminStateLoading,userData, setUserData,setTheme, handleToggle,dark,theme,userMongoData,cart,refetchUser, setRefetchUser}  ;
   return (
     <AuthContext.Provider value={authInfo}>{!loading && children}</AuthContext.Provider>
   );

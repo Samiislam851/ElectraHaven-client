@@ -42,6 +42,7 @@ import SingleBlog from '../Component/SingleBlog/SingleBlog';
 import Contact from '../Pages/Contact/Contact';
 import Cart from '../Component/Cart/Cart';
 import User from '../Pages/User/User';
+import UpdateAddress from '../Pages/UpdateAddress/UpdateAddress';
 
 
 const RouteHandle = () => {
@@ -99,6 +100,10 @@ const RouteHandle = () => {
         {
           path: "/user",
           element: <PrivateRoute> <User setTitle={setTitle} /></PrivateRoute>,
+        },
+        {
+          path: "/user/address/update",
+          element: <PrivateRoute> <UpdateAddress setTitle={setTitle} /> </PrivateRoute>,
         },
 
 

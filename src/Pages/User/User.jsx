@@ -1,11 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../Provider/AuthContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 const User = ({ setTitle }) => {
     const { user, userMongoData } = useContext(AuthContext)
 
-    console.log('user', user);
-    console.log('Mongouser', userMongoData);
+    console.log(userMongoData?.address);
+
+    const navigate = useNavigate();
+
+    const updateAddress = () => {
+        navigate('/user/address/update');
+    }
     useEffect(() => {
         setTitle("User")
     }, []);
@@ -13,28 +19,49 @@ const User = ({ setTitle }) => {
         <div className='max-w-[1200px] mx-auto my-20 md:px-12 px-5'>
             <div>
 
-                <div className='flex flex-col  md:flex-row-reverse'>
+                <div className='flex flex-col items-center md:flex-row-reverse'>
 
                     <div className='basis-[30%]'>
                         <img className='rounded-lg mx-auto w-full md:max-w-[600px] hover:shadow-2xl transition-all ease-in-out duration-300 hover:scale-105' src={userMongoData?.photoURL} alt="" />
 
                     </div>
                     <div className='basis-[70%] '>
-                        <div className='p-10'>
-                        <h1 className='md:text-7xl text-3xl font-medium uppercase'>{userMongoData.fname} {userMongoData.lname}</h1>
-                        <div>
-                        <p className='pt-5 font-medium ms-2'>Email : <span className='text-gray-500'>{userMongoData.email}</span> </p>
-                        <p className='pt-5 font-medium ms-2'>Phone : <span className='text-gray-500'>{userMongoData.phone}</span> </p>
-                        
-                        </div>
-                        <button className='bg-gray-800 px-4 py-2 text-white rounded-lg font-medium mt-6 ms-2 hover:scale-105 transition-all ease-in-out duration-300 hover:shadow-xl'>Update Address</button>
-                     
+                        <div className=''>
+                            <h1 className='md:text-7xl text-3xl font-medium uppercase'>{userMongoData.fname} {userMongoData.lname}</h1>
+                            <div>
+                                <p className='pt-5  ms-2 text-xl'>Email : <span className='text-gray-500'>{userMongoData.email}</span> </p>
+                                <p className='pt-5  ms-2 text-xl'>Phone : <span className='text-gray-500'>{userMongoData.phone}</span> </p>
 
+                            </div>
                         </div>
-                
+
                     </div>
 
                 </div>
+                
+                {userMongoData?.address ? <>
+                              
+                              <div className='pt-5 md:w-[60%]  ' >
+                                  <h3 className='text-xl md:text-3xl text-gray-600 pt-20 pb-5'>Delivery Address</h3>
+                                  <div className='border border-[3px]  rounded-lg min-h-20 p-5 '>
+                                      <h3 className='text-2xl font-medium'>{userMongoData.address.fullName} </h3>
+                                      <h2 className='text-xl text-gray-600 pb-1 pt-3 '> <span className='font-medium  text-gray-800'> Contact : </span>{userMongoData.address.phone}</h2>
+
+                                      <h2 className='text-xl text-gray-500 py-1 '> <span className='font-medium  text-gray-800'> Address :</span> {userMongoData.address.house} , {userMongoData.address.street} ,{userMongoData.address.subDistrict}, {userMongoData.address.district} {userMongoData.address.division}</h2>
+                                      <h2 className='text-xl text-gray-600 py-1 '> <span className='font-medium  text-gray-800'> Postal Code: </span>{userMongoData.address.postalCode}</h2>
+
+
+                                  </div>
+
+                              </div>
+                              <button onClick={updateAddress} className='bg-gray-800 px-4 py-2 text-white rounded-lg font-medium mt-6 ms-2 hover:scale-105 transition-all ease-in-out duration-300 hover:shadow-xl'>Update Address</button>
+
+                          </> : <>
+
+                              <button onClick={updateAddress} className='bg-gray-800 px-4 py-2 text-white rounded-lg font-medium mt-6 ms-2 hover:scale-105 transition-all cursor-pointer ease-in-out duration-300 hover:shadow-xl'>Add Address</button>
+                          </>}
+
+
             </div>
         </div>
     );

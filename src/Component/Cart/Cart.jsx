@@ -2,14 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import CartDataCard from '../CartDataCard/CartDataCard';
 import { AuthContext } from '../../Provider/AuthContextProvider';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
 
-const [toggleDependency, setToggleDependency] = useState(false);
+    const [toggleDependency, setToggleDependency] = useState(false);
 
-    const { userMongoData, user, cartToggle, cart,setCartToggle } = useContext(AuthContext);
+    const { userMongoData, user, cartToggle, cart, setCartToggle } = useContext(AuthContext);
 
     const [totalPrice, setTotalPrice] = useState(0);
+    const navigate = useNavigate();
+    const updateAddress = () => {
+        navigate('/user/address/update');
+    }
 
     useEffect(() => {
         const newPrice = cart.reduce((acc, current) => {
@@ -18,11 +23,11 @@ const [toggleDependency, setToggleDependency] = useState(false);
             return acc + productPrice;
         }, 0)
         setTotalPrice(newPrice);
-        console.log('the totalprice useeffect............. price: ',newPrice);
-    }, [toggleDependency,cart]);
+        console.log('the totalprice useeffect............. price: ', newPrice);
+    }, [toggleDependency, cart]);
 
 
-console.log(toggleDependency);
+    console.log(toggleDependency);
 
 
 
@@ -39,14 +44,35 @@ console.log(toggleDependency);
                 </div>
 
 
-                <div className=' md:basis-[30%]'>
-                    <div className='shadow py-5 rounded-xl'>
+                <div className=' '>
+                    <div className='shadow  rounded-xl'>
 
-                        <div className='h-[150px] my-5 border'>
-                            {/* TODO address ......................... */}
+                        <div className='  '>
+                            {userMongoData?.address ? <>
+
+                                <div className='p-3 ' >
+
+                                    <div className='border border-[2px]  rounded-lg min-h-20 p-5 '>
+                                        <h3 className='text-xl md:text-3xl text-center text-gray-600  pb-5'>Delivery Address</h3>
+                                        <h3 className='text-2xl font-medium'>{userMongoData.address.fullName} </h3>
+                                        <h2 className='text-xl text-gray-600 pb-1 pt-3 '> <span className='font-medium  text-gray-800'> Contact : </span>{userMongoData.address.phone}</h2>
+
+                                        <h2 className='text-xl text-gray-500 py-1 '> <span className='font-medium  text-gray-800'> Address :</span> {userMongoData.address.house} , {userMongoData.address.street} ,{userMongoData.address.subDistrict}, {userMongoData.address.district} {userMongoData.address.division}</h2>
+                                        <h2 className='text-xl text-gray-600 py-1 '> <span className='font-medium  text-gray-800'> Postal Code: </span>{userMongoData.address.postalCode}</h2>
+
+                                        <button onClick={updateAddress} className='bg-gray-700 px-4 py-2 text-white rounded-lg font-medium mt-6 mx-auto  transition-all ease-in-out duration-300 hover:shadow-xl '>Update Address</button>
+                                    </div>
+
+                                </div>
+
+
+                            </> : <>
+
+                                <button onClick={updateAddress} className='bg-gray-800 px-4 py-2 text-white rounded-lg font-medium mt-6 ms-2 hover:scale-105 transition-all cursor-pointer ease-in-out duration-300 hover:shadow-xl'>Add Address</button>
+                            </>}
                         </div>
-                        <div className='md:px-10 px-5'>
-                            <h2 className='text-center flex justify-between text-xl'>Total : <span className='font-semibold'>{totalPrice}</span> </h2>
+                        <div className='md:px-10 pt-10 px-5'>
+                            <h2 className='text-center flex justify-between text-xl'>Total : <span className='font-semibold'>{totalPrice} bdt</span> </h2>
 
                             <button className='bg-[#35B087] font-medium cursor-pointer hover:bg-[#339675] transition-all ease-in-out duration-500 rounded-lg py-2 my-5 text-white w-full'>Confirm Order</button>
                         </div>
