@@ -25,7 +25,7 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`/cart/${id}`)
+                axios.delete(`/cart/product/${id}`)
                     .then((res) => {
                         console.log(res.data);
                         // You can update your state or perform any other actions after item removal.

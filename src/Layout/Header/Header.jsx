@@ -119,18 +119,34 @@ const Header = () => {
             <nav className={`hidden md:flex p-3 px-5 rounded-3xl space-x-10`}>
               <ActiveLink
                 to="/"
-                className="text-base font-medium text-gray-500 "
+                className=" font-medium text-gray-500 "
               >
                 Home
               </ActiveLink>
 
+              {
+                userMongoData?.role == "customer" ? <>
+                  <ActiveLink
+                    to="/orders"
+                    className="text-base font-medium text-gray-500 "
+                  >
+                    Orders
+                  </ActiveLink>
+                </> : <></>
 
-              <ActiveLink
-                to="/blogs"
-                className="text-base font-medium text-gray-500 "
-              >
-                Blogs
-              </ActiveLink>
+              }
+              {
+                userMongoData?.role == "customer" ? <>
+                  <Link to='/cart' className='-translate-y-'>
+                    <div className=' text-gray-500 hover:shadow-xl hover:bg-gray-100 hover:text-gray-700 transition-all ease-in-out duration-500 flex justify-center items-center px-1 py-1 rounded-xl '>
+                      <AiOutlineShoppingCart className='text-xl ' />
+                      {/* <div className='text-gray-600 font-semibold  px-2'>{cart.length}</div> */}
+                    </div>
+                  </Link>
+                </> : <></>
+
+              }
+
               <ActiveLink
                 to="/contact"
                 className="text-base font-medium text-gray-500 "
@@ -140,17 +156,7 @@ const Header = () => {
 
 
 
-              {
-                userMongoData?.role == "customer" ? <>
-                  <Link to='/cart'>
-                    <div className='bg-gray-200 text-gray-500 hover:shadow-xl hover:bg-gray-300 hover:text-gray-700 transition-all ease-in-out duration-500 flex justify-center items-center px-3 py-1 rounded-xl '>
-                      <AiOutlineShoppingCart className='text-2xl ' />
-                      <div className='text-gray-600 font-semibold text-xl px-2'>{cart.length}</div>
-                    </div>
-                  </Link>
-                </> : <></>
 
-              }
 
 
 
@@ -182,8 +188,8 @@ const Header = () => {
               </>
               :
               <>
-              <Link to={`/user`}>
-                <img src={user?.photoURL ? user?.photoURL : userMongoData?.photoURL} className='rounded-full h-[50px] border border-1 shadow border-gray-300 cursor-pointer' title="click to view profile" alt="" />
+                <Link to={`/user`}>
+                  <img src={user?.photoURL ? user?.photoURL : userMongoData?.photoURL} className='rounded-full h-[50px] border border-1 shadow border-gray-300 cursor-pointer' title="click to view profile" alt="" />
                 </Link>
                 <button onClick={logOut} className='ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-500 bg-gray-400 bg-opacity-70 hover:bg-red-700'>Sign Out</button>
               </>}

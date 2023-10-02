@@ -15,37 +15,37 @@ const UpdateAddress = ({ setTitle }) => {
     console.log(existingAddress);
 
 
-const handleSubmit = (e) =>{
-e.preventDefault();
-const formData = {
-    fullName: e.target.fullName.value,
-    phone: e.target.phone.value,
-    division: e.target.division.value,
-    district: e.target.district.value,
-    subDistrict: e.target['sub-district'].value, // Use bracket notation for 'sub-district'
-    house: e.target.house.value,
-    street: e.target.street.value,
-    postalCode: e.target['postal-code'].value, // Use bracket notation for 'postal-code'
-    landMark: e.target.landmark.value,
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = {
+            fullName: e.target.fullName.value,
+            phone: e.target.phone.value,
+            division: e.target.division.value,
+            district: e.target.district.value,
+            subDistrict: e.target['sub-district'].value, // Use bracket notation for 'sub-district'
+            house: e.target.house.value,
+            street: e.target.street.value,
+            postalCode: e.target['postal-code'].value, // Use bracket notation for 'postal-code'
+            landMark: e.target.landmark.value,
+        };
 
 
-  axios.put(`/user/update-address/${userMongoData._id}`,formData).then(res=> {
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Your delivery address has been updated',
-        showConfirmButton: false,
-        timer: 1500
-      });
+        axios.put(`/user/update-address/${userMongoData._id}`, formData).then(res => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your delivery address has been updated',
+                showConfirmButton: false,
+                timer: 1500
+            });
 
-      e.target.reset();
-      setRefetchUser(!refetchUser)
-    
-    });
+            e.target.reset();
+            setRefetchUser(!refetchUser)
 
-  console.log(formData);
-}
+        });
+
+        console.log(formData);
+    }
 
 
 
@@ -54,7 +54,7 @@ const formData = {
     return (
         <div className='max-w-[1600px]  mx-auto md:px-12 px-4 my-20'>
 
-            <form onSubmit={handleSubmit } className='shadow max-w-[800px] p-10 mx-auto flex flex-col gap-2 rounded-2xl'>
+            <form onSubmit={handleSubmit} className='shadow max-w-[800px] p-10 mx-auto flex flex-col gap-2 rounded-2xl'>
                 <h1 className='md:text-4xl text-2xl text-gray-500 text-center font-medium mb-10'>Add Address</h1>
                 <label for="fullName" className='font-medium text-gray-500'> Recipient's Full Name :  </label>
                 <input type="text" id="fullName" name="fullName" placeholder=" Full Name" className="input input-bordered input-md w-full cursor-text " required />
@@ -73,6 +73,12 @@ const formData = {
                 <label for="sub-district" name="subDistrict" className='font-medium text-gray-500'>Sub District : </label>
 
                 <input type="text" id="sub-district" placeholder="Sub District" className="input input-bordered input-md w-full cursor-text " required />
+
+                <select className="select select-bordered w-full max-w-xs">
+                    <option disabled selected>Inside Town?</option>
+                    <option>Yes inside the town</option>
+                    <option>No, outside of town</option>
+                </select>
 
                 <label for="house" className='font-medium text-gray-500'>House/Holding :</label>
 

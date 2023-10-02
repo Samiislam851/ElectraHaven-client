@@ -65,7 +65,7 @@ const InverterCard = ({ data, component }) => {
             {component ? <>
                 <Link to={`Inverter/blog/${data._id}`} className={`text-xl text-start start md:text-2xl font-semibold  text-gray-600  mt-3 pb-3 font-semibold capitalize md:hover:text-[#35B087] transition-all ease-in-out duration-300`}> <h2 className=' px-5'> {data.modelNumber} </h2></Link>
                 <p className='px-5 py-1 text-base  text-xl text-gray-400'>Brand : {data.brand}</p>
-                <div className=' flex text-start justify-between px-5 pb-2 text-lg text-gray-400 gap-1'>
+                <div className=' flex text-start justify-between px-5 pb-2  text-gray-400 gap-1'>
 
                     <p>Capacity : {data.capacity}</p>
 
@@ -76,8 +76,8 @@ const InverterCard = ({ data, component }) => {
 
                 <div className='flex justify-between items-center px-5 pb-2'>
 
-                    <Link to={`Inverter/blog/${data._id}`} className="mt-0 mb-2  flex items-center text-[#35B087] text-center font-semibold text-lg float-left md:hover:scale-105 transition-all ease-in-out duration-300">Read More <AiOutlineArrowRight className='inline' /> </Link>
-                    <button onClick={() => { addToCart(user?.email, data) }} disabled={disableButton} className={` ${disableButton?'bg-[#808080]':'bg-[#35B087]'} text-white py-1 px-3 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button>
+                    <Link to={`Inverter/blog/${data._id}`} className="mt-0 mb-2  flex items-center text-[#35B087] text-center font-semibold float-left md:hover:scale-105 transition-all ease-in-out duration-300">Read More <AiOutlineArrowRight className='inline' /> </Link>
+                    <button onClick={() => { addToCart(user?.email, data) }} disabled={disableButton} className={` ${disableButton?'bg-[#808080]':'bg-[#35B087]'} text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button>
                 </div>
             </> : <>
                 <Link to={`blog/${data._id}`} className={`text-xl  md:text-2xl font-semibold  text-gray-600 text-center mt-3 pb-3 font-semibold capitalize md:hover:text-[#35B087] transition-all ease-in-out duration-300`}> <h2 className=' px-5'> {data.brand} </h2></Link>

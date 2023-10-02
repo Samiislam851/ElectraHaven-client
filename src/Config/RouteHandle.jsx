@@ -43,6 +43,8 @@ import Contact from '../Pages/Contact/Contact';
 import Cart from '../Component/Cart/Cart';
 import User from '../Pages/User/User';
 import UpdateAddress from '../Pages/UpdateAddress/UpdateAddress';
+import Orders from '../Pages/Orders/Orders';
+import OrderedProduct from '../Pages/OrderedProduct/OrderedProduct';
 
 
 const RouteHandle = () => {
@@ -86,6 +88,14 @@ const RouteHandle = () => {
         {
           path: '/cart',
           element : <PrivateRoute> <Cart/> </PrivateRoute> 
+        },
+        {
+          path: '/orders',
+          element : <PrivateRoute> <Orders/> </PrivateRoute> 
+        },
+        {
+          path: '/orders/product/:id',
+          element : <PrivateRoute> <OrderedProduct/> </PrivateRoute> 
         },
 
 
