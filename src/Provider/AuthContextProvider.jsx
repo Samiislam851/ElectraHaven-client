@@ -66,6 +66,8 @@ useEffect(() => {
       setCart(res.data)
     }
     )
+
+    console.log(userMongoData.email);
   }
 }, [userMongoData, cartToggle]);
 

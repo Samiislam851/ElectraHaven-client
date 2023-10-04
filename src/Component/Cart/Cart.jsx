@@ -23,14 +23,12 @@ const Cart = () => {
             return acc + productPrice;
         }, 0)
         setTotalPrice(newPrice);
-        console.log('the totalprice useeffect............. price: ', newPrice);
+       
     }, [toggleDependency, cart]);
 
 
-    // console.log(toggleDependency);
 
 
-    console.log(cart[0]);
 
 
     const handleConfirmOrder = () => {

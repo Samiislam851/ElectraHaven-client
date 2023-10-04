@@ -123,6 +123,12 @@ const Header = () => {
               >
                 Home
               </ActiveLink>
+              <ActiveLink
+                to="/all-products"
+                className=" font-medium text-gray-500 "
+              >
+              Products
+              </ActiveLink>
 
               {
                 userMongoData?.role == "customer" ? <>
@@ -161,7 +167,7 @@ const Header = () => {
 
 
               {user ? <ActiveLink
-                to={!loading && (isAdmin ? '/admin' : (isInstructor ? '/instructor' : '/student'))}
+                to={!loading && (isAdmin ? '/admin' : (isInstructor ? '/instructor' : ''))}
                 className="text-base font-medium text-gray-500 "
               >
                 Dashboard
@@ -264,7 +270,17 @@ const Header = () => {
                     Contact
                   </ActiveLink>
 
+                  {
+                    userMongoData?.role == "customer" ? <>
+                      <ActiveLink
+                        to="/orders"
+                        className="text-base font-medium text-gray-500 "
+                      >
+                        Orders
+                      </ActiveLink>
+                    </> : <></>
 
+                  }
 
 
 

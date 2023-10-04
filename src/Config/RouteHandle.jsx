@@ -16,35 +16,24 @@ import RestictedPublicRoute from './RestictedPublicRoute';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 
 import RegisterPage from '../Pages/RegisterPage/RegisterPage';
-import MyClassInstructor from '../Pages/InstructorPages/MyClassInstructor/MyClassInstructor';
 import AddAClass from '../Pages/InstructorPages/AddAClass/AddAClass';
 import UpdateInstructorClasses from '../Pages/InstructorPages/UpdateInstructorClasses/UpdateInstructorClasses';
 import ManageClasses from '../Pages/AdminPages/ManageClasses/ManageClasses';
 import ManageUsers from '../Pages/AdminPages/ManageUsers/ManageUsers';
-import InstructorListPages from '../Pages/InstructorListPages/InstructorListPages';
 import AdminDashBoard from '../Pages/AdminPages/AdminDashBoard/AdminDashBoard';
 import AdminDashBoardLayout from '../Component/AdminComponents/AdminDashBoardLayout/AdminDashBoardLayout';
-import StudentDashBoardLayout from '../Component/StudentComponent/StudentDashBoardLayout/StudentDashBoardLayout';
-import StudentDashBoard from '../Pages/StudentPages/StudentDashBoard/StudentDashBoard';
-import MySelectedClasses from '../Pages/StudentPages/MySelectedClasses/MySelectedClasses';
-import MyEnrolledClasses from '../Pages/StudentPages/MyEnrolledClasses/MyEnrolledClasses';
 import PaymentClass from '../Pages/StudentPages/PaymentClass/PaymentClass';
 import AdminRoute from './AdminRoute';
-import InstructorRoute from './InstructorRoute';
-import InstructorDashBoard from '../Component/InstructorComponents/InstructorDashBoard/InstructorDashBoard';
 import DashBoard from '../Pages/DashBoard/DashBoard';
 import Test from '../Test';
-import InstructorPage from '../Pages/InstructorPage/InstructorPage';
-import CurrentElections from '../Component/CurrentElections/CurrentElections';
-import BlogPage from '../Pages/BlogPage/BlogPage';
-import SingleBlogPage from '../Pages/SingleBlogPage/SingleBlogPage';
-import SingleBlog from '../Component/SingleBlog/SingleBlog';
 import Contact from '../Pages/Contact/Contact';
 import Cart from '../Component/Cart/Cart';
 import User from '../Pages/User/User';
 import UpdateAddress from '../Pages/UpdateAddress/UpdateAddress';
 import Orders from '../Pages/Orders/Orders';
 import OrderedProduct from '../Pages/OrderedProduct/OrderedProduct';
+import SingleItem from '../Pages/SingleItem/SingleItem';
+import AllProducts from '../Pages/AllProducts/AllProducts';
 
 
 const RouteHandle = () => {
@@ -64,30 +53,39 @@ const RouteHandle = () => {
       
 
       
-        {
-          path: "/blogs",
-          element: <BlogPage setTitle={setTitle} />,
+        // {
+        //   path: "/blogs",
+        //   element: <BlogPage setTitle={setTitle} />,
 
-        },
+        // },
         {
           path: "/contact",
           element: <Contact setTitle={setTitle} />,
 
         },
-
         {
-          path: "/blogs/blog",
-          element: <SingleBlogPage setTitle={setTitle} />,
-          children: [
-            {
-              path: "/blogs/blog/:blogId",
-              element: <SingleBlog />
-            }
-          ]
+          path: "/all-products",
+          element: <AllProducts setTitle={setTitle} />,
+
         },
+
+        // {
+        //   path: "/blogs/blog",
+        //   element: <SingleBlogPage setTitle={setTitle} />,
+        //   children: [
+        //     {
+        //       path: "/blogs/blog/:blogId",
+        //       element: <SingleBlog />
+        //     }
+        //   ]
+        // },
         {
           path: '/cart',
           element : <PrivateRoute> <Cart/> </PrivateRoute> 
+        },
+        {
+          path: '/product/:productId',
+          element :  <SingleItem/> 
         },
         {
           path: '/orders',
@@ -139,55 +137,9 @@ const RouteHandle = () => {
           ]
         }
         ,
-        {
-          path: "/instructor",
-          element: <InstructorRoute> <InstructorDashBoard setTitle={setTitle} /></InstructorRoute>,
-          children: [
-            {
-              path: "/instructor",
-              element: <InstructorPage setTitle={setTitle} />,
-            },
-            {
-              path: "/instructor/myclass",
-              element: <MyClassInstructor setTitle={setTitle} />,
-            },
-            {
-              path: "/instructor/updateclass/:id",
-              element: <UpdateInstructorClasses setTitle={setTitle} />,
-            },
-            {
-              path: "/instructor/addclass",
-              element: <AddAClass setTitle={setTitle} />,
-            }
+      
 
-
-          ]
-        },
-
-        {
-          path: "/student",
-          element: <StudentDashBoardLayout setTitle={setTitle} />,
-          children: [
-            {
-              path: "/student",
-              element: <StudentDashBoard setTitle={setTitle} />,
-            },
-            {
-              path: "/student/class/selected",
-              element: <MySelectedClasses setTitle={setTitle} />,
-            },
-            {
-              path: "/student/class/payment/:classid",
-              element: <PaymentClass setTitle={setTitle} />,
-            },
-
-            {
-              path: "/student/class/enrolled",
-              element: <MyEnrolledClasses setTitle={setTitle} />,
-            },
-
-          ]
-        }
+      
       ]
     },
 

@@ -55,18 +55,21 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
     };
 
     useEffect(() => {
-        axios.get(`/products/${data.productId}`).then(
-            res => {
-                setProduct(res.data)
-                setPrice(res.data.price)
-            }
-        )
+        if (data.productId) {
+            axios.get(`/products/${data?.productId}`).then(
+                res => {
+                    setProduct(res.data)
+                    setPrice(res.data.price)
+                }
+            )
+        }
+        
     }, []);
 
 
 
     const increment = () => {
-        axios.patch(`/cart/${product._id}`, { newQuantity: quantity + 1 })
+        axios.patch(`/cart/${product?._id}`, { newQuantity: quantity + 1 })
             .then((response) => {
                 setQuantity(quantity + 1);
                 console.log(response.data);
@@ -81,7 +84,7 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
 
     const decrement = () => {
         if (quantity > 1) {
-            axios.patch(`/cart/${product._id}`, { newQuantity: quantity - 1 })
+            axios.patch(`/cart/${product?._id}`, { newQuantity: quantity - 1 })
                 .then((response) => {
                     setQuantity(quantity - 1);
                     console.log(response.data);

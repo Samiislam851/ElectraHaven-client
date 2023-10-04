@@ -1,12 +1,13 @@
 import React from 'react';
-import {FiMusic } from 'react-icons/fi'
+import { Link } from 'react-router-dom';
+
 
 const Footer = () => {
   return (
     <>
 
      <div className="bg-[#F7FDFA] text-gray-300 md:px-32 pt-10 md:mt-10 md:pb-20">
-  <footer className="footer bg-transparent text-gray-600 text-xl p-10 bg-base-200 text-base-content mt-0">
+  {/* <footer className="footer bg-transparent text-gray-600 text-xl p-10 bg-base-200 text-base-content mt-0">
     <div>
       <span className="text-2xl font-bold text-gray-700">Services</span>
       <a className="link link-hover font-medium text-lg text-gray-500 ">Music Courses</a>
@@ -22,14 +23,13 @@ const Footer = () => {
     <div>
       <span className="text-2xl font-bold text-gray-700">Company</span>
       <a className="link link-hover font-medium text-lg text-gray-500 ">About Us</a>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Contact</a>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Careers</a>
+      <Link to='/contact' className="link link-hover font-medium text-lg text-gray-500 ">Contact</Link>
     </div>
-  </footer>
+  </footer> */}
   <footer className="footer bg-transparent text-white px-10 py-4 bg-base-200 text-base-content border-base-300">
     <div className="items-center text-gray-500 grid-flow-col">
-    <FiMusic className='text-[#59C6BC] text-5xl' />
-      <p>ElectraHaven Music Bootcamp<br />Providing the best music education since 2023</p>
+
+      <p>ElectraHaven <br />Providing the best electrical components since 2023</p>
     </div>
     <div className="md:place-self-center md:justify-self-end">
       <div className="grid grid-flow-col gap-4">
@@ -39,7 +39,7 @@ const Footer = () => {
       </div>
     </div>
   </footer>
-  <p className="text-center text-gray-500 md:text-lg pt-5 pb-5"> &copy; 2023 ElectraHaven Music Bootcamp. All rights reserved.</p>
+  <p className="text-center text-gray-500 md:text-lg pt-5 pb-5"> &copy; 2023 ElectraHaven . All rights reserved.</p>
 </div>
 
     </>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthContextProvider';
+import Swal from 'sweetalert2';
 
 const OrderedProduct = () => {
     const params = useParams()
@@ -30,17 +31,25 @@ const OrderedProduct = () => {
     const month = monthNames[monthIndex];
     //////////////////////////////////////////////////////
 
-const handleCancelOrder = () => {
+    const handleCancelOrder = () => {
 
 
-axios.put(`/orders/cancel/${order.orderId}/${userMongoData._id}`).then(res => {
-    console.log(res.data);
-})
+        axios.put(`/orders/cancel/${order.orderId}/${userMongoData._id}`).then(res => {
+           console.log(res.data);
+            Swal.fire({
+                position: 'top-end',
+                icon: '',
+                title: `${product?.modelNumber}'s order is cancelled`,
+                showConfirmButton: false,
+                timer: 1500
+
+            })
+        })
 
 
 
 
-}
+    }
 
 
 
@@ -54,13 +63,13 @@ axios.put(`/orders/cancel/${order.orderId}/${userMongoData._id}`).then(res => {
     return (
         <div className='mx-auto rounded border shadow-lg p-5 rounded-lg my-20 w-[70%]'>
 
-                 <div className='bg-gray-100 border rounded-lg md:w-[60%] mx-auto'>
-                    {/* TO DO : payment gateway Integration */}
-<div className='text-center font-medium text-gray-600'>Your order is {order.status}</div>
+            <div className='bg-gray-100 border rounded-lg py-5 md:w-[60%] mx-auto'>
+                {/* TO DO : payment gateway Integration */}
+                <div className='text-center font-medium text-gray-600 '>Your order is {order.status}</div>
 
 
-                    <div className='text-center'>Payment gateway</div>
-                 </div>
+                <div className='text-center w-fit mx-auto rounded p-2 m-2 border border-red-500'>Payment gateway</div>
+            </div>
 
 
             <div className=' ease-in-out duration-500 rounded-xl   mx-auto flex flex-col items-center md:flex-row justify-between'>
