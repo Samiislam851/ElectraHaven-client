@@ -53,7 +53,7 @@ const InverterCard = ({ data }) => {
     }
 
     return (
-        <div className={` w-[100%]   md:hover:shadow-2xl pb-5 border bg-white rounded-xl transition-all ease-in-out duration-300 mx-auto  bg-transparent `}>
+        <div className={` w-[100%]    md:hover:shadow-2xl pb-5 border bg-white rounded-xl transition-all ease-in-out duration-300 mx-auto  bg-transparent `}>
             <div className="relative rounded-lg h-72 w-full overflow-hidden transition-all ease-in-out duration-300">
                 <img src={data.image} alt="" className="rounded-lg w-auto h-[90%] mx-auto object-cover object-center transition-all ease-in-out duration-300" />
                 {/* <img src={data.image} alt="" className="h-full rounded-lg w-full object-cover object-center transition-all ease-in-out duration-300" /> */}
