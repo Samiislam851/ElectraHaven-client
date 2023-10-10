@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Spinner from '../Spinner/Spinner';
 import axios from 'axios';
-import BlogsCard from '../BlogsCard/BlogsCard';
 import InverterCard from '../InverterCard/InverterCard';
 
 const InverterComponent = () => {
@@ -13,9 +11,9 @@ const InverterComponent = () => {
 
     useEffect(() => {
         if (loading) {
-            axios.get("/products/inverter")
+            axios.get("/inverters/all")
                 .then(response => {
-                    setInverterData(response.data)
+                    setInverterData(response.data.slice(0,4))
                     console.log(response.data);
                     setLoading(false)
                 }).catch(err => console.log(err))
@@ -33,7 +31,7 @@ const InverterComponent = () => {
         <>
 
 
-            <div className="max-w-[1600px] mx-auto px-5  md:px-16 relative  mb-40 ">
+            <div className="max-w-[1600px] mx-auto px-5  md:px-16 relative  mb-16 ">
 
 
                 {loading ? <>
@@ -42,7 +40,7 @@ const InverterComponent = () => {
                     <div className="">
                         <div className="   pb-10 pt-32 ">
                             <h2 className='md:text-5xl text-4xl text-gray-700 text-center font-semibold pb-8'>Our Most Popular Inverters </h2>
-                            <p className=' text-lg text-gray-400 text-center md:w-[70%] w-[95%] mx-auto pb-20'>Explore the harmonious world of music through our featured inverters. Dive into the vibrant tapestry of musical genres, techniques, and inspiration that our music school has to offer.</p>
+                            <p className=' text-lg text-gray-400 text-center md:w-[70%] w-[95%] mx-auto pb-20'>Discover our most popular inverters, trusted for their reliability and performance. Explore a range of cutting-edge inverters that provide efficient power conversion, making them the preferred choice for energy-conscious consumers.</p>
                         </div>
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-4 gap-2
@@ -52,9 +50,7 @@ const InverterComponent = () => {
                         }
                         )}
                     </div>
-                    <div className='text-center mt-16'>
-                    <Link to='/inverters' className='text-lg md:text-xl transition-all duration-300 ease-in-out border-[3px] border-[#59c6Bc] text-[#59C6BC] hover:bg-[#59C6BC] hover:text-white px-7 mx-auto w-fit py-2 rounded-lg'>View All</Link>
-                    </div>
+                  
                 </>}
 
          

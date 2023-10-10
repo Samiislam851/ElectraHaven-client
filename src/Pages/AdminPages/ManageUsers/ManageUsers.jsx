@@ -7,7 +7,7 @@ import Spinner from '../../../Component/Spinner/Spinner';
 import { AuthContext } from '../../../Provider/AuthContextProvider';
 
 const ManageUsers = ({ setTitle }) => {
-  const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, toastPush } = useContext(AuthContext);
+  const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, toastPush, userMongoData } = useContext(AuthContext);
 
 
 
@@ -21,7 +21,7 @@ const ManageUsers = ({ setTitle }) => {
 
   useEffect(() => {
     if (loading && user) {
-      setTitle("My Classes")
+      setTitle("Manage Users")
       axios.get(`/users`)
         .then(response => {
           let data = response.data
@@ -33,11 +33,12 @@ const ManageUsers = ({ setTitle }) => {
     }
   }, []);
 
-  const deleteButtonHandler = (e) => {
-    axios.delete("/delete/" + currentID)
+  const deleteButtonHandler = (id) => {
+
+    axios.delete("/users/delete/" + id)
       .then(response => {
-        let data = renderData.filter(e => e._id != currentID)
-        setCurrentID(null)
+        let data = renderData.filter(e => e._id != id)
+      
         setRenderData(data)
         toastPush("Deleted Successfully")
       })
@@ -50,11 +51,11 @@ const ManageUsers = ({ setTitle }) => {
   const makeAdminHandler = (e) => {
     const updatedData = renderData.map(obj => {
       if (obj._id === e) {
-        return { ...obj, role: "admin" };
+        return { ...obj, role: "admin",grade : 2 };
       }
       return obj;
     });
-    console.log(updatedData)
+  
     setRenderData(updatedData)
 
     axios.patch(`/users/admin/${e}`).then(response => {
@@ -62,16 +63,16 @@ const ManageUsers = ({ setTitle }) => {
       toastPush("Role Updated")
     })
   }
-  const makeInstructorHandler = (e) => {
+  const makeRegularUserHandler = (e) => {
     const updatedData = renderData.map(obj => {
       if (obj._id === e) {
-        return { ...obj, role: "instructor" };
+        return { ...obj, role: "customer" };
       }
       return obj;
     });
     console.log(updatedData)
     setRenderData(updatedData)
-    axios.patch(`/users/instructor/${e}`).then(response => {
+    axios.patch(`/users/customer/${e}`).then(response => {
       console.log(response.data)
       toastPush("Role Updated")
     })
@@ -83,7 +84,7 @@ const ManageUsers = ({ setTitle }) => {
 
       <div>
 
-<h1 className='text-6xl font-semibold text-gray-600 text-center my-10'>Manage users</h1>
+        <h1 className='text-6xl font-semibold text-gray-600 text-center my-10'>Manage users</h1>
 
 
         <section className='mt-12 '>
@@ -104,14 +105,17 @@ const ManageUsers = ({ setTitle }) => {
                 <div className="overflow-x-auto  ">
 
 
-                  <table className="table w-full">
+                  <table className="table w-full mb-20">
                     <thead>
                       <tr>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>Grade</th>
                         <th>Admin</th>
-                        <th>Instructor</th>
+                        <th>Demotion</th>
+                        <th>Demotion</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -125,48 +129,92 @@ const ManageUsers = ({ setTitle }) => {
 
                           return <>
                             <tr>
+<td>           <img src={e.photoURL} className='w-[50px] hover:scale-[2.5] hover:translate-x-7 transition-all ease-in-out duration-500 rounded' alt="" /></td>
 
 
-
-                              <td>{e.name}</td>
-                              <td>
+                              <td className='text-gray-600 '>
+                   
+                          <h3>     {e.fname} {e.lname}</h3> 
+                                </td>
+                              <td className='text-gray-600'>
                                 {e.email}
                               </td>
 
-                              <td>
+                              <td className='text-gray-600'>
                                 {e.role}
                               </td>
+                              <td className='text-gray-600'>
+                                {e.role=="admin"?
+                              <>
+                              {e.grade&&e.grade}
+                              </>:
+                              <></>  
+                              }
+                              </td>
 
 
 
-                              <td>
-                                <button onClick={() => makeAdminHandler(e._id)} className="btn  btn-xs btn-success" disabled={e.role == 'admin' ? true : false}>Make Admin</button>
+                              <td className='text-gray-600'>
+                                <button onClick={() => makeAdminHandler(e._id)} className="btn  btn-xs text-white btn-success" disabled={e.role == 'admin' ? true : false}>Make Admin</button>
 
                               </td>
-                              <td>
-                                <button onClick={() => makeInstructorHandler(e._id)} className="btn  btn-xs  bg-blue-600 border-none" disabled={e.role == 'instructor' ? true : false} >Make Instructor</button>
+                              <td className='text-gray-600'>
+                               
+
+                                  {e._id == userMongoData._id?<>
+                                  
+                                  </>
+                                  :
+                                  <>
+
+                                  {
+                                  e.grade!=1 && 
+                                   <button onClick={() => makeRegularUserHandler(e._id)} className="btn  btn-xs text-white  bg-blue-600 border-none" disabled={e.role == 'customer' ? true : false} >Make Regular User</button>
+                                   }
+                                
+                                  </>
+                                  
+                                  }
+                                    
+                                  
+
 
                               </td>
+
+                              <td> <tr>
+
+
+                              {e._id == userMongoData._id?<>
+                                  
+                                  </>
+                                  :
+                                  <>
+                                  {e.grade !=1 &&
+                                   <button onClick={() => deleteButtonHandler(e._id)} className="btn  btn-xs text-white  bg-red-600 border-none hover:bg-red-700"   >Delete User</button>
+                                  }
+                                
+                                  </>
+                                  
+                                  }
+
+
+                         
+                            </tr></td>
                             </tr>
+
+                            
                           </>
                         })}
                       </>}
 
 
-
-
+                     
 
 
                     </tbody>
                     {/* foot */}
                     <tfoot>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Admin</th>
-                        <th>Instructor</th>
-                      </tr>
+                     
                     </tfoot>
 
                   </table>

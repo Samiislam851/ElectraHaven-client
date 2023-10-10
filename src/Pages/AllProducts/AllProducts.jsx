@@ -47,10 +47,10 @@ const [ searchTextInput,  setSearchTextInput] = useState("");
 
         <div className=''>
 
-            <div className='my-16'>
+            <div className='my-16 mx-5'>
                 {/* Search Bar */}
                 <div className="relative mx-auto max-w-md">
-                    <form onSubmit={handleSearch}>
+                    <form onSubmit={handleSearch} title="search products based on name, brand or category">
                         <input
                             type="text"
                             name='searchInput'

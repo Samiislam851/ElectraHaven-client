@@ -24,7 +24,7 @@ const Header = () => {
   // const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, ,} = useContext(AuthContext);
 
 
-
+console.log('user role..................................................................!!!!!!!!!!!!!!!!!!!!!!!!!',userMongoData?.role);
 
 
 
@@ -166,8 +166,8 @@ const Header = () => {
 
 
 
-              {user ? <ActiveLink
-                to={!loading && (isAdmin ? '/admin' : (isInstructor ? '/instructor' : ''))}
+              {isAdmin ? <ActiveLink
+                to={ '/admin'}
                 className="text-base font-medium text-gray-500 "
               >
                 Dashboard
@@ -197,7 +197,7 @@ const Header = () => {
                 <Link to={`/user`}>
                   <img src={user?.photoURL ? user?.photoURL : userMongoData?.photoURL} className='rounded-full h-[50px] border border-1 shadow border-gray-300 cursor-pointer' title="click to view profile" alt="" />
                 </Link>
-                <button onClick={logOut} className='ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-500 bg-gray-400 bg-opacity-70 hover:bg-red-700'>Sign Out</button>
+                <button onClick={logOut} className='ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-100 bg-red-500 hover:bg-red-600'>Sign Out</button>
               </>}
             </div>
           </div>

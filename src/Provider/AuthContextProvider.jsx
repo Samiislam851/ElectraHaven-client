@@ -51,7 +51,13 @@ const AuthContextProvider = ({ children }) => {
     axios.get(`users/${user?.email}`).then(
       res => {
         setUserMongoData(res.data)
-
+        if(res.data?.role=="admin")
+        {
+                 setIsAdmin(true)
+                 setIsStudent(false)
+                 setAdminStateLoading(false)
+        }
+        
       }
     )
 
@@ -131,39 +137,6 @@ useEffect(() => {
       if(loggedInUser){
         setIsLogged(true);
 
-        axios.post("/users", {
-          name:loggedInUser.displayName,
-          photoURL:loggedInUser.photoURL,
-          email:loggedInUser.email,
-          role: 'customer'
-        })
-        .then(response=>
-          {
-            console.log(response.data.data.role)
-            setUserData({
-              name:response.data.data.name,
-              email:response.data.data.email,
-              photoURL:response.data.data.photoURL,
-            })
-            let role = response.data.data.role;
-            if(role=='admin'){
-              setIsInstructor(false)
-              setIsAdmin(true)
-              setIsStudent(false)
-              setAdminStateLoading(false)
-            }else if(role=='seller'){
-               setIsInstructor(true)
-              setIsAdmin(false)
-              setIsStudent(false)
-              setAdminStateLoading(false)
-            }else if(role=='customer'){
-              setIsInstructor(false)
-              setIsAdmin(false)
-              setIsStudent(true)
-              setAdminStateLoading(false)
-            }
-            setLoading(false);
-          })
         
           axios.post('/jwt', {email: loggedInUser.email})
           .then(data =>{ 

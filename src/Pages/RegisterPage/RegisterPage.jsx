@@ -11,13 +11,14 @@ import Header from '../../Layout/Header/Header';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../Provider/AuthContextProvider';
+import Swal from 'sweetalert2';
 const RegisterPage = ({ setTitle }) => {
   const [imguploadingmessage, setimguploadingmessage] = useState(null);
   const [progresssending, setProgresssending] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [message, setMessage] = useState("");
   const [pass, setPass] = useState(null);
-  const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, loading, userData, setUserData } = useContext(AuthContext);
+  const { registerUser, setRefetchUser, refetchUser, user, logOut, loginUser, isLogged, setIsLogged, loading, userData, setUserData } = useContext(AuthContext);
 
   const changeInputPassword = (e) => {
     setMessage("")
@@ -27,7 +28,10 @@ const RegisterPage = ({ setTitle }) => {
   }, []);
 
   const auth = getAuth(app);
-  const handleSubmit = (e) => {
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let email = e.target.email.value
     let phone = e.target.phone.value
@@ -36,7 +40,7 @@ const RegisterPage = ({ setTitle }) => {
     let fname = e.target.fname.value;
     let lname = e.target.lname.value;
 
-    if (password == "" || email == "" || phone=="") {
+    if (password == "" || email == "" || phone == "") {
       setMessage("Password or email can't be empty")
       return;
     } else if (cfpassword != password) {
@@ -60,34 +64,56 @@ const RegisterPage = ({ setTitle }) => {
       email: email,
       photoURL: uploadedImageUrl,
     })
-    axios.post("/users", {
-      fname: fname,
-      lname: lname,
-      email: email,
-      phone: phone,
-      photoURL: uploadedImageUrl,
-      role: 'customer'
-    })
-      .then(response => {
-        console.log('from register page', response.data);
-      })
-      .catch(error => {
-        console.error('Error creating user:', error);
-      });
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        user.updateProfile({
-          displayName: fname,
-          photoURL: uploadedImageUrl,
-        }).then((response) => {
-          console.log(response)
+
+    try {
+
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          user.updateProfile({
+            displayName: fname,
+            photoURL: uploadedImageUrl,
+          }).then((response) => {
+          });
+
+        })
+        .catch(error => {
+          console.error('Error creating user:', error.code);
+          if (error.code == 'auth/email-already-in-use') {
+
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Email already in use, try different one',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
         });
+
+
+      console.log('firebase operation ', userCredential);
+      const response = await axios.post("/users", {
+        fname: fname,
+        lname: lname,
+        email: email,
+        phone: phone,
+        photoURL: uploadedImageUrl,
+        role: 'customer'
       })
-      .catch(error => {
-        console.error('Error creating user:', error);
-      });
+        .then(response => {
+          console.log('from register page', response.data);
+          setRefetchUser(!refetchUser)
+        })
+        .catch(error => {
+          console.error('Error creating user:', error);
+        });
+
+    } catch (error) {
+      console.log(error);
+    }
+
 
   }
 
@@ -130,25 +156,25 @@ const RegisterPage = ({ setTitle }) => {
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
             <div className='flex flex-col md:flex-row gap-5'>
-            <input
-              type="text"
-              name="fname"
-              id=""
-              placeholder="Enter Your First Name"
-              className="p-2 rounded-lg text-black border"
-            />
-            <input
-              type="text"
-              name="lname"
-              id=""
-              placeholder="Enter Your Last Name"
-              className="p-2 rounded-lg text-black border"
-            />
+              <input
+                type="text"
+                name="fname"
+                id=""
+                placeholder="Enter Your First Name"
+                className="p-2 rounded-lg text-black border"
+              />
+              <input
+                type="text"
+                name="lname"
+                id=""
+                placeholder="Enter Your Last Name"
+                className="p-2 rounded-lg text-black border"
+              />
             </div>
-            
+
 
             {/*  */}
-           
+
             {/*  */}
             <input
               type="email"
@@ -179,7 +205,7 @@ const RegisterPage = ({ setTitle }) => {
               placeholder="Confirm Password"
               className="p-2 rounded-lg text-black border" required
             />
-             <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-2'>
               <div className="form-control w-full ">
                 <label className="label">
                   <span className="label-text text-gray-400">Upload Your Image</span>

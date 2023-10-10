@@ -15,7 +15,6 @@ const Orders = () => {
 
                 res => {
                     setOrderData(res.data)
-
                 }
 
 

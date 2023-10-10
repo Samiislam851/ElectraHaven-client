@@ -41,7 +41,7 @@ console.log('userlevel..............................',userLevel);
 
                     </div>
                     <div className='basis-[50%] '>
-                        <div className='float-left'>
+                        <div className='float-left mt-5'>
                             <h1 className='md:text-5xl text-3xl font-medium uppercase'>{userMongoData?.fname} {userMongoData?.lname}</h1>
                             <div>
                                 <p className='pt-5  ms-2 text-lg'>Email : <span className='text-gray-500'>{userMongoData?.email}</span> </p>
@@ -75,7 +75,12 @@ console.log('userlevel..............................',userLevel);
 
                 </> : <>
 
-                    <button onClick={updateAddress} className='bg-gray-800 px-4 py-2 text-white rounded-lg font-medium mt-6 ms-2 hover:scale-105 transition-all cursor-pointer ease-in-out duration-300 hover:shadow-xl'>Add Address</button>
+                <div className='flex justify-center pt-5'>
+
+                <button onClick={updateAddress} className='bg-gray-800  px-4 py-2 text-white rounded-lg font-medium mt-6 ms-2 hover:scale-105 transition-all cursor-pointer ease-in-out duration-300 hover:shadow-xl'>Add Address</button>
+                </div>
+
+                    
                 </>}
 
 

@@ -23,10 +23,21 @@ const Cart = () => {
             return acc + productPrice;
         }, 0)
         setTotalPrice(newPrice);
-       
+
+
+        if (cart[0] && userMongoData?.address) {
+            setdisabled(false);
+        }else{
+            setdisabled(true)
+        }
+
+
     }, [toggleDependency, cart]);
 
+    const [disabled, setdisabled] = useState(true);
 
+
+   
 
 
 
@@ -35,13 +46,13 @@ const Cart = () => {
 
 
         const products = []
-  
+
         const currentDate = new Date();
 
 
         cart.map(data => {
             const product = {
-                orderId : data._id,
+                orderId: data._id,
                 productId: data.productId,
                 price: data.price,
                 quantity: data.quantity,
@@ -83,18 +94,18 @@ const Cart = () => {
 
                 <div className='shadow relative rounded-xl md:mx-10  md:basis-[70%]'>
 
-{cart[0]?
- <ul>
- {cart.map(data => <CartDataCard key={data._id} setToggleDependency={setToggleDependency} toggleDependency={toggleDependency} data={data}></CartDataCard>)}
-</ul>
-:
-<h1 className='top-[50%] absolute right-[50%] translate-x-[50%] translate-y-[-50%] text-3xl text-gray-500 '>Your Cart Is Empty :(</h1>
+                    {cart[0] ?
+                        <ul>
+                            {cart.map(data => <CartDataCard key={data._id} setToggleDependency={setToggleDependency} toggleDependency={toggleDependency} data={data}></CartDataCard>)}
+                        </ul>
+                        :
+                        <h1 className='top-[50%] absolute right-[50%] translate-x-[50%] translate-y-[-50%] text-3xl text-gray-500 '>Your Cart Is Empty :(</h1>
 
 
-}
+                    }
 
 
-                   
+
                 </div>
 
 
@@ -128,7 +139,7 @@ const Cart = () => {
                         <div className='md:px-10 pt-10 px-5'>
                             <h2 className='text-center flex justify-between text-xl'>Total : <span className='font-semibold'>{totalPrice} bdt</span> </h2>
 
-                            <button onClick={handleConfirmOrder} disabled={!cart[0]} className='bg-[#35B087] font-medium cursor-pointer hover:bg-[#339675] transition-all ease-in-out duration-500 rounded-lg py-2 my-5 text-white w-full'>Confirm Order</button>
+                            <button onClick={handleConfirmOrder} disabled={disabled} className='bg-[#35B087] btn font-medium cursor-pointer hover:bg-[#339675] transition-all ease-in-out duration-500 rounded-lg py-2 px-2 my-5 text-white w-full'>Confirm Order</button>
                         </div>
                     </div>
                 </div>

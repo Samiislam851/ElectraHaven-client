@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
 
 import Slider from '../../Layout/Slider/Slider';
 import InverterComponent from '../../Component/InverterComponent/InverterComponent';
+import SolarPanelComponent from '../../Component/SolarPanelComponent/SolarPanelComponent';
 
 
 
@@ -32,6 +33,7 @@ const HomePage = ({ setTitle }) => {
         {/* <PopularClassesComponent /> */}
         <InverterComponent/>
         {/* <MusicGroups /> */}
+        <SolarPanelComponent/>
         {/* <PopularInstructor /> */}
 
         {/* <LetsMakeArt /> */}

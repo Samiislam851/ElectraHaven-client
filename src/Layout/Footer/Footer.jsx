@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <>
 
-     <div className="bg-[#F7FDFA] text-gray-300 md:px-32 pt-10 md:mt-10 md:pb-20">
+     <div className="bg-[#dddddd] text-gray-300 md:px-32 pt-10 md:mt-0 md:pb-20">
   {/* <footer className="footer bg-transparent text-gray-600 text-xl p-10 bg-base-200 text-base-content mt-0">
     <div>
       <span className="text-2xl font-bold text-gray-700">Services</span>

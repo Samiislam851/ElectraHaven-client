@@ -10,7 +10,7 @@ const InverterCard = ({ data }) => {
     const [disableButton, setDisableButton] = useState(false);
     const navigate = useNavigate();
 
-    const { user, cartToggle, setCartToggle } = useContext(AuthContext);
+    const { user, cartToggle, setCartToggle, userMongoData } = useContext(AuthContext);
 
 
     const addToCart = () => {
@@ -78,6 +78,10 @@ const InverterCard = ({ data }) => {
                 <div className='flex justify-between items-center px-5 pb-2'>
 
                     <Link to={`product/${data._id}`} className="mt-0 mb-2  flex items-center text-[#35B087] text-center font-semibold float-left md:hover:scale-105 transition-all ease-in-out duration-300">Read More <AiOutlineArrowRight className='inline' /> </Link>
+
+
+                    {userMongoData?.role == "admin" ? <></> :<>
+                    
                     { user ? 
                     
                     <button onClick={ addToCart } className={` bg-[#35B087] flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button>
@@ -86,6 +90,9 @@ const InverterCard = ({ data }) => {
                         <button onClick={() => { navigate('/login') }} className={` bg-[#35B087] flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button>
 
                     }
+                    </>}
+
+                   
                 </div>
             </> : <>
                

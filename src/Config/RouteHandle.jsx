@@ -17,8 +17,6 @@ import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 
 import RegisterPage from '../Pages/RegisterPage/RegisterPage';
 import AddAClass from '../Pages/InstructorPages/AddAClass/AddAClass';
-import UpdateInstructorClasses from '../Pages/InstructorPages/UpdateInstructorClasses/UpdateInstructorClasses';
-import ManageClasses from '../Pages/AdminPages/ManageClasses/ManageClasses';
 import ManageUsers from '../Pages/AdminPages/ManageUsers/ManageUsers';
 import AdminDashBoard from '../Pages/AdminPages/AdminDashBoard/AdminDashBoard';
 import AdminDashBoardLayout from '../Component/AdminComponents/AdminDashBoardLayout/AdminDashBoardLayout';
@@ -34,6 +32,9 @@ import Orders from '../Pages/Orders/Orders';
 import OrderedProduct from '../Pages/OrderedProduct/OrderedProduct';
 import SingleItem from '../Pages/SingleItem/SingleItem';
 import AllProducts from '../Pages/AllProducts/AllProducts';
+import ManageProducts from '../Pages/AdminPages/MannageProducts/ManageProducts';
+import UpdateProduct from '../Pages/AdminPages/UpdateProduct/UpdateProduct';
+import AddAProduct from '../Pages/AdminPages/AddAProduct/AddAProduct';
 
 
 const RouteHandle = () => {
@@ -88,6 +89,10 @@ const RouteHandle = () => {
           element :  <SingleItem/> 
         },
         {
+          path: '/all-products/product/:productId',
+          element :  <SingleItem/> 
+        },
+        {
           path: '/orders',
           element : <PrivateRoute> <Orders/> </PrivateRoute> 
         },
@@ -113,7 +118,10 @@ const RouteHandle = () => {
           path: "/user/address/update",
           element: <PrivateRoute> <UpdateAddress setTitle={setTitle} /> </PrivateRoute>,
         },
-
+        {
+          path: "/admin/manageproducts/product/:productId",
+          element: <SingleItem setTitle={setTitle} />,
+        },
 
 
         {
@@ -125,14 +133,23 @@ const RouteHandle = () => {
               element: <AdminDashBoard setTitle={setTitle} />,
             },
             {
-              path: "/admin/manageclass",
-              element: <ManageClasses setTitle={setTitle} />,
+              path: "/admin/manageproducts",
+              element: <ManageProducts setTitle={setTitle} />,
+            },
+            {
+              path: "/admin/add-product",
+              element: <AddAProduct setTitle={setTitle} />,
+            },
+            {
+              path: "/admin/update-product/:productId",
+              element: <UpdateProduct  />,
             },
 
             {
               path: "/admin/manageusers",
               element: <ManageUsers setTitle={setTitle} />,
             },
+            
 
           ]
         }
