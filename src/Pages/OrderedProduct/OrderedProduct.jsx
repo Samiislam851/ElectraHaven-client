@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { redirect, useLocation, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthContextProvider';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,7 @@ const OrderedProduct = () => {
 
 
     const { state } = useLocation();
-    console.log('order id.....................', state.order.orderId);
+    console.log('order id.....................', state.order);
     const order = state.order;
 
     //////////////////date and time////////////
@@ -57,18 +57,37 @@ const OrderedProduct = () => {
         axios.get(`products/${state?.order?.productId}`).then(res => setProduct(res.data))
     }, []);
 
+const handlePayment = () => {
+
+
+const data ={
+   orderId :  order.orderId,
+  product,
+    userMongoData
+}
+
+axios.post('/payment',data).then(res =>{
+    console.log(res.data);
+    window.location.replace(res.data.url)
+
+} )
+}
 
 
 
     return (
         <div className='mx-auto rounded border shadow-lg p-5 rounded-lg my-20 w-[70%]'>
 
-            <div className='bg-gray-100 border rounded-lg py-5 md:w-[60%] mx-auto'>
+            <div className='bg-gray-100 border flex-col flex justify-center items-center rounded-lg py-5 md:w-[60%] mx-auto'>
                 {/* TO DO : payment gateway Integration */}
                 <div className='text-center font-medium text-gray-600 '>Your order is {order.status}</div>
 
+{order.paymentStatus=="paid"?<>
 
-                <div className='text-center w-fit mx-auto rounded p-2 m-2 border border-red-500'>Payment gateway</div>
+</>:<>
+<div onClick={handlePayment} disabled={(userMongoData&&product&&order)?false:true} className='btn  text-center text-gray-600 hover:cursor-pointer hover:bg-orange-500 hover:text-white  transition-all ease-in-out duration-500 w-fit  mx-auto rounded p-2 m-2 border border-orange-500'>Proceed to Payment</div>
+</>}
+                
             </div>
 
 
@@ -88,6 +107,8 @@ const OrderedProduct = () => {
                             <div className='bg-gray-200 rounded-lg px-2 text-xs py-1 h-fit w-fit font-medium text-gray-600'>{order.status}</div>
 
                             <div className='bg-gray-200 rounded-lg px-2 text-xs py-1 h-fit w-fit font-medium text-gray-600'>{order.paymentMethod}</div>
+
+                            <div className='bg-gray-200 rounded-lg px-2 text-xs py-1 h-fit w-fit font-medium text-gray-600'>{order.paymentStatus}</div>
 
                         </div>
 

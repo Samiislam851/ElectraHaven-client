@@ -35,6 +35,7 @@ import AllProducts from '../Pages/AllProducts/AllProducts';
 import ManageProducts from '../Pages/AdminPages/MannageProducts/ManageProducts';
 import UpdateProduct from '../Pages/AdminPages/UpdateProduct/UpdateProduct';
 import AddAProduct from '../Pages/AdminPages/AddAProduct/AddAProduct';
+import SuccessfullPayment from '../Pages/SuccessfullPayment/SuccessfullPayment';
 
 
 const RouteHandle = () => {
@@ -84,6 +85,11 @@ const RouteHandle = () => {
           path: '/cart',
           element : <PrivateRoute> <Cart/> </PrivateRoute> 
         },
+        {
+          path: '/payment/success/:transactionId',
+          element : <SuccessfullPayment/> 
+        },
+        
         {
           path: '/product/:productId',
           element :  <SingleItem/> 
