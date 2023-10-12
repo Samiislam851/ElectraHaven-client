@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { redirect, useLocation, useParams } from 'react-router-dom';
+import { Navigate, redirect, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthContextProvider';
 import Swal from 'sweetalert2';
 
@@ -9,7 +9,7 @@ const OrderedProduct = () => {
     const id = params.id
     const [product, setProduct] = useState({});
     const { userMongoData } = useContext(AuthContext);
-
+const navigate  = useNavigate()
 
 
     const { state } = useLocation();
@@ -57,20 +57,24 @@ const OrderedProduct = () => {
         axios.get(`products/${state?.order?.productId}`).then(res => setProduct(res.data))
     }, []);
 
-const handlePayment = () => {
+const handlePayment = (val) => {
 
 
 const data ={
-   orderId :  order.orderId,
+ 
+   order,
   product,
     userMongoData
 }
+if(val==5){
 
-axios.post('/payment',data).then(res =>{
-    console.log(res.data);
-    window.location.replace(res.data.url)
+    navigate(`/payment/mobile-banking/${order.orderId}`, { state: { data } })
+}
+// axios.post('/payment',data).then(res =>{
+//     console.log(res.data);
+//     window.location.replace(res.data.url)
 
-} )
+// } )
 }
 
 
@@ -85,7 +89,8 @@ axios.post('/payment',data).then(res =>{
 {order.paymentStatus=="paid"?<>
 
 </>:<>
-<div onClick={handlePayment} disabled={(userMongoData&&product&&order)?false:true} className='btn  text-center text-gray-600 hover:cursor-pointer hover:bg-orange-500 hover:text-white  transition-all ease-in-out duration-500 w-fit  mx-auto rounded p-2 m-2 border border-orange-500'>Proceed to Payment</div>
+<div onClick={()=>{handlePayment(5)}} disabled={(userMongoData&&product&&order)?false:true} className='btn  text-center text-gray-600 hover:cursor-pointer hover:bg-orange-500 hover:text-white  transition-all ease-in-out duration-500 w-fit  mx-auto rounded p-2 m-2 border border-orange-500'>Proceed to payment using mobile Banking</div>
+<div onClick={()=>{handlePayment(0)}} disabled={(userMongoData&&product&&order)?false:true} className='btn  text-center text-gray-600 hover:cursor-pointer hover:bg-orange-500 hover:text-white  transition-all ease-in-out duration-500 w-fit  mx-auto rounded p-2 m-2 border border-orange-500'>Proceed to payment using DBBL Card</div>
 </>}
                 
             </div>

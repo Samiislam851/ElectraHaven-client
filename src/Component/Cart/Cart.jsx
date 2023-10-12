@@ -27,7 +27,7 @@ const Cart = () => {
 
         if (cart[0] && userMongoData?.address) {
             setdisabled(false);
-        }else{
+        } else {
             setdisabled(true)
         }
 
@@ -37,7 +37,7 @@ const Cart = () => {
     const [disabled, setdisabled] = useState(true);
 
 
-   
+
 
 
 
@@ -47,8 +47,15 @@ const Cart = () => {
 
         const products = []
 
-        const currentDate = new Date();
+     
 
+        const utcDate =  new Date();
+        utcDate.setHours(utcDate.getHours() + 6);
+
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        
+        const currentDate = utcDate.toLocaleString('en-US', options)
+        console.log('current time........!', currentDate);
 
         cart.map(data => {
             const product = {

@@ -36,6 +36,9 @@ import ManageProducts from '../Pages/AdminPages/MannageProducts/ManageProducts';
 import UpdateProduct from '../Pages/AdminPages/UpdateProduct/UpdateProduct';
 import AddAProduct from '../Pages/AdminPages/AddAProduct/AddAProduct';
 import SuccessfullPayment from '../Pages/SuccessfullPayment/SuccessfullPayment';
+import FailedPayment from '../Pages/FailedPayment/FailedPayment';
+import CanceledPayment from '../Pages/CanceledPayment/CanceledPayment';
+import MobileBankingPayment from '../Pages/MobileBankingPayment/MobileBankingPayment';
 
 
 const RouteHandle = () => {
@@ -85,9 +88,24 @@ const RouteHandle = () => {
           path: '/cart',
           element : <PrivateRoute> <Cart/> </PrivateRoute> 
         },
+
+       ///////// ////// custom for rifat bhai //////////////////
+        {
+          path: '/payment/mobile-banking/:id',
+          element : <PrivateRoute> <MobileBankingPayment/> </PrivateRoute> 
+        },
+               ///////// ////// custom for rifat bhai end //////////////////
         {
           path: '/payment/success/:transactionId',
           element : <SuccessfullPayment/> 
+        },
+        {
+          path: '/payment/failed/:transactionId',
+          element : <FailedPayment/> 
+        },
+        {
+          path: '/payment/cancel/:transactionId',
+          element : <CanceledPayment/> 
         },
         
         {
@@ -148,7 +166,7 @@ const RouteHandle = () => {
             },
             {
               path: "/admin/update-product/:productId",
-              element: <UpdateProduct  />,
+              element: <UpdateProduct />,
             },
 
             {
