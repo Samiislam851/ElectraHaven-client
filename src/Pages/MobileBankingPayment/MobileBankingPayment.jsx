@@ -33,9 +33,10 @@ const MobileBankingPayment = () => {
            paymentServiceProvider :  serviceProvider,
             transactionCount,
             transactions,
-            phoneNumber
+            phoneNumber,
+            user : data.userMongoData
         }
-axios.put(`payment/mobile-banking/${data.order.orderId}`,paymentData).then(res=>{
+axios.put(`/payment/mobile-banking/${data.order.orderId}`,paymentData).then(res=>{
     console.log(res.data);
 })
 
@@ -50,8 +51,8 @@ axios.put(`payment/mobile-banking/${data.order.orderId}`,paymentData).then(res=>
                     const { value: formValues } = await Swal.fire({
                         title: 'Enter TransactionId and Amount',
                         html:
-                            `<input id="swal-input1" placeholder='Enter Transaction ID ${i + 1}' class="swal2-input">` +
-                            `<input id="swal-input2" placeholder='Enter Amount ${i + 1}' class="swal2-input">`,
+                            `<input id="swal-input1"  placeholder='Enter Transaction ID ${i + 1}' class="swal2-input">` +
+                            `<input id="swal-input2" type='number' placeholder='Enter Amount ${i + 1}' class="swal2-input">`,
                         focusConfirm: false,
                         preConfirm: () => {
                             return [
