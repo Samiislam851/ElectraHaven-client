@@ -12,7 +12,11 @@ const PaidOrders = () => {
         axios.get('/orders/payment-status/paid').then(res => {
             setRenderedOrders(res.data);
             setLoading(false);
-        }).catch(err => console.log(err))
+        }).catch(err =>
+            
+            {
+                setLoading(false)
+                console.log(err)})
     }, []);
     return (
         <div>
@@ -27,12 +31,13 @@ const PaidOrders = () => {
 
 {user ?
   <>
-    <div></div>
-
+ 
+ {renderedOrders?
+    <>
     <section className='flex flex-col items-center justify-center mt-8 space-y-8'>
       <div className="overflow-x-auto  ">
 
-
+    
         <table className="table w-full mb-20">
           <thead>
             <tr>
@@ -42,8 +47,7 @@ const PaidOrders = () => {
               <th>Status</th>
               <th>Quantity </th>
               <th>Payment Status</th>
-              <th>View and Update Details</th>
-              <th>Cancel by Admin</th>
+           
             </tr>
           </thead>
           <tbody>
@@ -53,6 +57,9 @@ const PaidOrders = () => {
             {loading ? <>
               <Spinner />
             </> : <>
+
+
+
               {renderedOrders.map(e => {
 
                 return <>
@@ -92,18 +99,7 @@ const PaidOrders = () => {
 
                     </td>
 
-                    <td>
-                    <button className='btn btn-error btn-xs text-white'>
-                       cancel
-                     </button>
-                         
-                    </td>
-                    <td>
-                     <button className='btn btn-error btn-xs text-white'>
-                       cancel
-                     </button>
-                         
-                    </td>
+                 
                   </tr>
 
                   
@@ -125,6 +121,13 @@ const PaidOrders = () => {
       </div>
 
     </section>
+    </>
+:
+<>
+<h1 className='text-3xl text-gray-500 py-32 text-center'>No paid orders are available</h1>
+</>
+}
+   
   </> : <>
 
     <div className='flex justify-center mt-12'>

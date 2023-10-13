@@ -11,10 +11,6 @@ const DashBoard = () => {
         if( !loading && user ){
              if(isAdmin){
             navigate('/admin')
-        }else if(isInstrucor){
-            navigate("/instructor")
-        }else {
-            navigate("/student")
         }
         }
        

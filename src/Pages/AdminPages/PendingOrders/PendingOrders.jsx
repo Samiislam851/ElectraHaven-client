@@ -56,8 +56,8 @@ const PendingOrders = () => {
 
                         {user ?
                             <>
-                                <div></div>
 
+                            {renderedOrders?<>
                                 <section className='flex flex-col items-center justify-center mt-8 space-y-8'>
                                     <div className="overflow-x-auto  ">
 
@@ -148,6 +148,14 @@ const PendingOrders = () => {
                                     </div>
 
                                 </section>
+                            </>:<>
+                            
+                            <h1 className='text-3xl text-gray-500 py-32 text-center'>No pending orders are available</h1>
+                            
+                            </>}
+                              
+
+                              
                             </> : <>
 
                                 <div className='flex justify-center mt-12'>

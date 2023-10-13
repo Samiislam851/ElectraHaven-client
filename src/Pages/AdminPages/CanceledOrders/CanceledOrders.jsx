@@ -28,8 +28,9 @@ const CanceledOrders = () => {
 
 {user ?
   <>
-    <div></div>
 
+
+  {renderedOrders?<>
     <section className='flex flex-col items-center justify-center mt-8 space-y-8'>
       <div className="overflow-x-auto  ">
 
@@ -43,8 +44,7 @@ const CanceledOrders = () => {
               <th>Status</th>
               <th>Quantity </th>
               <th>Payment Status</th>
-              <th>View and Update Details</th>
-              <th>Cancel by Admin</th>
+           
             </tr>
           </thead>
           <tbody>
@@ -97,12 +97,7 @@ const CanceledOrders = () => {
                  
                          
                     </td>
-                    <td>
-                     <button className='btn btn-error btn-xs text-white'>
-                       cancel
-                     </button>
-                         
-                    </td>
+                   
                   </tr>
 
                   
@@ -124,6 +119,13 @@ const CanceledOrders = () => {
       </div>
 
     </section>
+  </>:<>
+  
+  <h1 className='text-3xl text-gray-500 py-32 text-center'>No order with requested payment is available</h1>
+  </>}
+  
+
+
   </> : <>
 
     <div className='flex justify-center mt-12'>

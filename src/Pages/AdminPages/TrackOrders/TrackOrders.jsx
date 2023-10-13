@@ -11,7 +11,7 @@ import CanceledOrders from '../CanceledOrders/CanceledOrders';
 const TrackOrders = () => {
     return (
         <div className='bg-white py-10 px-5 rounded-lg'>
-            <Tabs>
+            <Tabs defaultIndex={2}>
                 <TabList >
                     <Tab >
                         <h2 className='text-gray-600 bg-transparent'>

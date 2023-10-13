@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ViewOrderDetails = () => {
 
@@ -8,10 +9,39 @@ const ViewOrderDetails = () => {
     console.log(state.data);
     const orderData = state.data;
     const [productData, setProductData] = useState({});
-
+const navigate = useNavigate();
 
     const handleAcknowledgment = () => {
-          
+         axios.put(`/paymentReceived/admin`,orderData).then( res => 
+            {
+                
+                if(res.data.modifiedCount>0){
+                    console.log(res.data);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Updated',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
+                      navigate(`/admin/trackorders`)
+                    
+                }else if(res.data?.message) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: res.data.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
+                }else{
+                    console.log(res.data);
+                }
+                
+            }
+         ) 
     }
 
 
