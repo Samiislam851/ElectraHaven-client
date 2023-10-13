@@ -55,6 +55,7 @@ const navigate  = useNavigate()
 
     useEffect(() => {
         axios.get(`products/${state?.order?.productId}`).then(res => setProduct(res.data))
+        window.scrollTo(0, 0);
     }, []);
 
 const handlePayment = (val) => {
@@ -85,12 +86,23 @@ if(val==5){
             <div className='bg-gray-100 border flex-col flex justify-center items-center rounded-lg py-5 md:w-[60%] mx-auto'>
                 {/* TO DO : payment gateway Integration */}
                 <div className='text-center font-medium text-gray-600 '>Your order is {order.status}</div>
+                <div className='text-center font-medium text-gray-600 '>And Payment Status : <span className='uppercase'>{order.paymentStatus}</span> </div>
 
-{order.paymentStatus=="paid"?<>
+{order.paymentStatus=="paid" || order.paymentStatus=="requested"?<>
 
 </>:<>
-<div onClick={()=>{handlePayment(5)}} disabled={(userMongoData&&product&&order)?false:true} className='btn  text-center text-gray-600 hover:cursor-pointer hover:bg-orange-500 hover:text-white  transition-all ease-in-out duration-500 w-fit  mx-auto rounded p-2 m-2 border border-orange-500'>Proceed to payment using mobile Banking</div>
+
+{
+    order.status=="Cancelled"?<></>:<>
+    
+    <div onClick={()=>{handlePayment(5)}} disabled={(userMongoData&&product&&order)?false:true} className='btn  text-center text-gray-600 hover:cursor-pointer hover:bg-orange-500 hover:text-white  transition-all ease-in-out duration-500 w-fit  mx-auto rounded p-2 m-2 border border-orange-500'>Proceed to payment using mobile Banking</div>
 <div onClick={()=>{handlePayment(0)}} disabled={(userMongoData&&product&&order)?false:true} className='btn  text-center text-gray-600 hover:cursor-pointer hover:bg-orange-500 hover:text-white  transition-all ease-in-out duration-500 w-fit  mx-auto rounded p-2 m-2 border border-orange-500'>Proceed to payment using DBBL Card</div>
+    
+    </>
+}
+
+
+
 </>}
                 
             </div>

@@ -25,6 +25,7 @@ const OrderCard = ({ order }) => {
 
     useEffect(() => {
         axios.get(`/products/${order.productId}`).then(res => setProduct(res.data));
+        window.scrollTo(0, 0);
     }, []);
 
 

@@ -180,8 +180,8 @@ console.log('fullfilled standards ',productData?.fulfilledStandards);
 
                                     <>
 
-                                        {user ? <button onClick={() => { addToCart() }} className={` bg-[#35B087] flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button> :
-                                            <button onClick={() => { navigate('/login') }} className={` bg-[#35B087] flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button>
+                                        {user ? <button onClick={() => { addToCart() }} className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button> :
+                                            <button onClick={() => { navigate('/login') }} className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button>
 
                                         }
 

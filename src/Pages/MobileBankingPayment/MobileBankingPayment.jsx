@@ -1,18 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineArrowDown } from 'react-icons/ai';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const MobileBankingPayment = () => {
 
     const { state } = useLocation();
     const data = state.data;
-    console.log(data);
+    const navigate = useNavigate();
     const [adminNumber, setAdminNumber] = useState(0);
 
     useEffect(() => {
         axios.get('/adminNumber').then(res => setAdminNumber(res.data));
+        window.scrollTo(0, 0);
     }, []);
 
 
@@ -30,15 +31,48 @@ const MobileBankingPayment = () => {
 
         const paymentData = {
             orderId: data.order.orderId,
-           paymentServiceProvider :  serviceProvider,
+            paymentServiceProvider: serviceProvider,
             transactionCount,
             transactions,
             phoneNumber,
-            user : data.userMongoData
+            user: data.userMongoData
         }
-axios.put(`/payment/mobile-banking/${data.order.orderId}`,paymentData).then(res=>{
-    console.log(res.data);
-})
+        axios.put(`/payment/mobile-banking/${data.order.orderId}`, paymentData).then(res => {
+            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+
+                Swal.fire({
+                    title: 'Your payment request has been submitted',
+                    text: "Kindly monitor this order until our team confirms receipt of payment. Thank you for your attention",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/')
+                    }
+                })
+
+
+
+
+            }else {
+                Swal.fire({
+                    title: 'There was a problem',
+                    text: res.data.message,
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate(-1)
+                    }
+                })
+            }
+        })
 
     };
 
@@ -199,18 +233,20 @@ axios.put(`/payment/mobile-banking/${data.order.orderId}`,paymentData).then(res=
                         </table>
 
 
-                        <div className='flex md:flex-row flex-col justify-center px-3 gap-3 my-5'>
-                            <button onClick={handleTransactionInput} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300 w-full rounded-lg p-2  md:mx-5' type="button ">Enter Transaction details</button>
-
-                            <button onClick={handleViewTransactionDetails} disabled={disabled} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300  rounded-lg p-2  md:mx-5 w-full' type="button ">View Transaction details</button>
-
-                        </div>
                         <div className='flex'>
                             <button className=' bg-gray-800 hover:shadow hover:bg-gray-900 transition-all ease-in-out duration-300 w-full rounded-lg p-2 text-white mx-5' disabled={disabled} type="submit ">Submit</button>
                         </div>
 
 
                     </form>
+
+                    
+                    <div className='flex md:flex-row flex-col justify-center px-3 gap-3 my-5'>
+                            <button onClick={handleTransactionInput} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300 w-full rounded-lg p-2  md:mx-5' >Enter Transaction details</button>
+
+                            <button onClick={handleViewTransactionDetails} disabled={disabled} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300  rounded-lg p-2  md:mx-5 w-full' >View Transaction details</button>
+
+                        </div>
                 </div>
             </div>
         </div>
