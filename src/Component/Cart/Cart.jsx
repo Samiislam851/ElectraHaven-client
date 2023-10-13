@@ -12,9 +12,11 @@ const Cart = () => {
 
     const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
+
     const updateAddress = () => {
         navigate('/user/address/update');
     }
+    
 
     useEffect(() => {
         const newPrice = cart.reduce((acc, current) => {
@@ -61,6 +63,8 @@ const Cart = () => {
             const product = {
                 orderId: data._id,
                 productId: data.productId,
+                userId:userMongoData._id,
+                userEmail:userMongoData.email,
                 price: data.price,
                 quantity: data.quantity,
                 totalPrice: data.price * data.quantity,

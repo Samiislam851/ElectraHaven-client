@@ -87,9 +87,7 @@ const ManageUsers = ({ setTitle }) => {
         <h1 className='text-6xl font-semibold text-gray-600 text-center my-10'>Manage users</h1>
 
 
-        <section className='mt-12 '>
-
-        </section>
+  
 
         <>
 

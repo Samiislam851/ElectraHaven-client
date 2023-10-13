@@ -68,6 +68,11 @@ const AdminDashBoardLayout = () => {
                       Manage Users
                     </Link>
                   </li>
+                  <li className="mt-3 hover:scale-110 transition-all ease-in-out duration-300 hover:ps-3">
+                    <Link to="/admin/trackorders" className=" ">
+                     Track Orders
+                    </Link>
+                  </li>
 
                 </ul>
               </div>

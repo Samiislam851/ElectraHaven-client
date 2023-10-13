@@ -39,6 +39,8 @@ import SuccessfullPayment from '../Pages/SuccessfullPayment/SuccessfullPayment';
 import FailedPayment from '../Pages/FailedPayment/FailedPayment';
 import CanceledPayment from '../Pages/CanceledPayment/CanceledPayment';
 import MobileBankingPayment from '../Pages/MobileBankingPayment/MobileBankingPayment';
+import TrackOrders from '../Pages/AdminPages/TrackOrders/TrackOrders';
+import ViewOrderDetails from '../Pages/AdminPages/ViewOrderDetails/ViewOrderDetails';
 
 
 const RouteHandle = () => {
@@ -161,6 +163,10 @@ const RouteHandle = () => {
               element: <ManageProducts setTitle={setTitle} />,
             },
             {
+              path: "/admin/trackorders",
+              element: <TrackOrders setTitle={setTitle} />,
+            },
+            {
               path: "/admin/add-product",
               element: <AddAProduct setTitle={setTitle} />,
             },
@@ -172,6 +178,10 @@ const RouteHandle = () => {
             {
               path: "/admin/manageusers",
               element: <ManageUsers setTitle={setTitle} />,
+            },
+            {
+              path: "/admin/vieworderdetails",
+              element: <ViewOrderDetails  />,
             },
             
 
