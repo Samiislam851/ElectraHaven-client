@@ -6,8 +6,10 @@ import Swal from 'sweetalert2';
 const ViewOrderDetails = () => {
 
     const { state } = useLocation();
-    console.log(state.data);
+
     const orderData = state.data;
+    const fromRequestedPage = state.fromRequestedPage;
+    console.log('requested page details', fromRequestedPage);
     const [productData, setProductData] = useState({});
 const navigate = useNavigate();
 
@@ -159,9 +161,11 @@ const navigate = useNavigate();
                 </table>
 
                 <div className="flex justify-center py-5">
-                    <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
+
+                    {fromRequestedPage? <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
                         Acknowledge as Payment Received
-                    </button>
+                    </button>:<></>}
+                   
                 </div>
             </div>
         </div>

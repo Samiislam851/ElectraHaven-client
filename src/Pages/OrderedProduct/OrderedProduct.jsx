@@ -70,12 +70,10 @@ const OrderedProduct = () => {
         if (val == 5) {
 
             navigate(`/payment/mobile-banking/${order.orderId}`, { state: { data } })
+        }else{
+            navigate(`/payment/card/${order.orderId}`, { state: { data } })
         }
-        // axios.post('/payment',data).then(res =>{
-        //     console.log(res.data);
-        //     window.location.replace(res.data.url)
-
-        // } )
+ 
     }
 
 
@@ -148,12 +146,14 @@ const OrderedProduct = () => {
                 <div className='flex flex-col md:flex-row justify-between items-center'>
 
                     <h2 className='text-sm text-gray-500 py-4 '> <span className='font-semibold'>Date Of Order Placement :</span> {date} {month} {year},  {hour}:{minute} {amOrPm}</h2>
-                    <button onClick={handleCancelOrder} className='bg-gray-800 text-xs hover:bg-red-600 transition-all ease-in-out duration-500 text-white py-1 px-2 h-fit w-fit rounded'>Cancel Order</button>
+
+                    {order.paymentStatus != 'paid' &&   <button onClick={handleCancelOrder} className='bg-gray-800 text-xs hover:bg-red-600 transition-all ease-in-out duration-500 text-white py-1 px-2 h-fit w-fit rounded'>Cancel Order</button>}
+                 
                 </div>
             </div>
             {order.paymentStatus == 'paid' ?
                 <>
-                    <div className="max-w-[70%] w-full bg-white p-8 rounded-lg shadow-md transform hover:shadow-xl transition-all duration-300 ease-in-out mx-auto my-10">
+                    <div className="max-w-[70%] border w-full bg-white p-8 rounded-lg shadow-md transform hover:shadow-xl transition-all duration-300 ease-in-out mx-auto my-10">
 
 
                         {/* Order Details */}

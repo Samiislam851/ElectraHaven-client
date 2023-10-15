@@ -30,9 +30,9 @@ const RequestedOrders = () => {
 
 
     const handleViewDetails = (e) => {
-
+const fromRequestedPage = true;
         const data = e;
-        navigate('/admin/vieworderdetails', { state: { data } })
+        navigate('/admin/vieworderdetails', { state: { data, fromRequestedPage } })
 
     }
 

@@ -91,7 +91,11 @@ const RouteHandle = () => {
           element : <PrivateRoute> <Cart/> </PrivateRoute> 
         },
 
-       ///////// ////// custom for rifat bhai //////////////////
+       ///////// ////// custom payment for rifat bhai //////////////////
+        {
+          path: '/payment/mobile-banking/:id',
+          element : <PrivateRoute> <MobileBankingPayment/> </PrivateRoute> 
+        },
         {
           path: '/payment/mobile-banking/:id',
           element : <PrivateRoute> <MobileBankingPayment/> </PrivateRoute> 
