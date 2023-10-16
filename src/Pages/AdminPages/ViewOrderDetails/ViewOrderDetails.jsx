@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 const ViewOrderDetails = () => {
 
     const { state } = useLocation();
-
+    const [feedBack, setFeedBack] = useState(null);
     const orderData = state.data;
     const fromRequestedPage = state.fromRequestedPage;
     console.log('requested page details', fromRequestedPage);
@@ -14,20 +14,26 @@ const ViewOrderDetails = () => {
     const navigate = useNavigate();
 
 
-    const handleProblematicOrder =async () => {
-      
+    const handleProblematicOrder = async () => {
+
         const { value: formValues } = await Swal.fire({
             title: 'Enter your feedback',
             html:
-                `<textarea id="swal-input1"   placeholder='Enter Feedback Here' class="swal2-input">` ,
+                `<textarea id="swal-input1"   placeholder='Enter Feedback Here' class="swal2-input">`,
             focusConfirm: false,
             preConfirm: () => {
-                return  document.getElementById('swal-input1').value 
-                
+                return document.getElementById('swal-input1').value
+
             }
         })
-        const feedBack = formValues
-        const newOrderData ={...orderData,feedBack}
+        setFeedBack(formValues)
+
+
+    }
+
+
+    const submitWithProblem = () => {
+        const newOrderData = { ...orderData, feedBack }
 
         console.log(newOrderData);
 
@@ -38,9 +44,9 @@ const ViewOrderDetails = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Updated',
+                    title: 'Submitted',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
                 })
 
                 navigate(`/admin/trackorders`)
@@ -60,7 +66,6 @@ const ViewOrderDetails = () => {
 
         }
         )
-
 
     }
 
@@ -238,12 +243,33 @@ const ViewOrderDetails = () => {
                 <div className="flex flex-col justify-center items-center gap-5 pt-20">
 
                     {fromRequestedPage ? <>
-                        <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
-                            Acknowledge as Payment Received
-                        </button>
-                        <button onClick={handleProblematicOrder} className="btn btn-error text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
-                        There's a problem >>>
-                        </button>
+
+
+                        {feedBack ?
+                            <>
+
+                                <div className='border p-5 rounded-xl border-4 text-gray-400'>
+                                    <span className='font-bold text-gray-500'>The Feedback : <br /></span>{feedBack}
+                                </div>
+                                <button onClick={submitWithProblem} className="btn btn-error text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105 hover:cursor-pointer">
+                                    Submit with problem
+                                </button>
+
+                            </>
+                            :
+                            <>
+                                <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
+                                    Acknowledge as Payment Received
+                                </button>
+                                <button onClick={handleProblematicOrder} className="btn btn-error text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
+                                          There's a problem >>>
+                                </button>
+                            </>
+
+
+                        }
+
+
 
                     </> : <></>}
 
