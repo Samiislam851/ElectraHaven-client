@@ -41,6 +41,7 @@ import CanceledPayment from '../Pages/CanceledPayment/CanceledPayment';
 import MobileBankingPayment from '../Pages/MobileBankingPayment/MobileBankingPayment';
 import TrackOrders from '../Pages/AdminPages/TrackOrders/TrackOrders';
 import ViewOrderDetails from '../Pages/AdminPages/ViewOrderDetails/ViewOrderDetails';
+import CardPayment from '../Pages/CardPayment/CardPayment';
 
 
 const RouteHandle = () => {
@@ -97,8 +98,8 @@ const RouteHandle = () => {
           element : <PrivateRoute> <MobileBankingPayment/> </PrivateRoute> 
         },
         {
-          path: '/payment/mobile-banking/:id',
-          element : <PrivateRoute> <MobileBankingPayment/> </PrivateRoute> 
+          path: '/payment/card/:id',
+          element : <PrivateRoute> <CardPayment/> </PrivateRoute> 
         },
                ///////// ////// custom for rifat bhai end //////////////////
         {

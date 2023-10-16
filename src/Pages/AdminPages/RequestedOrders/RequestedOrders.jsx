@@ -14,13 +14,8 @@ const RequestedOrders = () => {
             setRenderedOrders(res.data);
             setLoading(false);
         }).catch(err => {
-
-
-
             console.log(err)
-
-
-        })
+         })
     }, []);
 
 
@@ -33,7 +28,6 @@ const RequestedOrders = () => {
 const fromRequestedPage = true;
         const data = e;
         navigate('/admin/vieworderdetails', { state: { data, fromRequestedPage } })
-
     }
 
 
@@ -75,7 +69,7 @@ const fromRequestedPage = true;
                                                             <th>Price</th>
                                                             <th>Status</th>
                                                             <th>Quantity </th>
-                                                            <th>Payment Status</th>
+                                                            <th>Payment Method</th>
                                                             <th>View and Update Details</th>
                                                             <th>Cancel by Admin</th>
                                                         </tr>
@@ -118,7 +112,7 @@ const fromRequestedPage = true;
 
 
                                                                             {
-                                                                                e.paymentStatus
+                                                                                e.paymentMethod
                                                                             }
 
 

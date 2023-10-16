@@ -11,39 +11,38 @@ const ViewOrderDetails = () => {
     const fromRequestedPage = state.fromRequestedPage;
     console.log('requested page details', fromRequestedPage);
     const [productData, setProductData] = useState({});
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleAcknowledgment = () => {
-         axios.put(`/paymentReceived/admin`,orderData).then( res => 
-            {
-                
-                if(res.data.modifiedCount>0){
-                    console.log(res.data);
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Updated',
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
+        axios.put(`/paymentReceived/admin`, orderData).then(res => {
 
-                      navigate(`/admin/trackorders`)
-                    
-                }else if(res.data?.message) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'warning',
-                        title: res.data.message,
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
+            if (res.data.modifiedCount > 0) {
+                console.log(res.data);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Updated',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
-                }else{
-                    console.log(res.data);
-                }
-                
+                navigate(`/admin/trackorders`)
+
+            } else if (res.data?.message) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+            } else {
+                console.log(res.data);
             }
-         ) 
+
+        }
+        )
     }
 
 
@@ -89,24 +88,42 @@ const navigate = useNavigate();
 
                     <div className="text-gray-500">Payment Method:</div>
                     <div className="font-semibold capitalize">{orderData.paymentMethod}</div>
-
-                    <div className="text-gray-500">Payment Service Provider:</div>
-                    <div className="font-semibold capitalize">{orderData.paymentServiceProvider}</div>
+                    {orderData?.paymentServiceProvider && <> <div className="text-gray-500">Payment Service Provider:</div>
+                        <div className="font-semibold capitalize">{orderData.paymentServiceProvider}</div>
+                    </>}
 
                     <div className="text-gray-500">Payment Status:</div>
                     <div className="font-semibold capitalize">{orderData.paymentStatus}</div>
 
-                    <div className="text-gray-500">Quantity:</div>
+                    <div className="text-gray-500">Quantity</div>
                     <div className="font-semibold capitalize">{orderData.quantity}</div>
 
-                    <div className="text-gray-500">Total Price:</div>
+                    <div className="text-gray-500">Total Price</div>
                     <div className="font-semibold capitalize">${orderData.totalPrice}</div>
+                    {orderData.paymentMethod == "mobileBanking" &&
+                        <>
+                            <div className="text-gray-500">Transaction Count</div>
+                            <div className="font-semibold capitalize">{orderData.transactionCount}</div>
 
-                    <div className="text-gray-500">Transaction Count:</div>
-                    <div className="font-semibold capitalize">{orderData.transactionCount}</div>
+                            <div className="text-gray-500">Transaction Phone Number</div>
+                            <div className="font-semibold capitalize">{orderData.transactionPhoneNumber}</div>
 
-                    <div className="text-gray-500">Transaction Phone Number:</div>
-                    <div className="font-semibold capitalize">{orderData.transactionPhoneNumber}</div>
+                        </>
+                    }
+                    {orderData.paymentMethod == "card" &&
+                        <>
+                            <div className="text-gray-500">Provided Phone Number </div>
+                            <div className="font-semibold capitalize">{orderData.providedNumber}</div>
+
+                            <div className="text-gray-500">Card Number</div>
+                            <div className="font-semibold capitalize">{orderData.cardNumber}</div>
+                            <div className="text-gray-500">Provided Name</div>
+                            <div className="font-semibold capitalize">{orderData.providedName}</div>
+                            <div className="text-gray-500">Bank</div>
+                            <div className="font-semibold capitalize">{orderData.providedBank}</div>
+
+                        </>
+                    }
 
                     <div className="text-gray-500">User Email:</div>
                     <div className="font-semibold capitalize">{orderData.userEmail}</div>
@@ -142,30 +159,36 @@ const navigate = useNavigate();
                     <div className="text-gray-500">Landmark:</div>
                     <div className="font-semibold capitalize">{orderData.shippingAddress.landMark}</div>
                 </div>
-                <h2 className='text-2xl mt-5 mb-2 font-semibold text-gray-700'> Transaction Id</h2>
-                <table className="w-full mt-6 border border-gray-400 table rounded-lg">
-                    <thead className="bg-gray-200">
-                        <tr className="hover">
-                            <th className="border border-gray-400 p-2">Transaction ID</th>
-                            <th className="border border-gray-400 p-2">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {orderData.transactions.map((transaction, index) => (
-                            <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
-                                <td className="border border-gray-400 p-2">{transaction.transactionId}</td>
-                                <td className="border border-gray-400 p-2">{transaction.amount}</td>
+
+                {orderData.transactions && <>
+                    <h2 className='text-2xl mt-5 mb-2 font-semibold text-gray-700'> Transaction Id</h2>
+                    <table className="w-full mt-6 border border-gray-400 table rounded-lg">
+                        <thead className="bg-gray-200">
+                            <tr className="hover">
+                                <th className="border border-gray-400 p-2">Transaction ID</th>
+                                <th className="border border-gray-400 p-2">Amount</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {orderData.transactions.map((transaction, index) => (
+                                <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
+                                    <td className="border border-gray-400 p-2">{transaction.transactionId}</td>
+                                    <td className="border border-gray-400 p-2">{transaction.amount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </>
+
+                }
+
 
                 <div className="flex justify-center py-5">
 
-                    {fromRequestedPage? <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
+                    {fromRequestedPage ? <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
                         Acknowledge as Payment Received
-                    </button>:<></>}
-                   
+                    </button> : <></>}
+
                 </div>
             </div>
         </div>
