@@ -71,7 +71,7 @@ const fromRequestedPage = true;
                                                             <th>Quantity </th>
                                                             <th>Payment Method</th>
                                                             <th>View and Update Details</th>
-                                                            <th>Cancel by Admin</th>
+                                                           
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -126,12 +126,7 @@ const fromRequestedPage = true;
                                                                             </button>
 
                                                                         </td>
-                                                                        <td>
-                                                                            <button className='btn btn-error btn-xs text-white'>
-                                                                                cancel
-                                                                            </button>
-
-                                                                        </td>
+                                                                     
                                                                     </tr>
 
 

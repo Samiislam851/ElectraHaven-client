@@ -13,6 +13,58 @@ const ViewOrderDetails = () => {
     const [productData, setProductData] = useState({});
     const navigate = useNavigate();
 
+
+    const handleProblematicOrder =async () => {
+      
+        const { value: formValues } = await Swal.fire({
+            title: 'Enter your feedback',
+            html:
+                `<textarea id="swal-input1"   placeholder='Enter Feedback Here' class="swal2-input">` ,
+            focusConfirm: false,
+            preConfirm: () => {
+                return  document.getElementById('swal-input1').value 
+                
+            }
+        })
+        const feedBack = formValues
+        const newOrderData ={...orderData,feedBack}
+
+        console.log(newOrderData);
+
+        axios.put(`/problematic-order/admin`, newOrderData).then(res => {
+
+            if (res.data.modifiedCount > 0) {
+                console.log(res.data);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Updated',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+                navigate(`/admin/trackorders`)
+
+            } else if (res.data?.message) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+            } else {
+                console.log(res.data);
+            }
+
+        }
+        )
+
+
+    }
+
+
     const handleAcknowledgment = () => {
         axios.put(`/paymentReceived/admin`, orderData).then(res => {
 
@@ -183,11 +235,17 @@ const ViewOrderDetails = () => {
                 }
 
 
-                <div className="flex justify-center py-5">
+                <div className="flex flex-col justify-center items-center gap-5 pt-20">
 
-                    {fromRequestedPage ? <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
-                        Acknowledge as Payment Received
-                    </button> : <></>}
+                    {fromRequestedPage ? <>
+                        <button onClick={handleAcknowledgment} className="btn btn-success text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
+                            Acknowledge as Payment Received
+                        </button>
+                        <button onClick={handleProblematicOrder} className="btn btn-error text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
+                        There's a problem >>>
+                        </button>
+
+                    </> : <></>}
 
                 </div>
             </div>

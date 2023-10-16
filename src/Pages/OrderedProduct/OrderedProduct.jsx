@@ -1,8 +1,11 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Navigate, redirect, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthContextProvider';
 import Swal from 'sweetalert2';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+import { AiOutlineDownload } from 'react-icons/ai';
 
 const OrderedProduct = () => {
     const params = useParams()
@@ -15,6 +18,36 @@ const OrderedProduct = () => {
     const { state } = useLocation();
     console.log('order id.....................', state.order);
     const order = state.order;
+
+
+
+    // /////////////// pdg generation ///////////
+
+    const handlePDFDownload = () => {
+        axios
+            .get(`/orderdetails-pdf/download/${order.orderId}/${order.userEmail}`, {
+                responseType: 'blob', // Specify the response type as a blob
+            })
+            .then((response) => {
+                const blob = new Blob([response.data], { type: 'application/pdf' });
+
+                // Create a download link
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'order_details.pdf';
+
+                // Trigger a click event on the link to start the download
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch((error) => {
+                // Handle any errors
+                console.error('Error downloading PDF:', error);
+            });
+    };
 
     //////////////////date and time////////////
     const dateTime = new Date(order.orderDate);
@@ -70,10 +103,10 @@ const OrderedProduct = () => {
         if (val == 5) {
 
             navigate(`/payment/mobile-banking/${order.orderId}`, { state: { data } })
-        }else{
+        } else {
             navigate(`/payment/card/${order.orderId}`, { state: { data } })
         }
- 
+
     }
 
 
@@ -147,165 +180,207 @@ const OrderedProduct = () => {
 
                     <h2 className='text-sm text-gray-500 py-4 '> <span className='font-semibold'>Date Of Order Placement :</span> {date} {month} {year},  {hour}:{minute} {amOrPm}</h2>
 
-                    {order.paymentStatus != 'paid' &&   <button onClick={handleCancelOrder} className='bg-gray-800 text-xs hover:bg-red-600 transition-all ease-in-out duration-500 text-white py-1 px-2 h-fit w-fit rounded'>Cancel Order</button>}
-                 
+                    {order.paymentStatus != 'paid' && <button onClick={handleCancelOrder} className='bg-gray-800 text-xs hover:bg-red-600 transition-all ease-in-out duration-500 text-white py-1 px-2 h-fit w-fit rounded'>Cancel Order</button>}
+
                 </div>
             </div>
             {order.paymentStatus == 'paid' ?
                 <>
-                    <div className="max-w-[70%] border w-full bg-white p-8 rounded-lg shadow-md transform hover:shadow-xl transition-all duration-300 ease-in-out mx-auto my-10">
+                    <div className='w-[70%] mx-auto flex justify-end'>
+                        <button className='btn btn-success bg-cyan-800 text-white ' onClick={handlePDFDownload}>Download <AiOutlineDownload className="inline text-3xl" /></button>
 
 
-                        {/* Order Details */}
-                        <h2 className="text-2xl font-semibold capitalize my-4">Order Details</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <div className="text-gray-700 font-semibold">Order ID:</div>
-                                <div className="text-gray-500 capitalize">{order.orderId}</div>
+                    </div>
+
+
+
+                    <div >
+                        <div className="max-w-[70%] border w-full bg-white p-8 rounded-lg shadow-md transform hover:shadow-xl transition-all duration-300 ease-in-out mx-auto mt-2 mb-10">
+
+
+                            {/* Order Details */}
+                            <h2 className="text-2xl font-semibold capitalize my-4">Order Details</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Order ID:</div>
+                                    <div className="text-gray-500 capitalize">{order.orderId}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Order Date:</div>
+                                    <div className="text-gray-500 capitalize">{order.orderDate}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Payment Date:</div>
+                                    <div className="text-gray-500 capitalize">{order.paymentDate}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Payment Method:</div>
+                                    <div className="text-gray-500 capitalize">{order.paymentMethod}</div>
+                                </div>
+                                {order.paymentMethod == "card" ?
+                                    <div>
+                                        <div className="text-gray-700 font-semibold">Payment Service Provider:</div>
+                                        <div className="text-gray-500 capitalize">{order.providedBank}</div>
+                                    </div>
+                                    :
+                                    <></>
+                                }
+
+
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Payment Status:</div>
+                                    <div className="text-gray-500 capitalize">{order.paymentStatus}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Quantity:</div>
+                                    <div className="text-gray-500 capitalize">{order.quantity}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Total Price:</div>
+                                    <div className="text-gray-500 capitalize">{order.totalPrice} bdt</div>
+                                </div>
+                                {order.paymentMethod == 'card' ? <>
+                                    <div>
+                                        <div className="text-gray-700 font-semibold">Card Number:</div>
+                                        <div className="text-gray-500 capitalize">{order.cardNumber}</div>
+                                    </div>
+
+                                    <div>
+                                        <div className="text-gray-700 font-semibold">Provided Phone Number:</div>
+                                        <div className="text-gray-500 capitalize">{order.providedNumber}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-gray-700 font-semibold">Provided Name:</div>
+                                        <div className="text-gray-500 capitalize">{order.providedName}</div>
+                                    </div>
+                                </>
+                                    :
+                                    <>
+                                        <div>
+                                            <div className="text-gray-700 font-semibold">Transaction Count:</div>
+                                            <div className="text-gray-500 capitalize">{order.transactionCount}</div>
+                                        </div>
+
+                                        <div>
+                                            <div className="text-gray-700 font-semibold">Transaction Phone Number:</div>
+                                            <div className="text-gray-500 capitalize">{order.transactionPhoneNumber}</div>
+                                        </div>
+
+                                    </>}
+
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">User Email:</div>
+                                    <div className="text-gray-500 capitalize">{order.userEmail}</div>
+                                </div>
                             </div>
+                            {/* Product Details */}
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Order Date:</div>
-                                <div className="text-gray-500 capitalize">{order.orderDate}</div>
-                            </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Payment Date:</div>
-                                <div className="text-gray-500 capitalize">{order.paymentDate}</div>
-                            </div>
+                            <h2 className="text-2xl font-semibold capitalize my-4">Product Details</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4">
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Model Number:</div>
+                                    <div className="text-gray-500 capitalize">{product.modelNumber}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Payment Method:</div>
-                                <div className="text-gray-500 capitalize">{order.paymentMethod}</div>
-                            </div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Brand:</div>
+                                    <div className="text-gray-500 capitalize">{product.brand}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Payment Service Provider:</div>
-                                <div className="text-gray-500 capitalize">{order.paymentServiceProvider}</div>
-                            </div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Capacity:</div>
+                                    <div className="text-gray-500 capitalize">{product.capacity}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Payment Status:</div>
-                                <div className="text-gray-500 capitalize">{order.paymentStatus}</div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Type:</div>
+                                    <div className="text-gray-500 capitalize">{product.type}</div>
+                                </div>
                             </div>
+                            {/* Shipping Address */}
+                            <h2 className="text-2xl font-semibold capitalize my-4">Shipping Address</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Full Name:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.fullName}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Quantity:</div>
-                                <div className="text-gray-500 capitalize">{order.quantity}</div>
-                            </div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Phone:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.phone}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Total Price:</div>
-                                <div className="text-gray-500 capitalize">{order.totalPrice} bdt</div>
-                            </div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Division:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.division}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Transaction Count:</div>
-                                <div className="text-gray-500 capitalize">{order.transactionCount}</div>
-                            </div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">District:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.district}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">Transaction Phone Number:</div>
-                                <div className="text-gray-500 capitalize">{order.transactionPhoneNumber}</div>
-                            </div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Sub-District:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.subDistrict}</div>
+                                </div>
 
-                            <div>
-                                <div className="text-gray-700 font-semibold">User Email:</div>
-                                <div className="text-gray-500 capitalize">{order.userEmail}</div>
+                                <div>
+                                    <div className="text-gray-700 font-semibold">House:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.house}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Street:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.street}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Postal Code:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.postalCode}</div>
+                                </div>
+
+                                <div>
+                                    <div className="text-gray-700 font-semibold">Landmark:</div>
+                                    <div className="text-gray-500 capitalize">{order.shippingAddress.landMark}</div>
+                                </div>
                             </div>
+                            {order.paymentMethod == 'mobileBanking' &&
+
+                                <>
+                                    <h2 className="text-2xl font-semibold capitalize my-4">Transaction ID</h2>
+                                    <table className="w-full border border-gray-400 rounded-lg">
+                                        <thead className="bg-gray-200">
+                                            <tr className="hover">
+                                                <th className="border border-gray-400 p-2">Transaction ID</th>
+                                                <th className="border border-gray-400 p-2">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {order?.transactions.map((transaction, index) => (
+                                                <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
+                                                    <td className="border border-gray-400 p-2">{transaction.transactionId}</td>
+                                                    <td className="border border-gray-400 p-2">{transaction.amount}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+
+                                </>
+
+
+
+                            }
+
                         </div>
-                        {/* Product Details */}
-
-
-                        <h2 className="text-2xl font-semibold capitalize my-4">Product Details</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4">
-                            <div>
-                                <div className="text-gray-700 font-semibold">Model Number:</div>
-                                <div className="text-gray-500 capitalize">{product.modelNumber}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Brand:</div>
-                                <div className="text-gray-500 capitalize">{product.brand}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Capacity:</div>
-                                <div className="text-gray-500 capitalize">{product.capacity}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Type:</div>
-                                <div className="text-gray-500 capitalize">{product.type}</div>
-                            </div>
-                        </div>
-                        {/* Shipping Address */}
-                        <h2 className="text-2xl font-semibold capitalize my-4">Shipping Address</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <div className="text-gray-700 font-semibold">Full Name:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.fullName}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Phone:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.phone}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Division:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.division}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">District:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.district}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Sub-District:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.subDistrict}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">House:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.house}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Street:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.street}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Postal Code:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.postalCode}</div>
-                            </div>
-
-                            <div>
-                                <div className="text-gray-700 font-semibold">Landmark:</div>
-                                <div className="text-gray-500 capitalize">{order.shippingAddress.landMark}</div>
-                            </div>
-                        </div>
-
-                        {/* Transaction Id */}
-                        <h2 className="text-2xl font-semibold capitalize my-4">Transaction ID</h2>
-                        <table className="w-full border border-gray-400 rounded-lg">
-                            <thead className="bg-gray-200">
-                                <tr className="hover">
-                                    <th className="border border-gray-400 p-2">Transaction ID</th>
-                                    <th className="border border-gray-400 p-2">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {order?.transactions.map((transaction, index) => (
-                                    <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}>
-                                        <td className="border border-gray-400 p-2">{transaction.transactionId}</td>
-                                        <td className="border border-gray-400 p-2">{transaction.amount}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
                     </div>
 
                 </> : <>
