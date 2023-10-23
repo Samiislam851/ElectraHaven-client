@@ -20,6 +20,7 @@ const Cart = () => {
 
     useEffect(() => {
         const newPrice = cart.reduce((acc, current) => {
+            console.log('quantity', current);
             const productPrice = current.quantity * current.price
             // console.log('current : ', current);
             return acc + productPrice;
@@ -108,7 +109,7 @@ const Cart = () => {
 
                         {cart[0] ?
                             <ul>
-                                {cart.map(data => <CartDataCard key={data._id} setToggleDependency={setToggleDependency} toggleDependency={toggleDependency} data={data}></CartDataCard>)}
+                                {cart.map(data => <CartDataCard key={data._id} setToggleDependency={setToggleDependency} toggleDependency={toggleDependency} cart={cart} data={data}></CartDataCard>)}
                             </ul>
                             :
                             <></>

@@ -4,7 +4,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { AuthContext } from '../../Provider/AuthContextProvider';
 import Swal from 'sweetalert2'
 
-const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
+const CartDataCard = ({ data, toggleDependency, setToggleDependency, cart }) => {
 
     const [product, setProduct] = useState({});
     const [price, setPrice] = useState(0);
@@ -36,13 +36,13 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
                             'success'
                         )
 
-                        
+
                     })
                     .catch((error) => {
                         console.error('Error deleting item:', error);
                     });
 
-              
+
             }
         })
 
@@ -63,37 +63,58 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
                 }
             )
         }
-        
+
     }, []);
 
 
 
-    const increment = () => {
-        axios.patch(`/cart/${product?._id}`, { newQuantity: quantity + 1 })
-            .then((response) => {
-                setQuantity(quantity + 1);
-                console.log(response.data);
-                setCartToggle(!cartToggle)
-                setToggleDependency(!toggleDependency);
+    const increment = (id) => {
 
-            })
-            .catch((error) => {
-                console.error('Axios Error:', error);
-            });
+
+
+        cart.map(e => {
+
+            if (e.productId == id) {
+                e.quantity++;
+                // console.log('Updated quantity in', e.quantity);
+                setQuantity(e.quantity)
+
+            }
+            // setCartToggle(!cartToggle)
+            setToggleDependency(!toggleDependency);
+            // console.log('Updated quantity out', e.quantity);
+        })
+
+
+
+        // axios.patch(`/cart/${product?._id}`, { newQuantity: quantity + 1 })
+        //     .then((response) => {
+        //         setQuantity(quantity + 1);
+        //         console.log(response.data);
+        //         setCartToggle(!cartToggle)
+        //         setToggleDependency(!toggleDependency);
+
+        //     })
+        //     .catch((error) => {
+        //         console.error('Axios Error:', error);
+        //     });
     };
 
-    const decrement = () => {
+    const decrement = (id) => {
         if (quantity > 1) {
-            axios.patch(`/cart/${product?._id}`, { newQuantity: quantity - 1 })
-                .then((response) => {
-                    setQuantity(quantity - 1);
-                    console.log(response.data);
-                    setCartToggle(!cartToggle)
-                    setToggleDependency(!toggleDependency);
-                })
-                .catch((error) => {
-                    console.error('Axios Error:', error);
-                });
+
+            
+        cart.map(e => {
+
+            if (e.productId == id) {
+                e.quantity--;
+                console.log('Updated quantity in', e.quantity);
+                setQuantity(e.quantity)
+
+            }
+            setToggleDependency(!toggleDependency);
+            console.log('Updated quantity out', e.quantity);
+        })
         }
     };
 
@@ -109,14 +130,14 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency }) => {
                         <div className="flex items-center border scale-95 md:scale-100 justify-start ms-0 my-2 w-fit">
                             <button
                                 className="border-e text-gray-700 hover:bg-gray-200 transition-all ease-in-out duration-300 hover:text-gray-800  px-3 py-1"
-                                onClick={decrement}
+                                onClick={() => decrement(product._id)}
                             >
                                 -
                             </button>
                             <span className="mx-3 text-lg text-gray-600 ">{quantity}</span>
                             <button
                                 className="border-s text-gray-700 hover:bg-gray-200 transition-all ease-in-out duration-300 hover:text-gray-800  px-3 py-1"
-                                onClick={increment}
+                                onClick={() => increment(product._id)}
                             >
                                 +
                             </button>
