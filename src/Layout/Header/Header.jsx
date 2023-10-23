@@ -256,13 +256,6 @@ console.log('user role..........................................................
                     Home
                   </ActiveLink>
 
-
-                  <ActiveLink
-                    to="/blogs"
-                    className="text-base font-medium text-gray-500 "
-                  >
-                    Blogs
-                  </ActiveLink>
                   <ActiveLink
                     to="/contact"
                     className="text-base font-medium text-gray-500 "
@@ -287,7 +280,7 @@ console.log('user role..........................................................
 
                   {user ? <ActiveLink
                     to={!loading && (isAdmin ? '/admin' : (isInstructor ? '/instructor' : '/student'))}
-                    className="text-base font-medium text-gray-500 "
+                    className="text-base hidden md:visible font-medium text-gray-500 "
                   >
                     Dashboard
                   </ActiveLink> : <></>}
