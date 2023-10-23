@@ -7,6 +7,7 @@ import PendingOrders from '../PendingOrders/PendingOrders';
 import PaidOrders from '../PaidOrders/PaidOrders';
 import RequestedOrders from '../RequestedOrders/RequestedOrders';
 import CanceledOrders from '../CanceledOrders/CanceledOrders';
+import ProblematicOrders from '../../ProblematicOrders/ProblematicOrders';
 
 const TrackOrders = () => {
     return (
@@ -33,6 +34,11 @@ const TrackOrders = () => {
                             Cancelled
                         </h2>
                     </Tab>
+                    <Tab >
+                        <h2 className='text-gray-600 bg-transparent'>
+                          Submitted With Problem
+                        </h2>
+                    </Tab>
 
                 </TabList>
 
@@ -49,6 +55,9 @@ const TrackOrders = () => {
                 </TabPanel>
                 <TabPanel>
                     <CanceledOrders />
+                </TabPanel>
+                <TabPanel>
+                    <ProblematicOrders/>
                 </TabPanel>
             </Tabs>
         </div>

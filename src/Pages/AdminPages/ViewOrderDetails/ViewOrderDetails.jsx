@@ -102,7 +102,7 @@ const ViewOrderDetails = () => {
         )
     }
 
-
+console.log(orderData);
 
     useEffect(() => {
         axios.get(`/products/${orderData.productId}`).then(res => {
@@ -238,6 +238,15 @@ const ViewOrderDetails = () => {
                 </>
 
                 }
+                {orderData?.paymentStatus == "problem found" ? <>
+                    <div className='flex gap-5 items-center py-5'>
+                        <div className="text-gray-500">Feed Back from Admin :</div>
+                        <div className="text-gray-500 capitalize border p-5 rounded-lg">{orderData.feedBack}</div>
+                    </div>
+                </> : <>
+
+
+                </>}
 
 
                 <div className="flex flex-col justify-center items-center gap-5 pt-20">
@@ -262,7 +271,7 @@ const ViewOrderDetails = () => {
                                     Acknowledge as Payment Received
                                 </button>
                                 <button onClick={handleProblematicOrder} className="btn btn-error text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
-                                          There's a problem >>>
+                                          There's a problem
                                 </button>
                             </>
 

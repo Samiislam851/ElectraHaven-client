@@ -74,9 +74,9 @@ const LoginPage = ({setTitle}) => {
     <div className="grid grid-cols-2 gap-4 text-black text-[10px] md:text-sm">
    {/* <LoginWithFacebook/>
    <LoginWithApple/> */}
-     <LoginWithGoogle/>
+     {/* <LoginWithGoogle/> */}
 
-  <LoginWithGithub/>
+  {/* <LoginWithGithub/> */}
     </div>
   </div>
 </section>

@@ -184,13 +184,14 @@ const OrderedProduct = () => {
 
                 </div>
             </div>
-            {order.paymentStatus == 'paid' ?
+            {order.paymentStatus == 'paid'|| order.paymentStatus=='problem found' ?
                 <>
-                    <div className='w-[70%] mx-auto flex justify-end'>
+                {order.paymentStatus == 'paid'&& <div className='w-[70%] mx-auto flex justify-end'>
                         <button className='btn btn-success bg-cyan-800 text-white ' onClick={handlePDFDownload}>Download <AiOutlineDownload className="inline text-3xl" /></button>
 
 
-                    </div>
+                    </div>}
+                   
 
 
 
@@ -379,6 +380,17 @@ const OrderedProduct = () => {
 
 
                             }
+
+{order?.paymentStatus == "problem found" ? <>
+                    <div className='flex gap-5 items-center py-5'>
+                        <div className="text-gray-500">Feed Back from Admin :</div>
+                        <div className="text-gray-500 capitalize border p-5 rounded-lg">{order.feedBack}</div>
+                    </div>
+                </> : <>
+
+
+                </>}
+
 
                         </div>
                     </div>
