@@ -1,128 +1,112 @@
-import React, { useState, useContext } from 'react';
-
-import LoginWithGoogle from '../../Component/LoginWithSocial/LoginWithGoogle';
-import LoginWithGithub from '../../Component/LoginWithSocial/LoginWithGithub';
-import LoginWithFacebook from '../../Component/LoginWithSocial/LoginWithFacebook';
-import LoginWithApple from '../../Component/LoginWithSocial/LoginWithApple';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import app from '../../firebase/firebase.config';
-import Header from '../../Layout/Header/Header';
-import { useEffect } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons
 import axios from 'axios';
-import { AuthContext } from '../../Provider/AuthContextProvider';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Provider/AuthContextProvider';
+
+
+
+
+// ////////////////////// TO DO : post api server e thik e ase .. eikhane jhamela :3 
+
+
+
+
+
+
+
+
 const RegisterPage = ({ setTitle }) => {
   const [imguploadingmessage, setimguploadingmessage] = useState(null);
   const [progresssending, setProgresssending] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [message, setMessage] = useState("");
-  const [pass, setPass] = useState(null);
-  const { registerUser, setRefetchUser, refetchUser, user, logOut, loginUser, isLogged, setIsLogged, loading, userData, setUserData } = useContext(AuthContext);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [cfPasswordVisible, setCFPasswordVisible] = useState(false);
+  const { setUserData } = useContext(AuthContext);
 
   const changeInputPassword = (e) => {
-    setMessage("")
+    setMessage("");
   }
+
   useEffect(() => {
-    setTitle("Registration")
+    setTitle("Registration");
   }, []);
 
   const auth = getAuth(app);
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let email = e.target.email.value
-    let phone = e.target.phone.value
-    let password = e.target.password.value
-    let cfpassword = e.target.cfpassword.value
+    let email = e.target.email.value;
+    let phone = e.target.phone.value;
+    let password = e.target.password.value;
+    let cfpassword = e.target.cfpassword.value;
     let fname = e.target.fname.value;
     let lname = e.target.lname.value;
 
-    if (password == "" || email == "" || phone == "") {
-      setMessage("Password or email can't be empty")
+    if (password === "" || email === "" || phone === "") {
+      setMessage("Password, email, and phone can't be empty");
       return;
-    } else if (cfpassword != password) {
-      setMessage("Password Doesn't Match")
+    } else if (cfpassword !== password) {
+      setMessage("Passwords do not match");
       return;
     } else if (!/[A-Z]/.test(password)) {
-      setMessage("Missing Capital letter")
+      setMessage("Missing capital letter in the password");
       return;
     } else if (!/[^a-zA-Z0-9]/.test(password)) {
-      setMessage("Missing Special Character")
+      setMessage("Missing special character in the password");
+      return;
+    } else if (password.length < 6) {
+      setMessage("Password must be at least 6 characters");
       return;
     }
-    else if (password.length < 6) {
-      setMessage("Password Must be more than 6")
-      return;
-    }
-
 
     setUserData({
       name: fname,
       email: email,
       photoURL: uploadedImageUrl,
-    })
-
+    });
+    axios.post("/users", {
+      fname: fname,
+      lname: lname,
+      email: email,
+      phone: phone,
+      photoURL: uploadedImageUrl,
+      role: 'customer'
+    }).then(res => console.log(res.data)).catch(err => console.log(err))
 
     try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          user.updateProfile({
-            displayName: fname,
-            photoURL: uploadedImageUrl,
-          }).then((response) => {
-          });
-
-        })
-        .catch(error => {
-          console.error('Error creating user:', error.code);
-          if (error.code == 'auth/email-already-in-use') {
-
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Email already in use, try different one',
-              showConfirmButton: false,
-              timer: 2000
-            })
-          }
-        });
-
-
-      console.log('firebase operation ', userCredential);
-      const response = await axios.post("/users", {
-        fname: fname,
-        lname: lname,
-        email: email,
-        phone: phone,
+      user.updateProfile({
+        displayName: fname,
         photoURL: uploadedImageUrl,
-        role: 'customer'
-      })
-        .then(response => {
-          console.log('from register page', response.data);
-          setRefetchUser(!refetchUser)
-        })
-        .catch(error => {
-          console.error('Error creating user:', error);
-        });
+      }).then(() => {
+        // Profile updated successfully
+      }).catch((error) => {
+        console.error('Error updating profile:', error);
+      });
+
+      console.log('Firebase operation', userCredential);
+
+     
+ 
 
     } catch (error) {
       console.log(error);
     }
-
-
   }
 
   const imageUploadHandler = (e) => {
-    setimguploadingmessage('Please wait, The image is being Uploaded');
+    setimguploadingmessage('Please wait, the image is being uploaded');
     setProgresssending(true);
     const file = e.target.files[0];
-    const formData = new FormData;
-    formData.append('image', file)
+    const formData = new FormData();
+    formData.append('image', file);
 
     axios({
       method: 'post',
@@ -131,30 +115,33 @@ const RegisterPage = ({ setTitle }) => {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then((response) => {
       console.log(response.data);
-      setUploadedImageUrl(response.data.data.display_url)
-      setimguploadingmessage(null)
-      setProgresssending(false)
-    })
-      .catch((error) => {
-        setimguploadingmessage("Error")
-        setProgresssending(false)
-        console.log(error);
-      });
-
+      setUploadedImageUrl(response.data.data.display_url);
+      setimguploadingmessage(null);
+      setProgresssending(false);
+    }).catch((error) => {
+      setimguploadingmessage("Error");
+      setProgresssending(false);
+      console.log(error);
+    });
   }
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  }
+
+  const toggleCFPasswordVisibility = () => {
+    setCFPasswordVisible(!cfPasswordVisible);
+  }
+
   return (
     <>
-
-      <section className=" w-full   flex justify-center items-center px-4 md:px-0 mt-12">
+      <section className="w-full flex justify-center items-center px-4 md:px-0 mt-12">
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 text-2xl font-semibold items-center">
-            <Link to="/login" className="py-2 text-gray-500">Login </Link>
-            <Link to="/register" className="py-2  border-b-4 border-[#59C6BC]  ">Register Now</Link>
+            <Link to="/login" className="p-2 rounded-lg border-[2px]  border-[#59c6bb61] py-2 text-gray-500">Login</Link>
+            <Link to="/register" className="py-2 p-2 text-white rounded bg-[#59C6BC]">Register Now</Link>
           </div>
-
-
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className='flex flex-col md:flex-row gap-5'>
               <input
                 type="text"
@@ -171,40 +158,57 @@ const RegisterPage = ({ setTitle }) => {
                 className="p-2 rounded-lg text-black border"
               />
             </div>
-
-
-            {/*  */}
-
-            {/*  */}
             <input
               type="email"
               name="email"
               id=""
               placeholder="Enter Your Email"
-              className="p-2 rounded-lg text-black border" required
+              className="p-2 rounded-lg text-black border"
+              required
             />
             <input
               type="phone"
               name="phone"
               id=""
               placeholder="Enter Your Phone Number"
-              className="p-2 rounded-lg text-black border" required
+              className="p-2 rounded-lg text-black border"
+              required
             />
-            <input onChange={changeInputPassword}
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter Password"
-              className="p-2 rounded-lg text-black border" required
-            />
-
-            <input onChange={changeInputPassword}
-              type="cfpassword"
-              name="cfpassword"
-              id="cfpassword"
-              placeholder="Confirm Password"
-              className="p-2 rounded-lg text-black border" required
-            />
+            <div className="relative">
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                name="password"
+                id="password"
+                placeholder="Enter Password -(contain : minimum 1 capital letter, 1 special character, minimum 6 total character)"
+                className="p-2 rounded-lg text-black border"
+                title='(contain : minimum 1 capital letter, 1 special character, minimum 6 total characters)'
+                required
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="right-3 top-3 absolute bottom-[50%] translate-y-[-50%] "
+              >
+                {!passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+            <div className="relative">
+              <input
+                type={cfPasswordVisible ? 'text' : 'password'}
+                name="cfpassword"
+                id="cfpassword"
+                placeholder="Confirm Password"
+                className="p-2 rounded-lg text-black border"
+                required
+              />
+              <button
+                type="button"
+                onClick={toggleCFPasswordVisibility}
+                className="right-3 top-3 absolute bottom-[50%] translate-y-[-50%] "
+              >
+                {!cfPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
             <div className='grid grid-cols-2'>
               <div className="form-control w-full ">
                 <label className="label">
@@ -220,26 +224,21 @@ const RegisterPage = ({ setTitle }) => {
             </div>
             {imguploadingmessage && <div>
               <p className='text-red-700'>{imguploadingmessage}</p>
-            </div>}
+            </div>
+            }
             <p className='text-red-700'>{message}</p>
-            <button type="submit" className="btn btn-primary  text-white text-lg border-0 bg-[#59C6BC] hover:bg-[#3f8c84]">Register</button>
+            <button type="submit" className="btn btn-primary text-white text-lg border-0 bg-[#59C6BC] hover-bg-[#3f8c84]">Register</button>
             <a href="#">Forgot Password?</a>
-            <a href="#">Already have an account ? <Link to="/login" className='text-white'>Login</Link> </a>
+            <a href="#">Already have an account? <Link to="/login" className='text-white'>Login</Link></a>
           </form>
           <div className="grid grid-cols-2 gap-4 text-black text-[10px] md:text-sm">
             {/* <LoginWithFacebook/>
-   <LoginWithApple/> */}
-
+             <LoginWithApple/> */}
           </div>
         </div>
       </section>
-
     </>
   );
 }
 
 export default RegisterPage;
-
-
-
-

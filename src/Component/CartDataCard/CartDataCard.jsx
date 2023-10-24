@@ -76,45 +76,27 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency, cart }) => 
 
             if (e.productId == id) {
                 e.quantity++;
-                // console.log('Updated quantity in', e.quantity);
                 setQuantity(e.quantity)
-
             }
-            // setCartToggle(!cartToggle)
             setToggleDependency(!toggleDependency);
-            // console.log('Updated quantity out', e.quantity);
         })
 
 
 
-        // axios.patch(`/cart/${product?._id}`, { newQuantity: quantity + 1 })
-        //     .then((response) => {
-        //         setQuantity(quantity + 1);
-        //         console.log(response.data);
-        //         setCartToggle(!cartToggle)
-        //         setToggleDependency(!toggleDependency);
-
-        //     })
-        //     .catch((error) => {
-        //         console.error('Axios Error:', error);
-        //     });
     };
-
     const decrement = (id) => {
         if (quantity > 1) {
+            cart.map(e => {
 
-            
-        cart.map(e => {
+                if (e.productId == id) {
+                    e.quantity--;
+                    console.log('Updated quantity in', e.quantity);
+                    setQuantity(e.quantity)
 
-            if (e.productId == id) {
-                e.quantity--;
-                console.log('Updated quantity in', e.quantity);
-                setQuantity(e.quantity)
-
-            }
-            setToggleDependency(!toggleDependency);
-            console.log('Updated quantity out', e.quantity);
-        })
+                }
+                setToggleDependency(!toggleDependency);
+                console.log('Updated quantity out', e.quantity);
+            })
         }
     };
 

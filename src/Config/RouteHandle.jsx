@@ -47,7 +47,7 @@ import CardPayment from '../Pages/CardPayment/CardPayment';
 const RouteHandle = () => {
   const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, loading } = useContext(AuthContext);
   const setTitle = (title) => {
-    document.title = `ElectraHaven | ${title}`
+    document.title = `Sunpacs | ${title}`
   }
   const router = createBrowserRouter([
     {

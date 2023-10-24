@@ -25,7 +25,7 @@ const NumbersCount = () => {
         <div className=' py-10'>
             <div className='max-w-[1600px] md:px-12 px-10 mx-auto'>
                 <h1 className='md:text-6xl font-semibold text-4xl text-center pb-5 md:pb-10 text-gray-700'>
-                    ElectraHaven Music School
+                    Sunpacs Music School
                 </h1>
                 <p className='text-center md:text-lg md:w-[70%] mx-auto w-[90%] text-gray-500 pb-10 md:pb-20'>
                 Our accomplished instructors are dedicated to fostering musical talents. With expertise in piano, violin, guitar, cello, and more, they impart not just technical skills, but also a deep appreciation for the artistry and emotional power of music. Join us to embark on a limitless musical journey

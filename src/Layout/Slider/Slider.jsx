@@ -21,7 +21,7 @@ const Slider = ({ children }) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  console.log(scrollPercentage);
+  // console.log(scrollPercentage);
   const spring = useSpring({
     from: { opacity: 0, transform: 'translateY(500px)' },
     to: { opacity: 1, transform: 'translateY(0px)' },
@@ -64,7 +64,7 @@ const Slider = ({ children }) => {
         <div className='absolute inset-0 flex items-center justify-center md:w-[70%] w-[90%] mx-auto'>
           <div className='flex flex-col items-center justify-center md:gap-10 gap-3'>
             <animated.div style={spring}>
-              <p className='md:text-3xl text-xl font-light  text-center z-[10]  text-white'>Welcome to ElectraHaven</p>
+              <p className='md:text-3xl text-xl font-light  text-center z-[10]  text-white'>Welcome to Sunpacs</p>
             </animated.div>
             <animated.div style={spring2}>
               <p className="md:text-6xl text-3xl md:font-bold mb-10 font-semibold text-center z-[10] text-white">

@@ -72,7 +72,7 @@ console.log('user role..........................................................
           <div className="flex justify-between items-center   border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <a href="#">
-                <h1 className='h-8 w-auto sm:h-10 text-gray-700 md:text-4xl text-2xl font-semibold flex gap-2 justify-center items-center  themeFont'> ElectraHaven </h1>
+                <h1 className='h-8 w-auto sm:h-10 text-gray-700 md:text-4xl text-2xl font-semibold flex gap-2 justify-center items-center  themeFont'> SunPacs </h1>
 
               </a>
             </div>

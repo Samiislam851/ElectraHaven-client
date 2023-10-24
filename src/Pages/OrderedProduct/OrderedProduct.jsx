@@ -76,7 +76,8 @@ const OrderedProduct = () => {
                 showConfirmButton: false,
                 timer: 1500
 
-            })
+            });
+            navigate('/orders')
         })
 
 
@@ -180,7 +181,7 @@ const OrderedProduct = () => {
 
                     <h2 className='text-sm text-gray-500 py-4 '> <span className='font-semibold'>Date Of Order Placement :</span> {date} {month} {year},  {hour}:{minute} {amOrPm}</h2>
 
-                    {order.paymentStatus != 'paid' && <button onClick={handleCancelOrder} className='bg-gray-800 text-xs hover:bg-red-600 transition-all ease-in-out duration-500 text-white py-1 px-2 h-fit w-fit rounded'>Cancel Order</button>}
+                    {order.paymentStatus != 'paid' &&order.paymentStatus != 'requested' && <button onClick={handleCancelOrder} className='bg-gray-800 text-xs hover:bg-red-600 transition-all ease-in-out duration-500 text-white py-1 px-2 h-fit w-fit rounded'>Cancel Order</button>}
 
                 </div>
             </div>
