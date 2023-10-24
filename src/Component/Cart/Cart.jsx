@@ -93,7 +93,7 @@ const Cart = () => {
 
 
 
-        navigate('/orders')
+        navigate('/orders',{state:{fromCart : true}})
     }
 
 
@@ -163,7 +163,7 @@ const Cart = () => {
                     <h1 className='top-[50%] text-center absolute right-[50%] translate-x-[50%] translate-y-[-50%] text-3xl text-gray-500 '>Your Cart Is Empty :(
                         <br />
                         <div className='text-xl pt-4'>
-                        Tips: <span className='text-lg'> You can Buy something to fill it up :D </span> 
+                        Tips: <span className='text-lg'> Please go to Orders page if you have ordered Something  </span> 
                         </div>
                     </h1>
                 </div>

@@ -174,20 +174,20 @@ const RegisterPage = ({ setTitle }) => {
               className="p-2 rounded-lg text-black border"
               required
             />
-            <div className="relative">
+            <div className="relative ">
               <input
                 type={passwordVisible ? 'text' : 'password'}
                 name="password"
                 id="password"
-                placeholder="Enter Password -(contain : minimum 1 capital letter, 1 special character, minimum 6 total character)"
-                className="p-2 rounded-lg text-black border"
+                placeholder="Enter Password (1 capital letter, 1 special character, minimum 6 characters)"
+                className="p-2 rounded-lg text-black border w-full"
                 title='(contain : minimum 1 capital letter, 1 special character, minimum 6 total characters)'
                 required
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="right-3 top-3 absolute bottom-[50%] translate-y-[-50%] "
+                className="right-3 top-3 absolute bottom-[50%]  bg-white "
               >
                 {!passwordVisible ? <FaEyeSlash /> : <FaEye />}
               </button>
@@ -198,17 +198,18 @@ const RegisterPage = ({ setTitle }) => {
                 name="cfpassword"
                 id="cfpassword"
                 placeholder="Confirm Password"
-                className="p-2 rounded-lg text-black border"
+                className="p-2 rounded-lg text-black border w-full"
                 required
               />
               <button
                 type="button"
                 onClick={toggleCFPasswordVisibility}
-                className="right-3 top-3 absolute bottom-[50%] translate-y-[-50%] "
+                className="right-3 top-3 absolute bottom-[50%] translate-y-[-0%] "
               >
                 {!cfPasswordVisible ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
+            <p className='text-red-700'>{message}</p>
             <div className='grid grid-cols-2'>
               <div className="form-control w-full ">
                 <label className="label">
@@ -226,7 +227,7 @@ const RegisterPage = ({ setTitle }) => {
               <p className='text-red-700'>{imguploadingmessage}</p>
             </div>
             }
-            <p className='text-red-700'>{message}</p>
+          
             <button type="submit" className="btn btn-primary text-white text-lg border-0 bg-[#59C6BC] hover-bg-[#3f8c84]">Register</button>
             <a href="#">Forgot Password?</a>
             <a href="#">Already have an account? <Link to="/login" className='text-white'>Login</Link></a>

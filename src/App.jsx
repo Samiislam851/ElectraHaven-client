@@ -4,7 +4,7 @@ import RouteHandle from './Config/RouteHandle';
  
 import AuthContextProvider from './Provider/AuthContextProvider';
  import axios from 'axios'; 
- axios.defaults.baseURL = "http://localhost:5000/"
+ axios.defaults.baseURL = "https://electrahaven.vercel.app/"
 //  import {
 //   QueryClient,
 //   QueryClientProvider,

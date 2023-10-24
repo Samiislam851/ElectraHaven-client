@@ -3,32 +3,48 @@ import { AuthContext } from '../../Provider/AuthContextProvider';
 import axios from 'axios';
 import OrderCard from '../../Component/OrderCard/OrderCard';
 import Spinner from '../../Component/Spinner/Spinner';
+import { useLocation } from 'react-router-dom';
 
 
 const Orders = () => {
+    const {state} = useLocation();
+    console.log('from cart>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',state?.fromCart);
+
+
+
     const { userMongoData } = useContext(AuthContext)
     const [orderData, setOrderData] = useState({});
 const [loading, setloading] = useState(true);
-    useEffect(() => {
- if(loading){
-
-    if (userMongoData?._id) {
-        axios.get(`/orders/${userMongoData?._id}`).then(
-
-            res => {
-                setOrderData(res.data)
-                setloading(false)
-            }
+   
 
 
-        )
+useEffect(() => {
+    const fetchData = () => {
+      if (userMongoData?._id) {
+        axios.get(`/orders/${userMongoData?._id}`)
+          .then((res) => {
+            setOrderData(res.data);
+            setloading(false);
+          })
+          .catch((error) => {
+            // Handle any errors here
+          });
+      }
+    };
+  
+    // Fetch data initially
+    fetchData();
+  
+    // Set a timeout to refetch data after 1.5 seconds if state.fromCart is true
+    if (state?.fromCart) {
+      const refetchTimeout = setTimeout(() => {
+        fetchData();
+      }, 1500);
+  
+      // Clear the timeout if the component unmounts
+      return () => clearTimeout(refetchTimeout);
     }
- }
-
-      
-
-    }, [userMongoData]);
-
+  }, [state?.fromCart, userMongoData]);
 
 
 
