@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 const AddAProduct = ({ setTitle }) => {
     const [loading, setLoading] = useState(true);
     const [productData, setProductData] = useState({
-        brandName: '',
+        brand: '',
         modelNumber: '',
         capacity: '',
         fulfilledStandards: [],
@@ -18,6 +18,7 @@ const AddAProduct = ({ setTitle }) => {
         image: null,
         price: '',
         quantity: '',
+        serial: '',
     });
     const [message, setMessage] = useState(null);
     const [imguploadingmessage, setimguploadingmessage] = useState(null);
@@ -160,8 +161,8 @@ const AddAProduct = ({ setTitle }) => {
                                         <span className='label-text'>Brand Name</span>
                                     </label>
                                     <input
-                                        name='brandName'
-                                        id='brandName'
+                                        name='brand'
+                                        id='brand'
                                         onChange={inputChangeHandler}
                                         type='text'
                                         placeholder='Brand Name'
@@ -256,6 +257,19 @@ const AddAProduct = ({ setTitle }) => {
                                         onChange={inputChangeHandler}
                                         type='text'
                                         placeholder='Price'
+                                        className='input input-bordered w-full '
+                                    />
+                                </div>
+                                <div className='form-control w-full '>
+                                    <label className='label'>
+                                        <span className='label-text'>Serial</span>
+                                    </label>
+                                    <input
+                                        name='serial'
+                                        id='serial'
+                                        onChange={inputChangeHandler}
+                                        type='text'
+                                        placeholder='Serial'
                                         className='input input-bordered w-full '
                                     />
                                 </div>

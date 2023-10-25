@@ -103,7 +103,7 @@ const UpdateProduct = () => {
                                                         className='rounded-lg p-2 m-2 '
                                                         type="text"
                                                         name="brand"
-                                                        value={updatedProductData.brand}
+                                                        value={updatedProductName}
                                                         onChange={handleInputChange}
                                                     />
                                                 </td>
@@ -198,7 +198,7 @@ const UpdateProduct = () => {
 
                                 <div className=' p-5'>
                                     <h1 className='uppercase text-xl text-center font-medium text-gray-700'>{productData.modelNumber} {productData.type}</h1>
-                                    <p className=' text-xl font-medium text-gray-700 text-center pb-10'> <span className='text-gray-400 capitalize'> {productData.brand} </span> </p>
+                                    <p className=' text-xl font-medium text-gray-700 text-center pb-10'> <span className='text-gray-400 capitalize'> {productdata.brand} </span> </p>
 
                                     <div className=' '>
                                         <img src={productData.image} className='max-w-[100px] mx-auto w-full  rounded-lg hover:-translate-y-2 hover:scale-105 transition-all ease-in-out duration-500' alt="" />

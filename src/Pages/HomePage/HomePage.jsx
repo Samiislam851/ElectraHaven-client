@@ -4,6 +4,8 @@ import { useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
 import Slider from '../../Layout/Slider/Slider';
 import InverterComponent from '../../Component/InverterComponent/InverterComponent';
 import SolarPanelComponent from '../../Component/SolarPanelComponent/SolarPanelComponent';
+import AccountingMeter from '../../Component/AccountingMeter/AccountingMeter';
+import RmcableAndBatteries from '../../Component/RmcableAndBatteries/RmcableAndBatteries';
 
 
 
@@ -32,16 +34,10 @@ const HomePage = ({ setTitle }) => {
         <Slider />
         {/* <PopularClassesComponent /> */}
         <InverterComponent/>
-        {/* <MusicGroups /> */}
+       
         <SolarPanelComponent/>
-        {/* <PopularInstructor /> */}
-
-        {/* <LetsMakeArt /> */}
-        {/* <NextEvent /> */}
-        {/* <FeedBack /> */}
-        {/* <NumbersCount /> */}
-        {/* <CourseSection></CourseSection> */}
-        {/* <BlogsComponen /> */}
+       <AccountingMeter/>
+       <RmcableAndBatteries/>
    
       </div>
     </>
