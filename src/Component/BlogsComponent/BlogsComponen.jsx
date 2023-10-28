@@ -41,7 +41,7 @@ const BlogsComponen = () => {
                         <div className="">
                             <div className="   pb-20 pt-32 ">
                                 <h2 className='md:text-6xl text-4xl text-gray-700 text-center font-semibold pb-8'>Our Featured Blogs </h2>
-                                <p className='md:text-xl text-lg text-gray-400 text-center md:w-[80%] w-[95%] mx-auto pb-20'>Explore the harmonious world of music through our featured blogs. Dive into the vibrant tapestry of musical genres, techniques, and inspiration that our music school has to offer.</p>
+                                <p className='md:text-xl text-lg text-gray-400 text-center md:w-[80%] w-[95%] mx-auto pb-20'>Explore the harmonious world of music through our featured blogs.</p>
                             </div>
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-3 gap-10'>

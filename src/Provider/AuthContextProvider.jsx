@@ -1,5 +1,5 @@
- 
-import React ,{ createContext ,  useState , useEffect  }from "react";
+
+import React, { createContext, useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import {
   getAuth,
@@ -10,8 +10,8 @@ import {
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import axios from "axios";
- 
- 
+
+
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -25,7 +25,7 @@ const AuthContextProvider = ({ children }) => {
   const [isStudent, setIsStudent] = useState(false);
   const [token, setToken] = useState(false);
   const [userData, setUserData] = useState(false);
-  const [adminStateLoading, setAdminStateLoading] = useState(true) 
+  const [adminStateLoading, setAdminStateLoading] = useState(true)
   const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
   const [dark, setDark] = useState(false);
   const [userMongoData, setUserMongoData] = useState(null);
@@ -38,51 +38,51 @@ const AuthContextProvider = ({ children }) => {
   };
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    // const localTheme = localStorage.getItem("theme");
+  
     const localTheme = "light";
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
 
 
-  // const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, ,} = useContext(AuthContext);
-  // const [userData, setUserData] = useState(null);
+
+
+
 
   useEffect(() => {
     axios.get(`users/${user?.email}`).then(
       res => {
         setUserMongoData(res.data)
-        if(res.data?.role=="admin")
-        {
-                 setIsAdmin(true)
-                 setIsStudent(false)
-                 setAdminStateLoading(false)
+        if (res.data?.role == "admin") {
+          setIsAdmin(true)
+          setIsStudent(false)
+          setAdminStateLoading(false)
         }
-        
+
       }
     )
 
 
-  }, [user,refetchUser]);
+  }, [user, refetchUser]);
 
-////////////////////////////////////////////////////////cart/////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////cart/////////////////////////////////////////////////
 
-useEffect(() => {
-  if (userMongoData?.role == 'customer') {
-    axios.get(`cart/${userMongoData.email}`).then(res => {
-      setCart(res.data)
+  useEffect(() => {
+    if (userMongoData?.role == 'customer') {
+      axios.get(`cart/${userMongoData.email}`).then(res => {
+        setCart(res.data)
+      }
+      )
+
+      console.log(userMongoData.email);
     }
-    )
-
-    console.log(userMongoData.email);
-  }
-}, [userMongoData, cartToggle]);
+  }, [userMongoData, cartToggle]);
 
 
 
 
 
 
-  
+
   const handleToggle = (event) => {
     if (event.target.checked) {
       setTheme("light");
@@ -114,7 +114,7 @@ useEffect(() => {
 
 
 
-  const toastPush = (message)=>{
+  const toastPush = (message) => {
     toast.success(message, {
       position: "top-right",
       autoClose: 5000,
@@ -124,43 +124,43 @@ useEffect(() => {
       draggable: true,
       progress: undefined,
       theme: "light",
-      });
+    });
   }
 
   useEffect(() => {
-    if(localStorage.getItem('access-token')){
+    if (localStorage.getItem('access-token')) {
       setToken(localStorage.getItem('access-token'))
       // axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access-token');
     }
     const unSubscribe = onAuthStateChanged(auth, (loggedInUser) => {
       setUser(loggedInUser);
-      if(loggedInUser){
+      if (loggedInUser) {
         setIsLogged(true);
 
-        
-          axios.post('/jwt', {email: loggedInUser.email})
-          .then(data =>{ 
-            setToken(data.data.token)
-              localStorage.setItem('access-token', data.data.token)
-              // axios.defaults.headers.common['Authorization'] ='Bearer ' +data.data.token;
-               setLoading(false);
-          })
-     
-      
 
-      }else{
+        axios.post('/jwt', { email: loggedInUser.email })
+          .then(data => {
+            setToken(data.data.token)
+            localStorage.setItem('access-token', data.data.token)
+            // axios.defaults.headers.common['Authorization'] ='Bearer ' +data.data.token;
+            setLoading(false);
+          })
+
+
+
+      } else {
         localStorage.removeItem('access-token')
-    }
-       setLoading(false)
+      }
+      setLoading(false)
     });
     return () => {
       unSubscribe();
-  
+
     };
   }, []);
 
 
-  const authInfo = { registerUser, cartToggle, setCartToggle, user, logOut, loginUser , isLogged, setIsLogged ,toastPush,isAdmin, isStudent, isInstructor,loading , adminStateLoading,userData, setUserData,setTheme, handleToggle,dark,theme,userMongoData,cart,refetchUser, setRefetchUser}  ;
+  const authInfo = { registerUser, cartToggle, setCartToggle, user, logOut, loginUser, isLogged, setIsLogged, toastPush, isAdmin, isStudent, isInstructor, loading, adminStateLoading, userData, setUserData, setTheme, handleToggle, dark, theme, userMongoData, cart, refetchUser, setRefetchUser };
   return (
     <AuthContext.Provider value={authInfo}>{!loading && children}</AuthContext.Provider>
   );
