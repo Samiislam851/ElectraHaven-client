@@ -20,7 +20,7 @@ const Cart = () => {
 
     useEffect(() => {
         const newPrice = cart.reduce((acc, current) => {
-            console.log('quantity', current.quantity);
+            // console.log('quantity', current.quantity);
             const productPrice = current.quantity * current.price
             // console.log('current : ', current);
             return acc + productPrice;
@@ -58,7 +58,7 @@ const Cart = () => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
 
         const currentDate = utcDate.toLocaleString('en-US', options)
-        console.log('current time........!', currentDate);
+        // console.log('current time........!', currentDate);
 
         cart.map(data => {
             const product = {
@@ -79,12 +79,12 @@ const Cart = () => {
             products.push(product);
         })
 
-        console.log('placed order products', products);
+        // console.log('placed order products', products);
 
         axios.put(`/orders/${userMongoData._id}`, products).then(res => console.log(res.data));
 
         axios.delete(`cart/${userMongoData.email}`).then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             setCartToggle(!cartToggle);
 
         })

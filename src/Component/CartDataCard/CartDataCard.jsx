@@ -27,7 +27,7 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency, cart }) => 
             if (result.isConfirmed) {
                 axios.delete(`/cart/product/${id}`)
                     .then((res) => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         // You can update your state or perform any other actions after item removal.
                         setCartToggle(!cartToggle)
                         Swal.fire(
@@ -90,12 +90,12 @@ const CartDataCard = ({ data, toggleDependency, setToggleDependency, cart }) => 
 
                 if (e.productId == id) {
                     e.quantity--;
-                    console.log('Updated quantity in', e.quantity);
+                    // console.log('Updated quantity in', e.quantity);
                     setQuantity(e.quantity)
 
                 }
                 setToggleDependency(!toggleDependency);
-                console.log('Updated quantity out', e.quantity);
+                // console.log('Updated quantity out', e.quantity);
             })
         }
     };

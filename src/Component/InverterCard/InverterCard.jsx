@@ -15,7 +15,7 @@ const InverterCard = ({ data }) => {
 
     const addToCart = () => {
 
-        console.log("..............................................................................", data);
+        // console.log("..............................................................................", data);
         const cart = {
             userEmail: user?.email,
             productId: data._id,
@@ -25,7 +25,7 @@ const InverterCard = ({ data }) => {
 
 
         axios.post('cart/', cart).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.acknowledged) {
                 setCartToggle(!cartToggle);
                 Swal.fire({

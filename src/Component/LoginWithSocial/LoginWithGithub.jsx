@@ -11,7 +11,7 @@ import {
 
 const LoginWithGithub = () => {
     const loginWithGithub = ()=>{
-       console.log("fuck")
+      
    
 signInWithPopup(auth, githubAuthprovider)
 .then((result) => { 

@@ -64,6 +64,12 @@ const AuthContextProvider = ({ children }) => {
 
   }, [user, refetchUser]);
 
+
+useEffect(() => {
+  console.log('.............................useMongo data should be here.....................................');
+ console.log('...................asfsdfadgagadf.................................>>>>>>>>>>>>>>>>>>>>',userMongoData);
+}, [user, refetchUser]);
+
   ////////////////////////////////////////////////////////cart/////////////////////////////////////////////////
 
   useEffect(() => {
@@ -96,7 +102,6 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     if (theme == "dark") {
       setDark(false);
-      console.log('setting dark ', dark);
     }
     else {
       setDark(false);

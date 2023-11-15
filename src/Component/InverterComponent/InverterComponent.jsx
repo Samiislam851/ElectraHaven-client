@@ -7,14 +7,14 @@ const InverterComponent = () => {
     const [loading, setLoading] = useState(true)
     const [inverterData, setInverterData] = useState();
     const component = true;
-    console.log(inverterData);
+    // console.log(inverterData);
 
     useEffect(() => {
         if (loading) {
             axios.get("/inverters/all")
                 .then(response => {
                     setInverterData(response.data.slice(0,4))
-                    console.log(response.data);
+                    // console.log(response.data);
                     setLoading(false)
                 }).catch(err => console.log(err))
 

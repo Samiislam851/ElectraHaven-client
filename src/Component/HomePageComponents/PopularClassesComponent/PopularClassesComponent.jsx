@@ -33,14 +33,14 @@ const PopularClassesComponent = () => {
       const maxScroll = documentHeight - windowHeight;
       const percentage = (scrollY / maxScroll) * 100;
       setScrollY(window.scrollY);
-      console.log(scrollY);
+      // console.log(scrollY);
     };
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  console.log(scrollY);
+  // console.log(scrollY);
   const spring = useSpring({
     from: { opacity: 0, transform: 'translateY(500px)' },
     to: { opacity: 1, transform: 'translateY(0px)' },
@@ -73,7 +73,7 @@ const selectClassHandler = (e) => {
     }
     axios.post("/select/class/", data)
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         if (response.data.message == 'exist') {
           toastPush("User Already Select this class")
         } else {

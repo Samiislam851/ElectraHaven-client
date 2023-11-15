@@ -7,17 +7,17 @@ const AccountingMeter = () => {
     const [loading, setLoading] = useState(true)
     const [AccountingMeterData, setAccountingMeterData] = useState();
     const component = true;
-    console.log(AccountingMeter);
+    // console.log(AccountingMeter);
 
     useEffect(() => {
 
         axios.get("/accounting-meters/all")
             .then(response => {
                 setAccountingMeterData(response.data.slice(0, 4))
-                console.log(response.data);
+                // console.log(response.data);
                 setLoading(false)
             }).catch(err => {
-                console.log(err)
+                // console.log(err)
                 setLoading(false)
             })
 

@@ -9,7 +9,7 @@ const CurrentElections = () => {
     useEffect(() => {
      fetch('/elections.json').then(res => res.json()).then( data => setElections(data))
     }, []);
-    console.log(elections);
+    // console.log(elections);
     return (
         <div className='min-h-screen w-[90%] mx-auto'>
             <h1 className='pt-20 text-5xl font-bold'>Ongoing elections</h1>

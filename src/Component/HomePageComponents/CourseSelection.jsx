@@ -38,7 +38,7 @@ const CourseSection = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  console.log(scrollY);
+  // console.log(scrollY);
   const spring = useSpring({
     from: { opacity: 0, transform: 'translateY(1500px)' },
     to: { opacity: 1, transform: 'translateY(0px)' },

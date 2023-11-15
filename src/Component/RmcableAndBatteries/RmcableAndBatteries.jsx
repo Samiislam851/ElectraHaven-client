@@ -46,7 +46,7 @@ const RmcableAndBatteries = () => {
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-4 gap-2'>
                             {AccountingMeterData?.map((e, i) => {
-                                if (i < 6) return <InverterCard data={e} component={component} />
+                                if (i < 6) return <InverterCard data={e} key={i} component={component} />
                             }
                             )}
                         </div>
