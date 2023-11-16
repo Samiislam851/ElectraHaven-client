@@ -140,23 +140,29 @@ const AuthContextProvider = ({ children }) => {
       // axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access-token');
     }
     const unSubscribe = onAuthStateChanged(auth, async (loggedInUser) => {
-      setUser(loggedInUser);
+  
 
       if (loggedInUser) {
-        setIsLogged(true);
+      
 
         try {
-          const response = await axios.get(`users/${loggedInUser.email}`);
 
-              setUserMongoData(response.data)
-              if (response.data?.role == "admin") {
-                setIsAdmin(true)
-               
-                setAdminStateLoading(false)
-              }
+          if (loggedInUser.hasOwnProperty('email')) {
+            const response = await axios.get(`users/${loggedInUser.email}`);
+            console.log('axios response:', response);
+            setUser(loggedInUser);
+            setUserMongoData(response.data)
+            setIsLogged(true);
+            if (response.data?.role == "admin") {
+              setIsAdmin(true)
 
-            
-          
+              setAdminStateLoading(false)
+            }
+
+          }
+
+
+
         }
         catch (err) {
           console.log(err);
