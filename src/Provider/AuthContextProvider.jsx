@@ -38,7 +38,7 @@ const AuthContextProvider = ({ children }) => {
   };
   useEffect(() => {
     localStorage.setItem("theme", theme);
-  
+
     const localTheme = "light";
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
@@ -49,26 +49,26 @@ const AuthContextProvider = ({ children }) => {
 
 
   useEffect(() => {
-    axios.get(`users/${user?.email}`).then(
-      res => {
-        setUserMongoData(res.data)
-        if (res.data?.role == "admin") {
-          setIsAdmin(true)
-          setIsStudent(false)
-          setAdminStateLoading(false)
-        }
+    // axios.get(`users/${user?.email}`).then(
+    //   res => {
+    //     setUserMongoData(res.data)
+    //     if (res.data?.role == "admin") {
+    //       setIsAdmin(true)
+    //       setIsStudent(false)
+    //       setAdminStateLoading(false)
+    //     }
 
-      }
-    )
+    //   }
+    // )
 
 
   }, [user, refetchUser]);
 
 
-useEffect(() => {
-  console.log('.............................useMongo data should be here.....................................');
- console.log('...................asfsdfadgagadf.................................>>>>>>>>>>>>>>>>>>>>',userMongoData);
-}, [user, refetchUser]);
+  useEffect(() => {
+    console.log('.............................useMongo data should be here.....................................');
+    console.log('...................asfsdfadgagadf.................................>>>>>>>>>>>>>>>>>>>>', userMongoData);
+  }, [user, refetchUser]);
 
   ////////////////////////////////////////////////////////cart/////////////////////////////////////////////////
 
@@ -137,19 +137,46 @@ useEffect(() => {
       setToken(localStorage.getItem('access-token'))
       // axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access-token');
     }
-    const unSubscribe = onAuthStateChanged(auth, (loggedInUser) => {
+    const unSubscribe = onAuthStateChanged(auth, async (loggedInUser) => {
       setUser(loggedInUser);
+
       if (loggedInUser) {
         setIsLogged(true);
 
+        try {
+          const response = await axios.get(`users/${user?.email}`).then(
+            res => {
+              setUserMongoData(res.data)
+              if (res.data?.role == "admin") {
+                setIsAdmin(true)
+               
+                setAdminStateLoading(false)
+              }
 
-        axios.post('/jwt', { email: loggedInUser.email })
-          .then(data => {
-            setToken(data.data.token)
-            localStorage.setItem('access-token', data.data.token)
-            // axios.defaults.headers.common['Authorization'] ='Bearer ' +data.data.token;
-            setLoading(false);
-          })
+            }
+          )
+        }
+        catch (err) {
+          console.log(err);
+        }
+
+
+
+
+
+
+
+
+
+
+
+        // axios.post('/jwt', { email: loggedInUser.email })
+        //   .then(data => {
+        //     setToken(data.data.token)
+        //     localStorage.setItem('access-token', data.data.token)
+        //     // axios.defaults.headers.common['Authorization'] ='Bearer ' +data.data.token;
+        //     setLoading(false);
+        //   })
 
 
 
