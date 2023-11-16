@@ -251,6 +251,7 @@ console.log(productData);
                                             <option value='inverter'>Inverter</option>
                                             <option value='RMCable'>RMCable</option>
                                             <option value='battery'>Battery</option>
+                                            <option value='accounting meter'>Accounting Meter</option>
                                             <option value='Other'>Other</option>
                                         </select>
                                     </div>

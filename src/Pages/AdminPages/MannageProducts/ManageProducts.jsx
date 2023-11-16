@@ -61,8 +61,10 @@ const handleNavigate = (id) => {
                             'This item has been removed from your cart.'
 
                         )
-                        // setRefetch(!refetch);
-                        window.location.reload()
+                   const leftOverData = renderData.filter(p => p._id !== e._id)
+                   console.log(leftOverData);
+                   setRenderData(leftOverData)
+                
 
                     })
                     .catch((error) => {
