@@ -114,6 +114,8 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const logOut = () => {
+    setUser(null)
+    setUserMongoData(null)
     return signOut(auth);
   };
 
@@ -144,17 +146,17 @@ const AuthContextProvider = ({ children }) => {
         setIsLogged(true);
 
         try {
-          const response = await axios.get(`users/${user?.email}`).then(
-            res => {
-              setUserMongoData(res.data)
-              if (res.data?.role == "admin") {
+          const response = await axios.get(`users/${loggedInUser.email}`);
+
+              setUserMongoData(response.data)
+              if (response.data?.role == "admin") {
                 setIsAdmin(true)
                
                 setAdminStateLoading(false)
               }
 
-            }
-          )
+            
+          
         }
         catch (err) {
           console.log(err);

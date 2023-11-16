@@ -166,7 +166,7 @@ console.log('user role..........................................................
 
 
 
-              {isAdmin ? <ActiveLink
+              {userMongoData?.role == "admin"  ? <ActiveLink
                 to={ '/admin'}
                 className="text-base font-medium text-gray-500 "
               >

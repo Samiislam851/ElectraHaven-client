@@ -70,7 +70,7 @@ const InverterCard = ({ data }) => {
                     
                     <p>Capacity : {data.capacity}</p>
 
-                    <div> price : {data.price}$usd</div>
+                    <div> price : {data.price} Bdt</div>
                 </div>
 
 
