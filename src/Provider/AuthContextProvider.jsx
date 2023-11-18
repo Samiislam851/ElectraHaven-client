@@ -88,21 +88,39 @@ const AuthContextProvider = ({ children }) => {
   //////////////////////// Calling all products ////////////////////////////
 
 
-   ////////////////// TODO : call all the products by filtering in the backend for more optimization /////////////////  
+  ////////////////// TODO : call all the products by filtering in the backend for more optimization /////////////////  
   const [allProducts, setAllProducts] = useState([]);
   const [refetch, setRefetch] = useState(false);
 
   const fetchData = async () => {
-    const res = await axios.get('/products');
-
-    if (res.data.length > 0) {
-      console.log('from AuthContext for refetch... called ============================================================================================================', res.data);
-      setAllProducts(res.data);
-    } else {
-      // Call fetchData again if data is empty
-      await fetchData();
+    const maxRetries = 30; // Maximum number of retries
+  
+    for (let i = 0; i <= maxRetries; i++) {
+      try {
+        const res = await axios.get('/products');
+        console.log('from AuthContext for refetch...', res.data, i);
+  
+        if (res.data.length > 0) {
+          setAllProducts(res.data);
+          break; // Exit the loop when data is found
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+  
+        if (i < maxRetries) {
+          // Retry fetching data
+          console.log(`Retrying... (Attempt ${i + 1}/${maxRetries})`);
+          continue;
+        } else {
+          // Handle maximum retries reached
+          console.error('Maximum retries reached. Unable to fetch data.');
+          break;
+        }
+      }
     }
   };
+
+
 
   useEffect(() => {
     fetchData();
