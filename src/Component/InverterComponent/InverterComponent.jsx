@@ -21,7 +21,7 @@ const InverterComponent = () => {
         //         setLoading(false)
         //     }).catch(err => console.log(err))
         if (allProducts.length > 0) {
-            const inverters = allProducts.filter(product => product.type == 'inverter')
+            const inverters = allProducts.filter(product => product.type == 'inverter').slice(0, 4);
             setInverterData(inverters)
 
             setLoading(false)

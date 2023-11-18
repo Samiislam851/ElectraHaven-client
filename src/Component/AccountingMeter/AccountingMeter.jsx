@@ -27,7 +27,7 @@ const AccountingMeter = () => {
             //     setLoading(false)
             // })
             if (allProducts.length > 0 ) {
-                const accountingMeters = allProducts.filter(product => product.type == 'accounting meter')
+                const accountingMeters = allProducts.filter(product => product.type == 'accounting meter').slice(0, 4);
 
                 setAccountingMeterData(accountingMeters)
     

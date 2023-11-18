@@ -71,7 +71,7 @@ const Slider = ({ children }) => {
               Your Source for Superior Electrical Solutions.</p>
             </animated.div>
             <animated.div style={spring3}>
-              <Link to="/all-products" className='text-white border md:border-[3px] md:text-xl font-medium text-sm w-fit mx-auto rounded-full md:px-10 px-5 md:py-4  py-2 md:hover:bg-[#05A97F] transition-all duration-500 md:hover:border-[#05A97F]'>View All Products</Link></animated.div>
+              <Link to="/all-products" className='text-white border md:border-[3px] md:text-xl font-medium text-sm w-fit mx-auto rounded-full md:px-10 px-5 md:py-4  py-1 md:hover:bg-[#05A97F] transition-all duration-500 md:hover:border-[#05A97F]'>View All Products</Link></animated.div>
           </div>
 
         </div>

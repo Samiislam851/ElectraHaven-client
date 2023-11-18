@@ -28,7 +28,7 @@ const RmcableAndBatteries = () => {
         //     setLoading(false)
         // })
             if (allProducts.length > 0 ) {
-                const inverters = allProducts?.filter(e=> e.type== 'battery' || e.type=='RMCable')
+                const inverters = allProducts?.filter(e=> e.type== 'battery' || e.type=='RMCable').slice(0, 4);
                 setAccountingMeterData(inverters)
                 setLoading(false)
             }

@@ -26,7 +26,7 @@ const SolarPanelComponent = () => {
             //     setLoading(false)
             // }).catch(err => console.log(err))
             if (allProducts.length > 0 ) {
-            const inverters = allProducts.filter(product => product.type == 'solar panel')
+            const inverters = allProducts.filter(product => product.type == 'solar panel').slice(0, 4);
 
             setInverterData(inverters)
 

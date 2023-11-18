@@ -63,7 +63,7 @@ const AddAProduct = ({ setTitle }) => {
 
             } else {
 
-             
+
 
                 const inputString = dataInserted.fulfilledStandards;
                 const standards = inputString.split(",");
@@ -101,14 +101,9 @@ const AddAProduct = ({ setTitle }) => {
     };
 
     const inputChangeHandler = (e) => {
-
-
-
         setProductData({ ...productData, [e.target.id]: e.target.value });
         setMessage(null);
-
-// console.log(productData);
-
+        // console.log(productData);
     };
 
     const imageUploadHandler = (e) => {

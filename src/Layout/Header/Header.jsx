@@ -24,7 +24,7 @@ const Header = () => {
   // const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, ,} = useContext(AuthContext);
 
 
-// console.log('user role..................................................................!!!!!!!!!!!!!!!!!!!!!!!!!',userMongoData?.role);
+  // console.log('user role..................................................................!!!!!!!!!!!!!!!!!!!!!!!!!',userMongoData?.role);
 
 
 
@@ -127,7 +127,7 @@ const Header = () => {
                 to="/all-products"
                 className=" font-medium text-gray-500 "
               >
-              Products
+                Products
               </ActiveLink>
 
               {
@@ -166,9 +166,9 @@ const Header = () => {
 
 
 
-              {userMongoData?.role == "admin"  ? <ActiveLink
-                to={ '/admin'}
-                className="text-base font-medium text-gray-500 "
+              {userMongoData?.role == "admin" ? <ActiveLink
+                to={'/admin'}
+                className="text-base hidden md:visible font-medium text-gray-500 "
               >
                 Dashboard
               </ActiveLink> : <></>}
@@ -262,6 +262,12 @@ const Header = () => {
                   >
                     Contact
                   </ActiveLink>
+                  <ActiveLink
+                    to="/all-products"
+                    className=" font-medium text-gray-500 "
+                  >
+                    Products
+                  </ActiveLink>
 
                   {
                     userMongoData?.role == "customer" ? <>
@@ -278,12 +284,7 @@ const Header = () => {
 
 
 
-                  {user ? <ActiveLink
-                    to={!loading && (isAdmin ? '/admin' : (isInstructor ? '/instructor' : '/student'))}
-                    className="text-base hidden md:visible font-medium text-gray-500 "
-                  >
-                    Dashboard
-                  </ActiveLink> : <></>}
+                  {user ? <p className='text-gray-500'> Tips :  Login with computer for Dashboard</p> : <></>}
 
 
 
@@ -299,7 +300,7 @@ const Header = () => {
                       </Link>
                       <Link
                         to='/register'
-                        className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-500 bg-[#05A97F]"
+                        className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-100 bg-[#05A97F]"
                       >
                         Sign up
                       </Link>
