@@ -6,7 +6,7 @@ import axios from 'axios';
 const User = ({ setTitle }) => {
     const { user, userMongoData } = useContext(AuthContext)
 
-    console.log(userMongoData?.address);
+    // console.log(userMongoData?.address);
 
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const User = ({ setTitle }) => {
         }
      
     }, [userMongoData]);
-console.log('userlevel..............................',userLevel);
+// console.log('userlevel..............................',userLevel);
 
 
 

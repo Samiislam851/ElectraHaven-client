@@ -10,9 +10,9 @@ const InverterComponent = () => {
     const component = true;
     // console.log(inverterData);
     const { allProducts, refetch, setRefetch } = useContext(AuthContext)
-    console.log('refetch=========================', refetch)
+    // console.log('refetch=========================', refetch)
     useEffect(() => {
-        console.log('all products ==============================================', allProducts, refetch);
+        // console.log('all products ==============================================', allProducts, refetch);
 
         // axios.get("/inverters/all")
         //     .then(response => {
@@ -22,7 +22,6 @@ const InverterComponent = () => {
         //     }).catch(err => console.log(err))
         if (allProducts.length > 0) {
             const inverters = allProducts.filter(product => product.type == 'inverter')
-            console.log('Inverters ==============================================', inverters);
             setInverterData(inverters)
 
             setLoading(false)

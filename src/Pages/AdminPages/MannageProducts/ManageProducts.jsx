@@ -40,7 +40,7 @@ const handleNavigate = (id) => {
     }, [refetch]);
 
     const handleProductDelete = (e) => {
-        console.log('refetch before >>>>>>>>>>>>>>>>>>', refetch);
+        // console.log('refetch before >>>>>>>>>>>>>>>>>>', refetch);
         Swal.fire({
             title: 'Are you sure you want to remove this item?',
             text: "",
@@ -53,16 +53,16 @@ const handleNavigate = (id) => {
             if (result.isConfirmed) {
                 axios.delete(`/products/${e._id}`)
                     .then((res) => {
-                        console.log(res.data);
+                        // console.log(res.data);
 
-                        console.log('refetch after >>>>>>>>>>>>>>>>>>', refetch);
+                        // console.log('refetch after >>>>>>>>>>>>>>>>>>', refetch);
                         Swal.fire(
                             'Deleted!',
                             'This item has been removed from your cart.'
 
                         )
                    const leftOverData = renderData.filter(p => p._id !== e._id)
-                   console.log(leftOverData);
+                //    console.log(leftOverData);
                    setRenderData(leftOverData)
                 
 

@@ -68,7 +68,7 @@ const InverterCard = ({ data }) => {
                 <div className=' flex text-start justify-between px-5 pb-2  text-gray-400 gap-1'>
 
                     
-                    <p>Capacity : {data.capacity}</p>
+                    <p> Capacity : {data.capacity}</p>
 
                     <div> price : {data.price} Bdt</div>
                 </div>

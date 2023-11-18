@@ -5,7 +5,7 @@ import { useContext } from 'react';
 const PopularClassesCard = ({data , disablebtn,}) => {
   const {dark,user, toastPush} = useContext(AuthContext);
   const selectClassHandler = (e) => {
-    console.log("clicked class handler");
+    // console.log("clicked class handler");
     if (user) {
       let data = {
         classid: e,
@@ -14,7 +14,7 @@ const PopularClassesCard = ({data , disablebtn,}) => {
       }
       axios.post("/select/class/", data)
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           if (response.data.message == 'exist') {
             toastPush("User Already Select this class")
           } else {

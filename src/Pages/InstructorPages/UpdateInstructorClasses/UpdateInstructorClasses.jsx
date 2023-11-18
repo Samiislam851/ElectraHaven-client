@@ -55,7 +55,7 @@ const UpdateInstructorClasses = ({setTitle }) => {
         setProgresssending(true)
         const formData = new FormData();
         const countFile = e.target.files.length;
-        console.log(countFile);
+        // console.log(countFile);
         
         for (let i = 0; i < countFile; i++) {
           formData.append("image", e.target.files[i]);
@@ -67,7 +67,7 @@ const UpdateInstructorClasses = ({setTitle }) => {
             headers: { 'Content-Type': 'multipart/form-data' },
           })
             .then((response) => {
-              console.log(response.data);
+              // console.log(response.data);
               setUploadedImageUrl(response.data.data.display_url)
               setimguploadingmessage(null) 
               setProgresssending(false)

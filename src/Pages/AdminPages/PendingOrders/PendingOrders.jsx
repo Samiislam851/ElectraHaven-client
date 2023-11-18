@@ -25,7 +25,7 @@ const PendingOrders = () => {
         console.log(e);
 
         axios.put('/cancelOrder/admin', e).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.modifiedCount > 0) {
                 const newData = renderedOrders.filter(order =>order.orderId != e.orderId );
 

@@ -8,7 +8,7 @@ import { getAnalytics } from "firebase/analytics";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // dotenv.config();
  
- console.log(import.meta.env.VITE_AUTH_DOMAIN)
+//  console.log(import.meta.env.VITE_AUTH_DOMAIN)
  const firebaseConfig = {
   
   apiKey: import.meta.env.VITE_apiKey,

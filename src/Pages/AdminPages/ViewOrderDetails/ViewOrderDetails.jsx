@@ -9,7 +9,7 @@ const ViewOrderDetails = () => {
     const [feedBack, setFeedBack] = useState(null);
     const orderData = state.data;
     const fromRequestedPage = state.fromRequestedPage;
-    console.log('requested page details', fromRequestedPage);
+    // console.log('requested page details', fromRequestedPage);
     const [productData, setProductData] = useState({});
     const navigate = useNavigate();
 
@@ -35,12 +35,12 @@ const ViewOrderDetails = () => {
     const submitWithProblem = () => {
         const newOrderData = { ...orderData, feedBack }
 
-        console.log(newOrderData);
+        // console.log(newOrderData);
 
         axios.put(`/problematic-order/admin`, newOrderData).then(res => {
 
             if (res.data.modifiedCount > 0) {
-                console.log(res.data);
+                // console.log(res.data);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -61,7 +61,7 @@ const ViewOrderDetails = () => {
                 })
 
             } else {
-                console.log(res.data);
+                // console.log(res.data);
             }
 
         }
@@ -74,7 +74,7 @@ const ViewOrderDetails = () => {
         axios.put(`/paymentReceived/admin`, orderData).then(res => {
 
             if (res.data.modifiedCount > 0) {
-                console.log(res.data);
+                // console.log(res.data);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -95,14 +95,14 @@ const ViewOrderDetails = () => {
                 })
 
             } else {
-                console.log(res.data);
+                // console.log(res.data);
             }
 
         }
         )
     }
 
-console.log(orderData);
+    // console.log(orderData);
 
     useEffect(() => {
         axios.get(`/products/${orderData.productId}`).then(res => {
@@ -110,7 +110,7 @@ console.log(orderData);
 
         }).catch(err => console.log(err))
     }, []);
-    console.log(productData);
+    // console.log(productData);
     return (
         <div className='flex justify-center mt-10 mb-20'>
             <div className="max-w-xl w-full bg-white p-8 rounded-lg shadow-md transform hover:shadow-xl transition-all duration-300 ease-in-out">
@@ -271,7 +271,7 @@ console.log(orderData);
                                     Acknowledge as Payment Received
                                 </button>
                                 <button onClick={handleProblematicOrder} className="btn btn-error text-white hover:shadow-lg transition-all ease-in-out duration-300 hover:scale-105">
-                                          There's a problem
+                                    There's a problem
                                 </button>
                             </>
 

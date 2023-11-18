@@ -16,7 +16,7 @@ const SingleItem = () => {
 
     const { productId } = useParams();
 
-    console.log(userMongoData?.role);
+    // console.log(userMongoData?.role);
 
     const [productData, setProductData] = useState({});
 
@@ -24,7 +24,7 @@ const SingleItem = () => {
         setLoading(true)
         axios.get(`/products/${productId}`).then(res => {
             setProductData(res.data)
-            console.log(res.data);
+            // console.log(res.data);
             setLoading(false)
         }).catch(err => console.log(err))
 
@@ -64,7 +64,7 @@ const SingleItem = () => {
 
 
 
-console.log('fullfilled standards ',productData?.fulfilledStandards);
+// console.log('fullfilled standards ',productData?.fulfilledStandards);
 
 
 
@@ -77,10 +77,10 @@ console.log('fullfilled standards ',productData?.fulfilledStandards);
             quantity: 1,
             price: productData?.price
         }
-        console.log(cart);
+        // console.log(cart);
 
         axios.post('cart/', cart).then(res => {
-            console.log('acknowledgment....................................', res.data.acknowledged);
+            // console.log('acknowledgment....................................', res.data.acknowledged);
             if (res.data.acknowledged) {
 
                 Swal.fire({

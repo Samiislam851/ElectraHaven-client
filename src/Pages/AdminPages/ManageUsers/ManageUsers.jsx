@@ -59,7 +59,7 @@ const ManageUsers = ({ setTitle }) => {
     setRenderData(updatedData)
 
     axios.patch(`/users/admin/${e}`).then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       toastPush("Role Updated")
     })
   }
@@ -70,10 +70,10 @@ const ManageUsers = ({ setTitle }) => {
       }
       return obj;
     });
-    console.log(updatedData)
+    // console.log(updatedData)
     setRenderData(updatedData)
     axios.patch(`/users/customer/${e}`).then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       toastPush("Role Updated")
     })
   }

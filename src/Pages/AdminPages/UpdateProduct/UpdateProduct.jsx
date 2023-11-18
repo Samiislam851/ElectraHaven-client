@@ -17,19 +17,19 @@ const UpdateProduct = () => {
 
     const { productId } = useParams();
 
-    console.log(productId);
+    // console.log(productId);
 
     const [productData, setProductData] = useState({});
     const [updatedProductData, setUpdatedProductData] = useState({ ...productData });
 
-    console.log('updated product data ', updatedProductData);
+    // console.log('updated product data ', updatedProductData);
 
     useEffect(() => {
         setLoading(true)
         axios.get(`/products/${productId}`).then(res => {
             setProductData(res.data)
             setUpdatedProductData(res.data)
-            console.log(res.data);
+            // console.log(res.data);
             setLoading(false)
         }).catch(err => console.log(err))
     }, []);
@@ -48,7 +48,7 @@ const UpdateProduct = () => {
 
     const handleUpdate = () => {
 
-        console.log('Updated Data:', updatedProductData);
+        // console.log('Updated Data:', updatedProductData);
         axios
             .put(`/update-product/${productId}`, updatedProductData)
             .then((response) => {

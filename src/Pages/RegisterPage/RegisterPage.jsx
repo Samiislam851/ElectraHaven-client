@@ -91,7 +91,7 @@ const RegisterPage = ({ setTitle }) => {
         console.error('Error updating profile:', error);
       });
 
-      console.log('Firebase operation', userCredential);
+      // console.log('Firebase operation', userCredential);
 
      
  
@@ -114,7 +114,7 @@ const RegisterPage = ({ setTitle }) => {
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setUploadedImageUrl(response.data.data.display_url);
       setimguploadingmessage(null);
       setProgresssending(false);

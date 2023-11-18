@@ -47,7 +47,7 @@ const AddAProduct = ({ setTitle }) => {
 
 
         for (let x in productData) {
-            console.log('x====', productData[x]);
+            // console.log('x====', productData[x]);
             function isStringEmpty(str) {
                 return str.trim() === '';
             }
@@ -69,7 +69,7 @@ const AddAProduct = ({ setTitle }) => {
                 const standards = inputString.split(",");
 
                 dataInserted.fulfilledStandards = standards;
-                console.log('Data to be inserted', dataInserted);
+                // console.log('Data to be inserted', dataInserted);
 
                 axios
                     .post('/addproduct', dataInserted)
@@ -79,7 +79,7 @@ const AddAProduct = ({ setTitle }) => {
                         e.target.reset();
                     })
                     .catch((err) => {
-                        console.log(err);
+                        // console.log(err);
                         setProgresssending(false);
                         Swal.fire({
                             position: 'top-end',
@@ -107,7 +107,7 @@ const AddAProduct = ({ setTitle }) => {
         setProductData({ ...productData, [e.target.id]: e.target.value });
         setMessage(null);
 
-console.log(productData);
+// console.log(productData);
 
     };
 

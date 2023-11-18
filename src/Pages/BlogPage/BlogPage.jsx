@@ -17,14 +17,14 @@ const BlogPage = ({ setTitle }) => {
   const component = false;
   const [loading, setLoading] = useState(true)
   const [blogData, setBlogData] = useState();
-  console.log(blogData);
+  // console.log(blogData);
 
   useEffect(() => {
     if (loading) {
       axios.get("/blog")
         .then(response => {
           setBlogData(response.data)
-          console.log('response', response.data);
+          // console.log('response', response.data);
           setLoading(false)
         }).catch(err => console.log(err))
 

@@ -16,7 +16,7 @@ const OrderedProduct = () => {
 
 
     const { state } = useLocation();
-    console.log('order id.....................', state.order);
+    // console.log('order id.....................', state.order);
     const order = state.order;
 
 
@@ -68,7 +68,7 @@ const OrderedProduct = () => {
 
 
         axios.put(`/orders/cancel/${order.orderId}/${userMongoData._id}`).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             Swal.fire({
                 position: 'top-end',
                 icon: '',
@@ -85,7 +85,7 @@ const OrderedProduct = () => {
 
     }
 
-    console.log(order);
+    // console.log(order);
 
     useEffect(() => {
         axios.get(`products/${state?.order?.productId}`).then(res => setProduct(res.data))

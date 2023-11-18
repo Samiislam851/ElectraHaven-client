@@ -12,7 +12,7 @@ const UpdateAddress = ({ setTitle }) => {
     const { userMongoData, refetchUser, setRefetchUser } = useContext(AuthContext);
 
     const existingAddress = userMongoData.address;
-    console.log(existingAddress);
+    // console.log(existingAddress);
 
 
     const handleSubmit = (e) => {
@@ -44,7 +44,7 @@ const UpdateAddress = ({ setTitle }) => {
 
         });
 
-        console.log(formData);
+        // console.log(formData);
     }
 
 

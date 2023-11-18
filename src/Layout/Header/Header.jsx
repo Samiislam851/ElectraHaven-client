@@ -24,7 +24,7 @@ const Header = () => {
   // const { registerUser, user, logOut, loginUser, isLogged, setIsLogged, ,} = useContext(AuthContext);
 
 
-console.log('user role..................................................................!!!!!!!!!!!!!!!!!!!!!!!!!',userMongoData?.role);
+// console.log('user role..................................................................!!!!!!!!!!!!!!!!!!!!!!!!!',userMongoData?.role);
 
 
 
@@ -39,7 +39,7 @@ console.log('user role..........................................................
 
   const location = useLocation();
   const currentPath = location.pathname;
-  console.log('from header .. user : ', user);
+  // console.log('from header .. user : ', user);
   useEffect(() => {
     if (currentPath == '/') {
       setOnHomepage(true)

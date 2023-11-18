@@ -8,7 +8,7 @@ const RmcableAndBatteries = () => {
     const [loading, setLoading] = useState(true)
     const [AccountingMeterData, setAccountingMeterData] = useState();
     const component = true;
-    console.log(AccountingMeterData);
+    // console.log(AccountingMeterData);
 
     
 

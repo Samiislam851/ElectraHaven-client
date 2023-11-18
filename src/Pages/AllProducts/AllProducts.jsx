@@ -31,7 +31,7 @@ const AllProducts = () => {
     const handleSearch = (event) => {
         event.preventDefault()
 
-        console.log('Search text:', searchText);
+        // console.log('Search text:', searchText);
 
         axios.get(`/search?searchTerm=${searchText}`).then(res => {
             setProducts(res.data);

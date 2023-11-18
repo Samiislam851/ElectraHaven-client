@@ -8,7 +8,7 @@ const SolarPanelComponent = () => {
     const [loading, setLoading] = useState(true)
     const [inverterData, setInverterData] = useState();
     const component = true;
-    console.log(inverterData);
+    // console.log(inverterData);
 
 
 

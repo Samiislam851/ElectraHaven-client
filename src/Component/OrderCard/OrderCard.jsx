@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const OrderCard = ({ order }) => {
     const [product, setProduct] = useState({});
-    console.log(product);
+    // console.log(product);
 
     //////////////////date and time////////////
     const dateTime = new Date(order.orderDate);

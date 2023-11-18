@@ -38,7 +38,7 @@ const MobileBankingPayment = () => {
             user: data.userMongoData
         }
         axios.put(`/payment/mobile-banking/${data.order.orderId}`, paymentData).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.modifiedCount > 0) {
 
                 Swal.fire({

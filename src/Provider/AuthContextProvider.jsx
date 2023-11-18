@@ -66,8 +66,8 @@ const AuthContextProvider = ({ children }) => {
 
 
   useEffect(() => {
-    console.log('.............................useMongo data should be here.....................................');
-    console.log('...................asfsdfadgagadf.................................>>>>>>>>>>>>>>>>>>>>', userMongoData);
+    // console.log('.............................useMongo data should be here.....................................');
+    // console.log('...................asfsdfadgagadf.................................>>>>>>>>>>>>>>>>>>>>', userMongoData);
   }, [user, refetchUser]);
 
   ////////////////////////////////////////////////////////cart/////////////////////////////////////////////////
@@ -79,7 +79,7 @@ const AuthContextProvider = ({ children }) => {
       }
       )
 
-      console.log(userMongoData.email);
+      // console.log(userMongoData.email);
     }
   }, [userMongoData, cartToggle]);
 
@@ -148,7 +148,7 @@ const AuthContextProvider = ({ children }) => {
     }
     else {
       setDark(false);
-      console.log('setting dark', dark);
+      // console.log('setting dark', dark);
     }
   }, [dark]);
 
@@ -192,7 +192,7 @@ const AuthContextProvider = ({ children }) => {
 
           if (loggedInUser.hasOwnProperty('email')) {
             const response = await axios.get(`users/${loggedInUser.email}`);
-            console.log('axios response:', response);
+            // console.log('axios response:', response);
             setUser(loggedInUser);
             setUserMongoData(response.data)
             setIsLogged(true);

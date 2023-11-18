@@ -36,7 +36,7 @@ const SingleBlogPage = ({ setTitle }) => {
 
 
     }, []);
-    console.log(blogs);
+    // console.log(blogs);
     const clickOperation = () => {
 
 

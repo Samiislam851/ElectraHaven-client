@@ -10,7 +10,7 @@ export class UploadImgBB extends Component {
         
 var formData = new FormData();
 var countFile = e.target.files.length;
-console.log(countFile);
+// console.log(countFile);
 for(var i=0;i<countFile;i++){
     formData.append("image",e.target.files[i]);
     $.ajax({
@@ -21,12 +21,12 @@ for(var i=0;i<countFile;i++){
     contentType: false,
     processData: false,
     success:(data)=>{
- console.log(data)
+//  console.log(data)
         
     },
     error: (data)=>{
-        console.log("error");
-        console.log(data);
+        // console.log("error");
+        // console.log(data);
     }
     });
 }

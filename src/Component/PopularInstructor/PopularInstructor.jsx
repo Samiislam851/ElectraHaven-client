@@ -63,7 +63,7 @@ const PopularInstructor = () => {
       const maxScroll = documentHeight - windowHeight;
       const percentage = (scrollY / maxScroll) * 100;
       setScrollY(window.scrollY);
-      console.log(scrollY);
+      // console.log(scrollY);
     };
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -71,7 +71,7 @@ const PopularInstructor = () => {
     };
   }, []);
 
-  console.log(scrollY);
+  // console.log(scrollY);
   const spring = useSpring({
     from: { opacity: 0, transform: 'translateX(-1500px)' },
     to: { opacity: 1, transform: 'translateX(0px)' },
