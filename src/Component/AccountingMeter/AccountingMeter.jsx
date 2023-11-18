@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Spinner from '../Spinner/Spinner';
 import axios from 'axios';
 import InverterCard from '../InverterCard/InverterCard';
+import { AuthContext } from '../../Provider/AuthContextProvider';
 
 const AccountingMeter = () => {
     const [loading, setLoading] = useState(true)
@@ -9,20 +10,40 @@ const AccountingMeter = () => {
     const component = true;
     // console.log(AccountingMeter);
 
+ 
+
+
+    const { allProducts } = useContext(AuthContext)
     useEffect(() => {
+       
+  
+            // axios.get("/accounting-meters/all")
+            // .then(response => {
+            //     setAccountingMeterData(response.data.slice(0, 4))
+            //     // console.log(response.data);
+            //     setLoading(false)
+            // }).catch(err => {
+            //     // console.log(err)
+            //     setLoading(false)
+            // })
+            if (allProducts.length > 0 ) {
+                const accountingMeters = allProducts.filter(product => product.type == 'accounting meter')
 
-        axios.get("/accounting-meters/all")
-            .then(response => {
-                setAccountingMeterData(response.data.slice(0, 4))
-                // console.log(response.data);
+                setAccountingMeterData(accountingMeters)
+    
                 setLoading(false)
-            }).catch(err => {
-                // console.log(err)
-                setLoading(false)
-            })
+            }
+          
 
 
-    }, []);
+        
+
+
+
+    }, [allProducts]);
+
+
+    
     return (
         <div>
             <>
@@ -44,7 +65,7 @@ const AccountingMeter = () => {
                         <div className='grid grid-cols-1 md:grid-cols-4 gap-2'>
                             {
                             AccountingMeterData?.map((e, i) => {
-                                if (i < 6) return <InverterCard data={e} component={component} />
+                                if (i < 6) return <InverterCard data={e} key={i} component={component} />
                             }
                             )
                             }

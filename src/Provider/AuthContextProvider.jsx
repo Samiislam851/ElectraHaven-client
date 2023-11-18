@@ -85,7 +85,32 @@ const AuthContextProvider = ({ children }) => {
 
 
 
+  //////////////////////// Calling all products ////////////////////////////
 
+
+   ////////////////// TODO : call all the products by filtering in the backend for more optimization /////////////////  
+  const [allProducts, setAllProducts] = useState([]);
+  const [refetch, setRefetch] = useState(false);
+
+  const fetchData = async () => {
+    const res = await axios.get('/products');
+
+    if (res.data.length > 0) {
+      console.log('from AuthContext for refetch... called ============================================================================================================', res.data);
+      setAllProducts(res.data);
+    } else {
+      // Call fetchData again if data is empty
+      await fetchData();
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+
+  }, [refetch]);
+
+
+  /////////////////////////////////////////////
 
 
 
@@ -140,10 +165,10 @@ const AuthContextProvider = ({ children }) => {
       // axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access-token');
     }
     const unSubscribe = onAuthStateChanged(auth, async (loggedInUser) => {
-  
+
 
       if (loggedInUser) {
-      
+
 
         try {
 
@@ -200,7 +225,7 @@ const AuthContextProvider = ({ children }) => {
   }, []);
 
 
-  const authInfo = { registerUser, cartToggle, setCartToggle, user, logOut, loginUser, isLogged, setIsLogged, toastPush, isAdmin, isStudent, isInstructor, loading, adminStateLoading, userData, setUserData, setTheme, handleToggle, dark, theme, userMongoData, cart, refetchUser, setRefetchUser };
+  const authInfo = { allProducts, registerUser, cartToggle, setCartToggle, user, logOut, loginUser, isLogged, setIsLogged, toastPush, isAdmin, isStudent, isInstructor, loading, adminStateLoading, userData, setUserData, setTheme, handleToggle, dark, theme, userMongoData, cart, refetchUser, setRefetchUser, refetch, setRefetch };
   return (
     <AuthContext.Provider value={authInfo}>{!loading && children}</AuthContext.Provider>
   );

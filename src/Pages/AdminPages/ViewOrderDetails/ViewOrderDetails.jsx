@@ -123,7 +123,7 @@ console.log(orderData);
                     <div className="font-semibold capitalize">{productData.modelNumber}</div>
 
                     <div className="text-gray-500">Brand:</div>
-                    <div className="font-semibold capitalize">{productdata.brand}</div>
+                    <div className="font-semibold capitalize">{productData.brand}</div>
 
                     <div className="text-gray-500">Capacity:</div>
                     <div className="font-semibold capitalize">{productData.capacity}</div>

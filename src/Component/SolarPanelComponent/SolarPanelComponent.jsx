@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Spinner from '../Spinner/Spinner';
 import axios from 'axios';
 import InverterCard from '../InverterCard/InverterCard';
+import { AuthContext } from '../../Provider/AuthContextProvider';
 
 const SolarPanelComponent = () => {
     const [loading, setLoading] = useState(true)
@@ -9,17 +10,38 @@ const SolarPanelComponent = () => {
     const component = true;
     console.log(inverterData);
 
+
+
+
+
+
+
+    const { allProducts } = useContext(AuthContext)
     useEffect(() => {
-     
-            axios.get("/solar-panels/all")
-                .then(response => {
-                    setInverterData(response.data.slice(0, 4))
-                    console.log(response.data);
-                    setLoading(false)
-                }).catch(err => console.log(err))
+       
+            // axios.get("/solar-panels/all")
+            // .then(response => {
+            //     setInverterData(response.data.slice(0, 4))
+            //     console.log(response.data);
+            //     setLoading(false)
+            // }).catch(err => console.log(err))
+            if (allProducts.length > 0 ) {
+            const inverters = allProducts.filter(product => product.type == 'solar panel')
+
+            setInverterData(inverters)
+
+            setLoading(false)
+
+            }
+        
 
 
-    }, []);
+
+    }, [allProducts]);
+
+
+
+
     return (
         <div>
 
@@ -43,7 +65,7 @@ const SolarPanelComponent = () => {
                         <div className='grid grid-cols-1 md:grid-cols-4 gap-2
                     '>
                             {inverterData.map((e, i) => {
-                                if (i < 6) return <InverterCard data={e} component={component} />
+                                if (i < 6) return <InverterCard data={e} key={i} component={component} />
                             }
                             )}
                         </div>

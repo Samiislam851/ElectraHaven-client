@@ -53,6 +53,7 @@ const RouteHandle = () => {
     {
       path: "/",
       element: <Layout setTitle={setTitle} />,
+      errorElement: <ErrorPage/>,
       children: [
         {
           path: "/",
