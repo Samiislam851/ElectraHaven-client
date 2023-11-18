@@ -4,7 +4,7 @@ import { AuthContext } from '../../Provider/AuthContextProvider';
 const Contact = () => {
   const { dark } = useContext(AuthContext)
   return (
-    <div className='max-w-[1600px] mx-auto md:px-12 px-6'>
+    <div className='max-w-[1600px] mx-auto md:px-12 my-20 px-6'>
       <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-center">
 
         <div className="md:text-center flex flex-col items-center  md:basis-[40%] p-3">

@@ -93,23 +93,23 @@ const AuthContextProvider = ({ children }) => {
   const [refetch, setRefetch] = useState(false);
 
   const fetchData = async () => {
-    const maxRetries = 30; // Maximum number of retries
+    const maxRetries = 40; // Maximum number of retries
   
     for (let i = 0; i <= maxRetries; i++) {
       try {
         const res = await axios.get('/products');
-        console.log('from AuthContext for refetch...', res.data, i);
+        // console.log('from AuthContext for refetch...', res.data, i);
   
         if (res.data.length > 0) {
           setAllProducts(res.data);
           break; // Exit the loop when data is found
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
   
         if (i < maxRetries) {
           // Retry fetching data
-          console.log(`Retrying... (Attempt ${i + 1}/${maxRetries})`);
+          // console.log(`Retrying... (Attempt ${i + 1}/${maxRetries})`);
           continue;
         } else {
           // Handle maximum retries reached
