@@ -15,7 +15,7 @@ const AddAProduct = ({ setTitle }) => {
         approvalNumber: '',
         dateOfApproval: '',
         type: '',
-        image: null,
+        image: 'image',
         price: '',
         quantity: '',
         serial: '',
@@ -32,69 +32,124 @@ const AddAProduct = ({ setTitle }) => {
         setLoading(false);
     }, []);
 
-    const formSubmitHandler = async (e) => {
-        // setProgresssending(true);
-        e.preventDefault();
-        const currentDateAndTime = new Date();
-        const dataInserted = {
-            ...productData,
-            image: uploadedImageUrl, AdminName: userMongoData.fname,
-            AdminEmail: userMongoData.email,
-            currentDateAndTime,
-        };
 
 
 
+    const addProduct = async (dataInserted) => {
 
-        for (let x in productData) {
-            // console.log('x====', productData[x]);
-            function isStringEmpty(str) {
-                return str.trim() === '';
-            }
+        let maxRetries = 5;
+        for (let i = 0; i <= maxRetries; i++) {
 
-            if (isStringEmpty(productData[x]) || productData[x] == '') {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'warning',
-                    title: 'Any field in form can not be left empty, If information not available write : N/A',
-                    showConfirmButton: false,
-                    timer: 5000
-                })
+            try {
+                const response = await axios.post('/addproduct', dataInserted);
 
-            } else {
+                if (response.status >= 200 && response.status < 300) {
+                    setProgresssending(false);
+                    toastPush('Product Added Successfully');
+                    break;
 
+                } else {
+                    console.log('Retrying ', i, 'times');
+                }
 
 
-                const inputString = dataInserted.fulfilledStandards;
-                const standards = inputString.split(",");
 
-                dataInserted.fulfilledStandards = standards;
-                // console.log('Data to be inserted', dataInserted);
+            } catch (error) {
+                console.log(error);
 
-                axios
-                    .post('/addproduct', dataInserted)
-                    .then((response) => {
-                        setProgresssending(false);
-                        toastPush('Product Added Successfully');
-                        e.target.reset();
-                    })
-                    .catch((err) => {
-                        // console.log(err);
-                        setProgresssending(false);
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'warning',
-                            title: 'product adding failed',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                if(i > maxRetries){
+                    setProgresssending(false);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Product adding failed',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
-
+                }
+               
             }
+
         }
 
 
 
+    };
+
+
+
+    const resetProductData = () => {
+        setProductData({
+          brand: '',
+          modelNumber: '',
+          capacity: '',
+          fulfilledStandards: [],
+          approvalNumber: '',
+          dateOfApproval: '',
+          type: '',
+          image: 'image',
+          price: '',
+          quantity: '',
+          serial: '',
+        });
+      };
+
+
+    const formSubmitHandler = async (e) => {
+        // setProgresssending(true);
+        e.preventDefault();
+        const currentDateAndTime = new Date();
+        let dataInserted = {
+            ...productData,
+            image: uploadedImageUrl,
+            AdminName: userMongoData.fname,
+            AdminEmail: userMongoData.email,
+            currentDateAndTime,
+        };
+        console.log('uploadedImage urls :', productData.image);
+        console.log('AdminName:', dataInserted.AdminName);
+        console.log('AdminEmail :', dataInserted.AdminEmail);
+        let isFormValid = true; // Flag to track form completion
+
+        function isStringEmpty(str) {
+            console.log('the string ==============================================', str);
+      
+            return str == null || str.trim() === '';
+        }
+
+        for (let x in productData) {
+            console.log(x, '======', productData[x]);
+            if (isStringEmpty(productData[x])) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'Any field in form can not be left empty, If information not available leave it empty or write N/A',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
+                isFormValid = false;
+            } else {
+
+
+                if (typeof dataInserted.fulfilledStandards === 'string') {
+
+                    const inputString = dataInserted.fulfilledStandards;
+                    const standards = inputString?.split(",");
+
+                    dataInserted.fulfilledStandards = standards;
+                }
+            }
+        }
+
+
+        if (isFormValid) {
+            addProduct(dataInserted);
+            dataInserted = {};
+            resetProductData();
+            e.target.reset();
+            console.log('data inserted obj after the completion of form input', productData);
+           
+        }
 
 
 
@@ -117,8 +172,7 @@ const AddAProduct = ({ setTitle }) => {
 
             axios({
                 method: 'post',
-                url:
-                    'https://api.imgbb.com/1/upload?expiration=0&key=89cd126a18f125ea9e7f8256dcb15acb',
+                url: 'https://api.imgbb.com/1/upload?expiration=0&key=89cd126a18f125ea9e7f8256dcb15acb',
                 data: formData,
                 headers: { 'Content-Type': 'multipart/form-data' },
             })
@@ -315,7 +369,7 @@ const AddAProduct = ({ setTitle }) => {
                                     <div className='flex justify-center mt-4'>
                                         <button className='btn btn-primary gap-2' disabled={progresssending}>
                                             {progresssending && (
-                                                <div class='w-4 h-4 rounded-full animate-spin
+                                                <div className='w-4 h-4 rounded-full animate-spin
                       border-2 border-solid border-white border-t-transparent'></div>
                                             )}
 

@@ -240,7 +240,7 @@ const AuthContextProvider = ({ children }) => {
       unSubscribe();
 
     };
-  }, []);
+  }, [refetch]);
 
 
   const authInfo = { allProducts, registerUser, cartToggle, setCartToggle, user, logOut, loginUser, isLogged, setIsLogged, toastPush, isAdmin, isStudent, isInstructor, loading, adminStateLoading, userData, setUserData, setTheme, handleToggle, dark, theme, userMongoData, cart, refetchUser, setRefetchUser, refetch, setRefetch };

@@ -16,10 +16,10 @@ const Contact = () => {
           <h2 className='text-gray-400  text-lg md:text-xl border-b md:w-[70%] mx-auto text-center pt-3 pb-7'>44 Shirley Ave. West Chicago, IL 60185
           </h2>
           <h3 className='text-3xl md:text-4xl text-gray-500 font-medium pt-10 my-font text-center '>Phone Number</h3>
-          <h2 className='text-gray-400  text-lg md:text-xl border-b w-[70%] text-[#E4B422] mx-auto text-center pt-3 pb-7'>+880-188-1XX-XX11
+          <h2 className='text-gray-400  text-lg md:text-xl border-b w-[70%] text-[#E4B422] mx-auto text-center pt-3 pb-7'>+880-179-396-4945
           </h2>
           <h3 className='text-3xl md:text-4xl text-gray-500 font-medium pt-10 my-font text-center '>Email</h3>
-          <h2 className='text-gray-400  text-lg md:text-xl  w-[70%] text-[#E4B422] mx-auto text-center pt-3 pb-7'>Rifatulkarim@gmail.com
+          <h2 className='text-gray-400  text-lg md:text-xl  w-[70%] text-[#E4B422] mx-auto text-center pt-3 pb-7'>info@webdigitallink.com
           </h2>
 
 

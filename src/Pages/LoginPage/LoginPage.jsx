@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import app from '../../firebase/firebase.config';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons
+import { AuthContext } from '../../Provider/AuthContextProvider';
 
 const LoginPage = ({ setTitle }) => {
+  const {refetch, setRefetch} = useContext(AuthContext)
   const [message, setMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -22,6 +24,7 @@ const LoginPage = ({ setTitle }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         // console.log(user);
+        setRefetch(!refetch)
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -64,6 +67,8 @@ const LoginPage = ({ setTitle }) => {
                 onChange={() => setMessage("")}
                 placeholder="Enter Password"
                 className="p-2 rounded-lg text-black border w-full"
+                autocomplete="current-password"
+
               />
               <button
                 type="button"

@@ -33,13 +33,7 @@ const SolarPanelComponent = () => {
             setLoading(false)
 
             }
-        
-
-
-
     }, [allProducts]);
-
-
 
 
     return (
@@ -50,7 +44,7 @@ const SolarPanelComponent = () => {
             <>
 
 
-                <div className="max-w-[1600px] mx-auto px-5  md:px-16 relative  mb-40 ">
+                <div className="max-w-[1600px] mx-auto px-5  md:px-16 relative ">
 
 
                     {loading ? <>
