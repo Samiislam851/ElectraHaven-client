@@ -25,14 +25,26 @@ const UpdateProduct = () => {
     // console.log('updated product data ', updatedProductData);
 
     useEffect(() => {
-        setLoading(true)
-        axios.get(`/products/${productId}`).then(res => {
-            setProductData(res.data)
-            setUpdatedProductData(res.data)
-            // console.log(res.data);
-            setLoading(false)
-        }).catch(err => console.log(err))
-    }, []);
+        const fetchData = async () => {
+          setLoading(true);
+      
+          while (true) {
+            try {
+              const res = await axios.get(`/products/${productId}`);
+              setProductData(res.data);
+              setUpdatedProductData(res.data);
+              setLoading(false);
+              break; // Break the loop if data is received successfully
+            } catch (error) {
+              console.log('Error fetching data:', error);
+              // You can add a delay here if you want to retry after a specific interval
+              // For example: await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+          }
+        };
+      
+        fetchData();
+      }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -64,6 +76,13 @@ const UpdateProduct = () => {
             .catch((error) => {
                 // Handle errors
                 console.error('Error updating product:', error);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: `${productData?.modelNumber} updating error : ${error.message} PLEASE RETRY`,
+                    showConfirmButton: false,
+                    timer: 2000
+                })
             });
     };
 
@@ -103,7 +122,7 @@ const UpdateProduct = () => {
                                                         className='rounded-lg p-2 m-2 '
                                                         type="text"
                                                         name="brand"
-                                                        value={updatedProductName}
+                                                        value={updatedProductData.brand}
                                                         onChange={handleInputChange}
                                                     />
                                                 </td>
@@ -198,7 +217,7 @@ const UpdateProduct = () => {
 
                                 <div className=' p-5'>
                                     <h1 className='uppercase text-xl text-center font-medium text-gray-700'>{productData.modelNumber} {productData.type}</h1>
-                                    <p className=' text-xl font-medium text-gray-700 text-center pb-10'> <span className='text-gray-400 capitalize'> {productdata.brand} </span> </p>
+                                    <p className=' text-xl font-medium text-gray-700 text-center pb-10'> <span className='text-gray-400 capitalize'> {productData.brand} </span> </p>
 
                                     <div className=' '>
                                         <img src={productData.image} className='max-w-[100px] mx-auto w-full  rounded-lg hover:-translate-y-2 hover:scale-105 transition-all ease-in-out duration-500' alt="" />

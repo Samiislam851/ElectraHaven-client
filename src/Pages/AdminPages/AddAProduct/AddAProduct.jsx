@@ -35,64 +35,25 @@ const AddAProduct = ({ setTitle }) => {
 
 
 
-    const addProduct = async (dataInserted) => {
-
-        let maxRetries = 5;
-        for (let i = 0; i <= maxRetries; i++) {
-
-            try {
-                const response = await axios.post('/addproduct', dataInserted);
-
-                if (response.status >= 200 && response.status < 300) {
-                    setProgresssending(false);
-                    toastPush('Product Added Successfully');
-                    break;
-
-                } else {
-                    console.log('Retrying ', i, 'times');
-                }
-
-
-
-            } catch (error) {
-                console.log(error);
-
-                if(i > maxRetries){
-                    setProgresssending(false);
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'warning',
-                        title: 'Product adding failed',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-               
-            }
-
-        }
-
-
-
-    };
+   
 
 
 
     const resetProductData = () => {
         setProductData({
-          brand: '',
-          modelNumber: '',
-          capacity: '',
-          fulfilledStandards: [],
-          approvalNumber: '',
-          dateOfApproval: '',
-          type: '',
-          image: 'image',
-          price: '',
-          quantity: '',
-          serial: '',
+            brand: '',
+            modelNumber: '',
+            capacity: '',
+            fulfilledStandards: [],
+            approvalNumber: '',
+            dateOfApproval: '',
+            type: '',
+            image: 'image',
+            price: '',
+            quantity: '',
+            serial: '',
         });
-      };
+    };
 
 
     const formSubmitHandler = async (e) => {
@@ -113,7 +74,7 @@ const AddAProduct = ({ setTitle }) => {
 
         function isStringEmpty(str) {
             console.log('the string ==============================================', str);
-      
+
             return str == null || str.trim() === '';
         }
 
@@ -141,19 +102,57 @@ const AddAProduct = ({ setTitle }) => {
             }
         }
 
+        const addProduct = async (dataInserted) => {
+
+            let maxRetries = 5;
+            for (let i = 0; i <= maxRetries; i++) {
+    
+                try {
+                    const response = await axios.post('/addproduct', dataInserted);
+    
+                    if (response.status >= 200 && response.status < 300) {
+                        setProgresssending(false);
+                        toastPush('Product Added Successfully');
+                        e.target.reset();
+                        break;
+    
+                    } else {
+                        console.log('Retrying ', i, 'times');
+                    }
+    
+    
+    
+                } catch (error) {
+                    console.log(error);
+    
+                    if (i > maxRetries) {
+                        setProgresssending(false);
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'warning',
+                            title: 'Product adding failed',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+    
+                }
+    
+            }
+    
+    
+    
+        };
 
         if (isFormValid) {
             addProduct(dataInserted);
             dataInserted = {};
             resetProductData();
-            e.target.reset();
+          
             console.log('data inserted obj after the completion of form input', productData);
-           
+
         }
-
-
-
-    };
+       };
 
     const inputChangeHandler = (e) => {
         setProductData({ ...productData, [e.target.id]: e.target.value });

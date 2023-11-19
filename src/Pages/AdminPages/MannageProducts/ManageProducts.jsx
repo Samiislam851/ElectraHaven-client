@@ -20,22 +20,47 @@ const ManageProducts = ({ setTitle }) => {
     const [feedbackclassid, setfeedbackclassid] = useState(null)
     const [progresssending, setprogresssending] = useState(false)
 
-const handleNavigate = (id) => {
-    navigate(`product/${id}`)
-}
+    const handleNavigate = (id) => {
+        navigate(`product/${id}`)
+    }
 
+
+
+    const fetchProducts = async () => {
+        for (let i = 0; i <= 10; i++) {
+
+
+            try {
+                const res = await axios.get(`/products`)
+
+                if (res.status >= 200 && res.status < 300) {
+                    let data = res.data
+                    setmyProductsData(data)
+                    setRenderData(data)
+                    setLoading(false)
+                    break
+                }
+
+            } catch (error) {
+                console.log(error);
+                if (i > 10) {
+                    console.log('Failed to fetch data due to network issue');
+
+                }
+            }
+
+
+
+
+
+
+        }
+    }
 
     useEffect(() => {
         if (loading && user) {
             setTitle("My Products")
-            axios.get(`/products`)
-                .then(response => {
-                    let data = response.data
-                    setmyProductsData(data)
-                    setRenderData(data)
-                    setLoading(false)
-
-                })
+            fetchProducts();
         }
     }, [refetch]);
 
@@ -61,10 +86,10 @@ const handleNavigate = (id) => {
                             'This item has been removed from your cart.'
 
                         )
-                   const leftOverData = renderData.filter(p => p._id !== e._id)
-                //    console.log(leftOverData);
-                   setRenderData(leftOverData)
-                
+                        const leftOverData = renderData.filter(p => p._id !== e._id)
+                        //    console.log(leftOverData);
+                        setRenderData(leftOverData)
+
 
                     })
                     .catch((error) => {
@@ -132,7 +157,7 @@ const handleNavigate = (id) => {
                                                         <tr>
 
                                                             <td>
-                                                                <button onClick={() => handleNavigate(e._id) } >
+                                                                <button onClick={() => handleNavigate(e._id)} >
                                                                     <div className="flex items-center space-x-3">
                                                                         <div className="avatar">
                                                                             <div className="mask mask-squircle w-12 h-12">

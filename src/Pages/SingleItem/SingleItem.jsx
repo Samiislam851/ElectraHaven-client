@@ -116,84 +116,152 @@ const SingleItem = () => {
             <>
                 {loading ? <Spinner /> :
                     <div className='max-w-[1600px] md:px-20 mx-auto px-5 py-20 md:pb-40'>
-                        <div className='flex gap-5 shadow p-10 justify-center'>
-
-                            <div className='basis-[40%] '>
-                                <img src={productData?.image} className='max-w-[500px] mx-auto w-full  hover:-translate-y-2 hover:scale-105 transition-all ease-in-out duration-500' alt="" />
-                            </div>
-                            <div className='basis-[60%] p-5'>
-                                <h1 className='uppercase text-4xl text-center font-medium text-gray-700'>{productData?.modelNumber} {productData?.type}</h1>
-                                <p className=' text-xl font-medium text-gray-700 text-center pb-10'> <span className='text-gray-400 capitalize'> {productData?.brand} </span> </p>
-                                <div className='flex flex-col  gap-3 pt-5 '>
-                                    <p className='text-xl text-gray-800 font-semibold'>Specifications : </p>
-                                    <p className='text-gray-700'> <span className='font-medium text-gray-700'>Category :</span> <span className='text-gray-500 capitalize'> {productData?.type} </span> </p>
-
-
-                                    <p className='text-gray-700'> <span className='font-medium text-gray-700'>Capacity :</span> <span className='text-gray-500 capitalize'> {productData?.capacity} </span> </p>
-                                    <p className='text-gray-700'> <span className='font-medium text-gray-700'>Serial :</span> <span className='text-gray-500 '> {productData?.serial} </span> </p>
-                                    <p className='text-gray-700'> <span className='font-medium text-gray-700'>Approval Number :</span> <span className='text-gray-500 '> {productData?.approvalNumber
-                                    } </span> </p>
-                                    <p className='text-gray-700'> <span className='font-medium text-gray-700'>Date of Approval :</span> <span className='text-gray-500 '> {productData?.dateOfApproval
-                                    } </span> </p>
-                                    <p className='text-gray-700'> <span className='font-medium text-gray-700'>Price :
-                                    </span> <span className='text-gray-500 '> {productData?.price} </span> </p>
-                                    <p className='text-gray-700'> <span className='font-medium text-gray-700'>Available Pieces :
-                                    </span> <span className='text-gray-500 '> {productData?.quantity} </span> </p>
-
-                                    {userMongoData?.role == "admin" ? <>
-                                        <p className='text-gray-700'> <span className='font-medium text-gray-700'>By Admin :
-                                        </span> <span className='text-gray-500 '> {productData?.AdminName} </span> </p>
-                                        <p className='text-gray-700'> <span className='font-medium text-gray-700'>Admin Email :
-                                        </span> <span className='text-gray-500 '> {productData?.AdminEmail} </span> </p>
-                                        <p className='text-gray-700'> <span className='font-medium text-gray-700'>Listed :
-                                        </span> <span className='text-gray-500 '> {formattedDate} </span> </p>
-
-
-                                    </> :
-
-                                        <>
-
-
-                                        </>
-
-
-                                    }
-
-                                </div>
-                                <div className='py-5 flex flex-col md:flex-row gap-2 items-center justify-center md:justify-start'>
-                                    <p className='text-lg font-medium text-gray-500  '>Fulfilled Standards:</p>
-                                    <ul className='flex gap-3 '>
-                                        {productData?.fulfilledStandards ? <>
-                                            {
-                                                productData?.fulfilledStandards.map(data => <li className='bg-gray-200  text-gray-600 border rounded-sm px-2'>{data}</li>)
-                                            }
-                                        </>
-                                            :
-                                            <>
-
-                                            </>}
-
-                                    </ul>
-                                </div>
-                                {userMongoData?.role == "admin" ? <></> :
-
-
-                                    <>
-
-                                        {user ? <button onClick={() => { addToCart() }} className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button> :
-                                            <button onClick={() => { navigate('/login') }} className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}><AiOutlineShoppingCart className='inline' /> Add to cart</button>
-
-                                        }
-
-                                    </>}
-
-
-
-
-                            </div>
-
+                    <div className='flex gap-5 shadow p-10 justify-center'>
+                      <div className='basis-[40%] '>
+                        <img
+                          src={productData?.image}
+                          className='max-w-[500px] mx-auto w-full hover:-translate-y-2 hover:scale-105 transition-all ease-in-out duration-500'
+                          alt=''
+                        />
+                      </div>
+                      <div className='basis-[60%] p-5'>
+                        <h1 className='uppercase text-4xl text-center font-medium text-gray-700'>
+                          {productData?.modelNumber} {productData?.type}
+                        </h1>
+                        <p className='text-xl font-medium text-gray-700 text-center pb-10'>
+                          {' '}
+                          <span className='text-gray-400 capitalize'> {productData?.brand} </span>{' '}
+                        </p>
+                        <div className='flex flex-col gap-3 pt-5 '>
+                          <p className='text-xl text-gray-800 font-semibold'>Specifications : </p>
+                          
+                          {/* Capacity */}
+                          {productData?.capacity && productData?.capacity.toLowerCase() !== 'n/a' ? (
+                            <p className='text-gray-700'>
+                              <span className='font-medium text-gray-700'>Capacity :</span>{' '}
+                              <span className='text-gray-500 capitalize'> {productData?.capacity} </span>{' '}
+                            </p>
+                          ) : (
+                            <></>
+                          )}
+                  
+                          {/* Serial */}
+                          {productData?.serial && productData?.serial.toLowerCase() !== 'n/a' ? (
+                            <p className='text-gray-700'>
+                              <span className='font-medium text-gray-700'>Serial :</span>{' '}
+                              <span className='text-gray-500 '> {productData?.serial} </span>{' '}
+                            </p>
+                          ) : (
+                            <></>
+                          )}
+                  
+                          {/* Approval Number */}
+                          {productData?.approvalNumber && productData?.approvalNumber.toLowerCase() !== 'n/a' ? (
+                            <p className='text-gray-700'>
+                              <span className='font-medium text-gray-700'>Approval Number :</span>{' '}
+                              <span className='text-gray-500 '> {productData?.approvalNumber} </span>{' '}
+                            </p>
+                          ) : (
+                            <></>
+                          )}
+                  
+                          {/* Date of Approval */}
+                          {productData?.dateOfApproval && productData?.dateOfApproval.toLowerCase() !== 'n/a' ? (
+                            <p className='text-gray-700'>
+                              <span className='font-medium text-gray-700'>Date of Approval :</span>{' '}
+                              <span className='text-gray-500 '> {productData?.dateOfApproval} </span>{' '}
+                            </p>
+                          ) : (
+                            <></>
+                          )}
+                  
+                          {/* Price */}
+                          {productData?.price && productData?.price.toLowerCase() !== 'n/a' ? (
+                            <p className='text-gray-700'>
+                              <span className='font-medium text-gray-700'>Price :</span>{' '}
+                              <span className='text-gray-500 '> {productData?.price} </span>{' '}
+                            </p>
+                          ) : (
+                            <></>
+                          )}
+                  
+                          {/* Quantity */}
+                          {productData?.quantity && productData?.quantity.toLowerCase() !== 'n/a' ? (
+                            <p className='text-gray-700'>
+                              <span className='font-medium text-gray-700'>Available Pieces :</span>{' '}
+                              <span className='text-gray-500 '> {productData?.quantity} </span>{' '}
+                            </p>
+                          ) : (
+                            <></>
+                          )}
+                  
+                          {/* Admin-specific content */}
+                          {userMongoData?.role === 'admin' && (
+                            <>
+                              <p className='text-gray-700'>
+                                <span className='font-medium text-gray-700'>By Admin :</span>{' '}
+                                <span className='text-gray-500 '> {productData?.AdminName} </span>{' '}
+                              </p>
+                              <p className='text-gray-700'>
+                                <span className='font-medium text-gray-700'>Admin Email :</span>{' '}
+                                <span className='text-gray-500 '> {productData?.AdminEmail} </span>{' '}
+                              </p>
+                              <p className='text-gray-700'>
+                                <span className='font-medium text-gray-700'>Listed :</span>{' '}
+                                <span className='text-gray-500 '> {formattedDate} </span>{' '}
+                              </p>
+                            </>
+                          )}
+                  
                         </div>
-                    </div>}
+                  
+                        {/* Fulfilled Standards */}
+                        <div className='py-5 flex flex-col md:flex-row gap-2 items-center justify-center md:justify-start'>
+                          <p className='text-lg font-medium text-gray-500  '>Fulfilled Standards:</p>
+                          <ul className='flex gap-3 '>
+                            {productData?.fulfilledStandards ? (
+                              productData?.fulfilledStandards.map((data, i) => (
+                                <li key={i} className='bg-gray-200  text-gray-600 border rounded-sm px-2'>
+                                  {data}
+                                </li>
+                              ))
+                            ) : (
+                              <></>
+                            )}
+                          </ul>
+                        </div>
+                  
+                        {/* Add to cart button */}
+                        {userMongoData?.role === 'admin' ? (
+                          <></>
+                        ) : (
+                          <>
+                            {user ? (
+                              <button
+                                onClick={() => {
+                                  addToCart();
+                                }}
+                                className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}
+                              >
+                                <AiOutlineShoppingCart className='inline' /> Add to cart
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => {
+                                  navigate('/login');
+                                }}
+                                className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}
+                              >
+                                <AiOutlineShoppingCart className='inline' /> Add to cart
+                              </button>
+                            )}
+                          </>
+                        )}
+                  
+                      </div>
+                    </div>
+                  </div>
+                  }
             </>
         </div>
     );
