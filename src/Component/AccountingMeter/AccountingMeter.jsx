@@ -27,8 +27,7 @@ const AccountingMeter = () => {
             //     setLoading(false)
             // })
             if (allProducts.length > 0 ) {
-                const accountingMeters = allProducts.filter(product => product.type == 'accounting meter').slice(0, 4);
-
+                const accountingMeters = allProducts.filter(product => product.type == 'Other').slice(0, 4);
                 setAccountingMeterData(accountingMeters)
     
                 setLoading(false)
@@ -53,9 +52,9 @@ const AccountingMeter = () => {
                     </> : <>
                         <div className="">
                             <div className="   pb-10 pt-32 ">
-                                <h2 className='md:text-5xl text-4xl text-gray-700 text-center font-semibold pb-8'>Accounting Meters </h2>
+                                <h2 className='md:text-5xl text-4xl text-gray-700 text-center font-semibold pb-8'>Transformer / substation and other equipments </h2>
                                 <p className=' text-lg text-gray-400 text-center md:w-[70%] w-[95%] mx-auto pb-20'>
-                                    Discover our extensive range of accounting meters, meticulously designed to meet various standards and deliver precise measurements for your accounting needs. Our top-quality accounting meters are known for their accuracy and reliability, making them the preferred choice for businesses and individuals seeking dependable solutions for financial and energy management. From monitoring utility consumption to optimizing financial processes, our accounting meters are your trusted partner in ensuring financial transparency and efficiency.</p>
+                                Revolutionize Your Power Infrastructure! Unleash unparalleled performance with our Power Transformers and Substation Equipment. Engineered for efficiency and reliability, our transformers optimize energy transfer, while our substation equipment ensures seamless integration. Elevate your power distribution network to new heights of resilience and stability. Invest in excellence for a future-proofed electrical system. Upgrade now for unmatched performance and reliability!</p>
                             </div>
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-4 gap-2'>

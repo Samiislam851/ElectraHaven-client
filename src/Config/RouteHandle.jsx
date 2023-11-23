@@ -16,12 +16,10 @@ import RestictedPublicRoute from './RestictedPublicRoute';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 
 import RegisterPage from '../Pages/RegisterPage/RegisterPage';
-import AddAClass from '../Pages/InstructorPages/AddAClass/AddAClass';
 import ManageUsers from '../Pages/AdminPages/ManageUsers/ManageUsers';
 import AdminDashBoard from '../Pages/AdminPages/AdminDashBoard/AdminDashBoard';
 import AdminDashBoardLayout from '../Component/AdminComponents/AdminDashBoardLayout/AdminDashBoardLayout';
 import AdminRoute from './AdminRoute';
-import Test from '../Test';
 import Contact from '../Pages/Contact/Contact';
 import Cart from '../Component/Cart/Cart';
 import User from '../Pages/User/User';
@@ -203,10 +201,7 @@ const RouteHandle = () => {
 
 
 
-    , {
-      path: "/test",
-      element: <Test />
-    }
+    
     ,
     {
       path: "*",

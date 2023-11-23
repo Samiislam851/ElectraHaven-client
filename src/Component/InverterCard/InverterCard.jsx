@@ -64,7 +64,8 @@ const InverterCard = ({ data }) => {
             {component ? <>
                 <Link to={`product/${data._id}`} className={`text-xl text-start start md:text-xl font-semibold  text-gray-600  mt-3 pb-3 font-semibold capitalize md:hover:text-[#35B087] transition-all ease-in-out duration-300`}> <h2 className=' px-5'> {data.modelNumber} </h2></Link>
                 <p className='px-5 py-1 text-base  md:text-lg text-gray-400'>Brand : {data.brand}</p>
-                <p className='px-5 pb-2  text-gray-400'>Type : {data.type}</p>
+                {data?.type=='Other'?<></>: <p className='px-5 pb-2  text-gray-400'>Type : {data.type}</p>}
+            
                 <div className=' flex text-start justify-between px-5 pb-2  text-gray-400 gap-1'>
 
                     

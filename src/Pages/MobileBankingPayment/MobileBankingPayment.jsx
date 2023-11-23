@@ -11,11 +11,30 @@ const MobileBankingPayment = () => {
     const navigate = useNavigate();
     const [adminNumber, setAdminNumber] = useState(0);
 
-    useEffect(() => {
-        axios.get('/adminNumber').then(res => setAdminNumber(res.data));
-        window.scrollTo(0, 0);
-    }, []);
 
+
+    const fetchPhone = async () => {
+        for (let i = 0; i <= 10; i++) {
+            try {
+                const res = await axios.get('/adminNumber')
+                if (res.status >= 200 && res.status < 300) {
+                    setAdminNumber(res.data)
+                    window.scrollTo(0, 0)
+                    break;
+                }
+            } catch (error) {
+                console.log(error);
+                if (i > 10) {
+                    console.log('it is a 404 error');
+                }
+            }
+        }
+
+    }
+
+    useEffect(() => {
+        fetchPhone();
+    }, []);
 
     const [phoneNumber, setPhoneNumber] = useState('');
     const [serviceProvider, setServiceProvider] = useState('');
@@ -58,7 +77,7 @@ const MobileBankingPayment = () => {
 
 
 
-            }else {
+            } else {
                 Swal.fire({
                     title: 'There was a problem',
                     text: res.data.message,
@@ -169,7 +188,7 @@ const MobileBankingPayment = () => {
         <div className='max-w-[1600px] mx-auto text-center flex justify-center'>
             <div className='bg-gray-100 rounded-2xl py-10 my-20 mx-10 w-fit mx-auto'>
                 <div className='text-gray-600 px-5 text-lg'>
-                    <span className='text-orange-600 text-lg font-semibold'>Our Merchant Number :</span> <span className='bg-gray-800 m-1  p-1 rounded text-white'>{adminNumber}</span>
+                    <span className='text-orange-600 text-lg font-semibold'>Our Merchant Number <br /></span> <span className='bg-gray-800 m-1  p-1 rounded text-white'>{adminNumber}</span>
                 </div>
 
                 <h1 className='text-center text-lg text-gray-500 px-5 py-2'>To proceed the payment give necessary information  bellow <AiOutlineArrowDown className='inline' /></h1>
@@ -240,13 +259,13 @@ const MobileBankingPayment = () => {
 
                     </form>
 
-                    
+
                     <div className='flex md:flex-row flex-col justify-center px-3 gap-3 my-5'>
-                            <button onClick={handleTransactionInput} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300 w-full rounded-lg p-2  md:mx-5' >Enter Transaction details</button>
+                        <button onClick={handleTransactionInput} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300 w-full rounded-lg p-2  md:mx-5' >Enter Transaction details</button>
 
-                            <button onClick={handleViewTransactionDetails} disabled={disabled} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300  rounded-lg p-2  md:mx-5 w-full' >View Transaction details</button>
+                        <button onClick={handleViewTransactionDetails} disabled={disabled} className=' border hover:shadow text-gray-600 transition-all ease-in-out duration-300  rounded-lg p-2  md:mx-5 w-full' >View Transaction details</button>
 
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

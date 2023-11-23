@@ -7,29 +7,11 @@ const Footer = () => {
     <>
 
      <div className="bg-[#dddddd] text-gray-300 md:px-32 pt-10 md:mt-0 md:pb-20">
-  {/* <footer className="footer bg-transparent text-gray-600 text-xl p-10 bg-base-200 text-base-content mt-0">
-    <div>
-      <span className="text-2xl font-bold text-gray-700">Services</span>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Music Courses</a>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Instrument Lessons</a>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Songwriting Workshops</a>
-    </div>
-    <div>
-      <span className="text-2xl font-bold text-gray-700">Legal</span>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Terms of Use</a>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Privacy Policy</a>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">Cookie Policy</a>
-    </div>
-    <div>
-      <span className="text-2xl font-bold text-gray-700">Company</span>
-      <a className="link link-hover font-medium text-lg text-gray-500 ">About Us</a>
-      <Link to='/contact' className="link link-hover font-medium text-lg text-gray-500 ">Contact</Link>
-    </div>
-  </footer> */}
-  <footer className="footer bg-transparent text-white px-10 py-4 bg-base-200 text-base-content border-base-300">
+  
+  <footer className="footer bg-transparent text-gray-500 text-center px-10 py-4 bg-base-200 text-base-content border-base-300">
     <div className="items-center text-gray-500 grid-flow-col">
 
-      <p>Sunpacs <br />Providing the best electrical components since 2023</p>
+      <p><img src="/assets/img/logo.png" className='max-h-[100px]  md:max-h-[200px] inline' alt="" /> Providing the best electrical components</p>
     </div>
     <div className="md:place-self-center md:justify-self-end">
       <div className="grid grid-flow-col gap-4">
@@ -37,9 +19,11 @@ const Footer = () => {
         <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="text-[#59C6BC]"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg></a>
         <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="text-[#59C6BC]"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
       </div>
+
+      <p>Sunpacs100@gmail.com</p>
     </div>
   </footer>
-  <p className="text-center text-gray-500 md:text-lg pt-5 pb-5"> &copy; 2023 Sunpacs . All rights reserved.</p>
+  <p className="text-center text-gray-500 md:text-lg pt-5 pb-5">  Copyrights Sunpacs. All rights reserved.</p>
 </div>
 
     </>

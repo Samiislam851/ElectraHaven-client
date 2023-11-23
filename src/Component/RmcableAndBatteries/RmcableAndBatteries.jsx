@@ -28,7 +28,7 @@ const RmcableAndBatteries = () => {
         //     setLoading(false)
         // })
             if (allProducts.length > 0 ) {
-                const inverters = allProducts?.filter(e=> e.type== 'battery' || e.type=='RMCable').slice(0, 4);
+                const inverters = allProducts?.filter(e=> e.type== 'battery' || e.type=='RMCable' || e.type=='accounting meter').slice(0, 4);
                 setAccountingMeterData(inverters)
                 setLoading(false)
             }
@@ -63,9 +63,9 @@ const RmcableAndBatteries = () => {
                     </> : <>
                         <div className="">
                             <div className="   pb-10 pt-32 ">
-                                <h2 className='md:text-5xl text-4xl text-gray-700 text-center font-semibold pb-8'>Rm Cable and Batteries </h2>
+                                <h2 className='md:text-5xl text-4xl text-gray-700 text-center font-semibold pb-8'>Accounting Meter, RM Cable and Batteries </h2>
                                 <p className=' text-lg text-gray-400 text-center md:w-[70%] w-[95%] mx-auto pb-20'>
-                                    Explore our remarkable collection of premium-quality RMCable and batteries, designed to provide reliable power solutions for your home or business. Our top-quality RMCable and batteries are renowned for their efficiency and durability, making them the preferred choice for individuals and organizations seeking dependable energy solutions. Whether it's powering your devices or maintaining electrical connectivity, our products offer excellence you can count on.</p>
+                                Power Up Your Efficiency with our Premium Accounting Meter, RM Cable, and Batteries Collection! Unleash the potential of your electrical systems with our accounting meter, which provides accurate readings and real-time insights into your power consumption. The RM Cable, known for its durability and reliability, ensures seamless connectivity, safeguarding your electrical infrastructure. Elevate your energy storage system with our high-performance batteries, delivering consistent power when you need it most. Whether you're a homeowner, business owner, or industrial professional, our comprehensive range of electrical solutions is designed to meet your every need. Upgrade today for enhanced efficiency, reliability, and peace of mind. Don't settle for ordinary – choose excellence in power management with our top-notch Accounting Meter, RM Cable, and Batteries. Empower your space, energize your life!</p>
                             </div>
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-4 gap-2'>

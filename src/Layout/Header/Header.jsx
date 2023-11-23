@@ -73,6 +73,7 @@ const Header = () => {
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <a href="#">
                 <h1 className='h-8 w-auto sm:h-10 text-gray-700 md:text-4xl text-2xl font-semibold flex gap-2 justify-center items-center  themeFont'> SunPacs </h1>
+                {/* <img src="/public/assets/img/logo.png" className="max-h-[100px]" alt="" /> */}
 
               </a>
             </div>

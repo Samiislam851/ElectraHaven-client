@@ -127,14 +127,14 @@ const SingleItem = () => {
                             </div>
                             <div className='basis-[60%] p-5'>
                                 <h1 className='uppercase text-4xl text-center font-medium text-gray-700'>
-                                    {productData?.modelNumber} {productData?.type}
+                                    {productData?.modelNumber} {productData?.type != 'Other'&& productData?.type}
                                 </h1>
                                 <p className='text-xl font-medium text-gray-700 text-center pb-10'>
                                     {' '}
                                     <span className='text-gray-400 capitalize'> {productData?.brand} </span>{' '}
                                 </p>
                                 <div className='flex flex-col gap-3 pt-5 '>
-                                    <p className='text-xl text-gray-800 font-semibold'>Specifications : </p>
+                                    <p className='md:text-3xl text-xl text-gray-600 font-semibold'>Specifications </p>
 
                                     {/* Capacity */}
                                     {productData?.capacity && productData?.capacity.toLowerCase() !== 'n/a' ? (
@@ -245,7 +245,7 @@ const SingleItem = () => {
                                                 onClick={() => {
                                                     addToCart();
                                                 }}
-                                                className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}
+                                                className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out mt-6`}
                                             >
                                                 <AiOutlineShoppingCart className='inline' /> Add to cart
                                             </button>
@@ -254,7 +254,7 @@ const SingleItem = () => {
                                                 onClick={() => {
                                                     navigate('/login');
                                                 }}
-                                                className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out`}
+                                                className={` bg-orange-500 flex items-center gap-1 text-white py-1 px-2 rounded hover:shadow-lg hover:scale-105  transition-all ease-in-out mt-6`}
                                             >
                                                 <AiOutlineShoppingCart className='inline' /> Add to cart
                                             </button>
